@@ -12,9 +12,9 @@ import {
 import styled from 'styled-components';
 import axios from 'axios';
 import { icons, images, SIZES, COLORS, FONTS } from '../constants';
-
+import Header from '../components/common/Header';
  
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
 
     const [bakeryData,setBakeryData] = useState([]);
     const [ colors, setColor ] = useState({
@@ -33,9 +33,9 @@ const HomeScreen = () => {
 
     const moveMap = () => {
 
-    }
+    } 
     useEffect(() => {
-      axios.get('http://192.168.0.102:8080/backery')
+      axios.get('http://3.35.255.192:8080/backery')
       .then(function (response) {
         // handle success
         setBakeryData(response.data)
@@ -67,6 +67,7 @@ const HomeScreen = () => {
     const renderBakery = () =>{
         return(
           bakeryData.map((item,index)=>
+          <TouchableOpacity onPress={() => navigation.navigate('BakeryDetail',{bakeryId:item.id})}>
             <EachBread key={index}>
                 <View style={{width:220,marginTop:30}}>
                   <Text style = {{fontWeight:'bold', fontSize: 20, color:COLORS.black }}>
@@ -95,28 +96,9 @@ const HomeScreen = () => {
                             height: '100%'
                         }}
                     />
-              {/* <ImageBackground style = {[styles.image, {flexDirection:'row',}]} source={{uri: "data:image/png;base64,"+item.image}}>
-                <EachBread__Inbox>
-                  <Text style = {{fontWeight:'bold', fontSize: 20, color:'rgb(250,250,250)' }}>{item.entrpNm}
-                  </Text>
-                </EachBread__Inbox>
-                <EachBread__Inbox style = {{ flexDirection:'column',backgroundColor:'rgba(0,0,0,0.1)', }}>
-                  <IconAntDesign style={{ marginBottom: 10, }} name='hearto' color='rgb(243,96,65)' size = {30}>
-                    <Text style ={{color:'white', fontSize: 12, }}></Text>
-                  </IconAntDesign>
-                  <IconAntDesign style={{ marginBottom: 10, }} name='message1' color='rgb(243,96,65)' size = {30}></IconAntDesign>
-                  <IconAntDesign style={{ marginBottom: 10, }} name='pushpino' color='rgb(243,96,65)' size = {30}></IconAntDesign>
-                </EachBread__Inbox>
-                <EachBread__Inbox_more>
-                  <Text style = {{color:'white', fontSize:15, fontWeight:'700'}}>밀</Text>
-                  <Text style = {{color:'white', fontSize:15, fontWeight:'700'}}>어</Text>
-                  <Text style = {{color:'white', fontSize:15, fontWeight:'700'}}>서</Text>
-                  <Text style = {{color:'white', fontSize:15, fontWeight:'700'}}>더</Text>
-                  <Text style = {{color:'white', fontSize:15, fontWeight:'700'}}>보</Text>
-                  <Text style = {{color:'white', fontSize:15, fontWeight:'700'}}>기</Text>
-                </EachBread__Inbox_more>
-              </ImageBackground> */}
-            </EachBread>
+             
+              </EachBread>
+            </TouchableOpacity>
           )
         )
     }
@@ -124,6 +106,7 @@ const HomeScreen = () => {
 
     return (
       <SafeAreaView style={ styles.container }>
+        <Header />
         <View style = {{flex:1, padding: 10}}>
           <ContainerHeaderOption>
             <HeaderOptionList disabled={!toggle} onPress = { changeToggle } style = {{backgroundColor:colors.bgColor}}>

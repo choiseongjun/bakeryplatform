@@ -1,9 +1,15 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {   
     View,
     Text,
   } from 'react-native';
-const BakeryDetail = () => {
+const BakeryDetail = ({navigation,route}) => {
+
+    useEffect(() => {
+        
+        console.log('route',route.params.bakeryId)
+    }, [])
+
     return (
         <View>
             <Text>
