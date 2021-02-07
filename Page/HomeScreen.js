@@ -8,12 +8,29 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Platform, 
+  PermissionsAndroid
 } from 'react-native';
 import styled from 'styled-components';
 import axios from 'axios';
 import { icons, images, SIZES, COLORS, FONTS } from '../constants';
 import Header from '../components/common/Header';
- 
+import MapView, { PROVIDER_GOOGLE,Marker } from "react-native-maps";
+
+
+async function requestPermission() { 
+  try { 
+    if (Platform.OS === "ios") { 
+      return await Geolocation.requestAuthorization("always"); 
+    } // 안드로이드 위치 정보 수집 권한 요청 
+    if (Platform.OS === "android") { 
+      return await PermissionsAndroid.request( PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, ); 
+    } 
+  } catch (e) { 
+    console.log(e); 
+  } 
+}
+
 const HomeScreen = ({navigation}) => {
 
     const [bakeryData,setBakeryData] = useState([]);
@@ -25,19 +42,39 @@ const HomeScreen = ({navigation}) => {
     });
 
     const [ toggle, setToggle] = useState(true);
+    const [location, setLocation] = useState(); 
+
+    useEffect(() => { 
+      requestPermission().then(result => { 
+        console.log({ result }); 
+        if (result === "granted") { 
+          Geolocation.getCurrentPosition( 
+            pos => { 
+              console.log('coords',pod.coords)
+              setLocation(pos.coords); 
+            }, 
+            error => { 
+              console.log(error); 
+            }, 
+            { 
+              enableHighAccuracy: true, 
+              timeout: 3600, 
+              maximumAge: 3600, 
+            }, 
+          ); 
+        } 
+      }); 
+    }, []);
 
     const changeToggle = () => { 
       setToggle(!toggle);
       checktoggle();
     };
-
-    const moveMap = () => {
-
-    } 
     useEffect(() => {
       axios.get('http://3.35.255.192:8080/backery')
       .then(function (response) {
         // handle success
+        console.log('response',response.data)
         setBakeryData(response.data)
       })
       .catch((err)=>{
@@ -136,9 +173,39 @@ const HomeScreen = ({navigation}) => {
                 </Text>
               </View>
             </Location> */} 
-            <ScrollList>
+            
+              {!toggle?
+              <ScrollList>
               {renderBakery()}
-            </ScrollList>
+              </ScrollList>
+              :
+              <>
+              {bakeryData.length>0&& (
+                <MapView
+                  style={{flex: 1}}
+                  initialRegion={{ 
+                    latitude: 37.77489, 
+                    longitude: 128.91155,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421, 
+                  }}>
+                  
+                    {bakeryData.map((item, index) => (
+                      <Marker
+                        key={`location-${index}`}
+                        coordinate={{
+                          latitude: item.yposIa,
+                          longitude: item.xposIo,
+                        }}
+                      />
+                    ))}
+                  
+                  </MapView>
+              )}
+             
+              </>
+              }
+            
           </View>
         </View>
 
@@ -238,13 +305,5 @@ const HomeScreen = ({navigation}) => {
     padding:10px;
   `;
   
-  const Location = styled.View`
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 60px;
-    margin-bottom:10px;
-  `;
+
 export default HomeScreen
