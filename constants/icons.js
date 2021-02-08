@@ -5,6 +5,8 @@ export const list = require("../assets/icons/list.png");
 export const location = require("../assets/icons/location.png");
 
 export const search = require("../assets/icons/search.png");
+export const boldSearch = require("../assets/icons/boldSearch.png");
+export const filter = require("../assets/icons/filter.png");
 
 export default {
     back,
@@ -12,5 +14,6 @@ export default {
     list,
     location,
     search,
-   
+    filter,
+    boldSearch,
 }

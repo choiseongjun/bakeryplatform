@@ -18,6 +18,8 @@ import Header from '../components/common/Header';
 import MapView, { PROVIDER_GOOGLE,Marker } from "react-native-maps";
 
 
+
+
 async function requestPermission() { 
   try { 
     if (Platform.OS === "ios") { 
@@ -35,10 +37,14 @@ const HomeScreen = ({navigation}) => {
 
     const [bakeryData,setBakeryData] = useState([]);
     const [ colors, setColor ] = useState({
-      color: 'white',
-      preColor: 'rgb(243,96,65)',
-      bgColor: 'rgb(243,96,65)',
-      preBgColor: 'white'
+      color: COLORS.black,
+      preColor: COLORS.darkgray,
+
+    });
+
+    const [fonts, setFont] = useState({
+      fontWeight: '700',
+      preFontWeight: '600',
     });
 
     const [ toggle, setToggle] = useState(true);
@@ -86,21 +92,28 @@ const HomeScreen = ({navigation}) => {
     const checktoggle = () => {
       if(!toggle) {
         setColor({
-          color:'rgb(243,96,65)',
-          preColor: 'white',
-          bgColor: 'white',
-          preBgColor: 'rgb(243,96,65)'
+          color: COLORS.darkgray,
+          preColor: COLORS.black,
+        });
+
+        setFont({
+          fontWeight: '600',
+          preFontWeight: '700',
         });
       }
       else {
         setColor({
-          color: 'white',
-          preColor: 'rgb(243,96,65)',
-          bgColor: 'rgb(243,96,65)',
-          preBgColor: 'white'
+          color: COLORS.black,
+          preColor: COLORS.darkgray,
+        });
+
+        setFont({
+          fontWeight: '700',
+          preFontWeight: '600',
         });
       }
     };
+
     const renderBakery = () =>{
         return(
           bakeryData.map((item,index)=>
@@ -125,15 +138,15 @@ const HomeScreen = ({navigation}) => {
                   </View>
                 </View>
                 
-               <Image
+                <Image
                         source={{uri: "data:image/png;base64,"+item.image}}
                         resizeMode="cover"
                         style={{
                             width: '50%',
-                            height: '100%'
+                            height: '100%',
                         }}
                     />
-             
+
               </EachBread>
             </TouchableOpacity>
           )
@@ -144,13 +157,68 @@ const HomeScreen = ({navigation}) => {
     return (
       <SafeAreaView style={ styles.container }>
         <Header />
-        <View style = {{flex:1, padding: 10}}>
+        <View style = {{
+          flex:1, 
+          paddingLeft: SIZES.padding * 2,
+          paddingRight: SIZES.padding *2
+          }}
+        >
           <ContainerHeaderOption>
-            <HeaderOptionList disabled={!toggle} onPress = { changeToggle } style = {{backgroundColor:colors.bgColor}}>
-              <HeaderOptionList__Text style = {{color: colors.color}}>리스트</HeaderOptionList__Text>
-            </HeaderOptionList>
-            <HeaderOptionList disabled={toggle} onPress = {changeToggle} style = {{backgroundColor:colors.preBgColor}}>
-              <HeaderOptionList__Text style = {{color: colors.preColor}}>지도</HeaderOptionList__Text>
+            <ContainerFlex>
+              <HeaderOptionList disabled={!toggle} onPress = { changeToggle }>
+                <HeaderOptionList__Text style = {{
+                  color: colors.color,
+                  fontWeight:fonts.fontWeight,
+                  fontSize:SIZES.base*2.5
+                  }}
+                >
+                  목록
+                </HeaderOptionList__Text>
+              </HeaderOptionList>
+              <HeaderOptionList style={{position: 'relative'}}>
+                <HeaderOptionList__Text 
+                style={{
+                  position: 'absolute',
+                  bottom:-6,
+                  color: COLORS.darkgray
+                }}>
+                  |
+                </HeaderOptionList__Text>
+              </HeaderOptionList>
+              <HeaderOptionList disabled={toggle} onPress = {changeToggle} style={{borderRightWidth: 0}}>
+                <HeaderOptionList__Text 
+                style = {{
+                  color: colors.preColor,
+                  fontWeight:fonts.preFontWeight,
+                  fontSize:SIZES.base*2.5
+                  }}
+                >
+                  지도
+                </HeaderOptionList__Text>
+              </HeaderOptionList>
+            </ContainerFlex>
+            <HeaderOptionList style={{
+              height: '100%', 
+              position:'relative',
+              width:25, 
+              marginRight:0,
+              alignItems:'flex-end'
+              }}
+            >
+              <HeaderOptionList__Text style={{
+                position:'absolute', 
+                top:24,
+                }}
+              >
+                <Image
+                  source={icons.filter}
+                  resizeMode="contain"
+                  style={{
+                    width: SIZES.base*2.5,
+                    height: SIZES.base*2.6,
+                  }}
+                />
+              </HeaderOptionList__Text>
             </HeaderOptionList>
           </ContainerHeaderOption>
           {/* <SearchBarContainer>
@@ -202,7 +270,7 @@ const HomeScreen = ({navigation}) => {
                   
                   </MapView>
               )}
-             
+            
               </>
               }
             
@@ -215,7 +283,9 @@ const HomeScreen = ({navigation}) => {
   const styles = StyleSheet.create({
     container:{
       flex:1,
-      backgroundColor:'rgb(250,250,250)'
+      backgroundColor:'rgb(255,255,255)',
+      borderWidth: 1,
+
     },
     container__listBread:{
       flex:12,
@@ -232,28 +302,35 @@ const HomeScreen = ({navigation}) => {
       alignItems:'center',
     },
   });
+
+  const ContainerFlex = styled.View`
+    
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  `;
+
   
   const ContainerHeaderOption = styled.View`
     width: 100%;
     height: 60px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    
+    justify-content: space-between;
+
   `;
+
   const HeaderOptionList = styled.TouchableOpacity`
-    width:100px;
-    height:60px;
     margin-right: 10px;
     color:white;
     display: flex;
     justify-content: center;
-    align-items: center;
   `;
   
   const HeaderOptionList__Text = styled.Text`
-    color: white;
+    
   `;
   
   const SearchBarContainer = styled.View`

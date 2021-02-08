@@ -5,8 +5,9 @@ import {
     Text,
     TouchableOpacity,
     Image,
-  } from 'react-native';
-import { icons, SIZES, COLORS } from '../../constants';
+} from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 
 const Header = () => {
     return (
@@ -14,11 +15,13 @@ const Header = () => {
                 <TouchableOpacity
                     style={{
                         width: 100,
-                        paddingLeft: SIZES.padding * 2,
-                        justifyContent: 'center'
+                        height: 50,
+                        justifyContent: 'center',
+                        display:'flex',
+                        alignItems:'flex-start'
                     }}
                 >  
-                    <Text style={{ fontSize:SIZES.base*2.8,fontWeight: 'bold' }}>앙버터</Text>
+                    <Text style={{ fontSize:SIZES.base*2.5,fontWeight: 'bold' }}>앙버터</Text>
                 </TouchableOpacity>
 
                 {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -39,16 +42,18 @@ const Header = () => {
                 <TouchableOpacity
                     style={{
                         width: 50,
-                        paddingRight: SIZES.padding * 2,
-                        justifyContent: 'center'
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'flex-end'
                     }}
                 >
                     <Image
-                        source={icons.search}
-                        resizeMode="contain"
+                        source={icons.boldSearch}
+                        resizeMode="cover"
                         style={{
-                            width: 30,
-                            height: 30
+                            width: SIZES.base*2.5,
+                            height: SIZES.base*2.6,
+                            color:COLORS.darkgray
                         }}
                     />
                 </TouchableOpacity>
@@ -62,8 +67,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomWidth: 2,
         borderBottomColor: COLORS.darkgray,
-    
-      
+        paddingLeft: SIZES.padding * 2,
+        paddingRight: SIZES.padding * 2,
     }
 })
 export default Header
