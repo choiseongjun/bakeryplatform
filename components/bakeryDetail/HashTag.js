@@ -27,6 +27,7 @@ const HashTag = () => {
                 {houseTypeData.map((item)=>
                     <TouchableOpacity
                     style={styles.button}
+                    onPress={()=>console.log('gggg')}
                     >
                         <Text style={styles.tagText}>{item.name}</Text>
                     </TouchableOpacity>

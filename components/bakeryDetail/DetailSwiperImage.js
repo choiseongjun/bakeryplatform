@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react';
-import { Text, View, Image, Dimensions,TouchableOpacity } from 'react-native';
+import { Text, View, Image, Dimensions,TouchableOpacity,ImageBackground,TouchableHighlight } from 'react-native';
 import Swiper from 'react-native-swiper';
 const { width } = Dimensions.get('window');
 import { icons, images, SIZES, COLORS, FONTS } from '../../constants';
 
-const DetailSwiperImage = () => {
+const DetailSwiperImage = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Swiper
@@ -49,13 +49,40 @@ const DetailSwiperImage = () => {
             loop
             >
             <View
-                style={styles.slide}
-                title={
+                style={styles.slide}               
+            >
+                <ImageBackground
+                resizeMode="stretch"
+                style={styles.image}
+                source={require('./img/bakery1.jpeg')}
+                >
                     <View style={styles.slideTextContainer}>
+                            <TouchableOpacity
+                                activeOpacity={1}
+                                style={{left:20,bottom:260}}
+                                onPress={() => navigation.goBack()}>
+                                <Image 
+                                    source={icons.back1} 
+                                    style={{
+                                        width:20,
+                                        height:30
+                                    }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{left:350,bottom:290}} onPress={()=>console.log('kkk')}> 
+                                <Image
+                                source={icons.share}
+                                style={{
+                                    width: 30,
+                                    height: 30
+                                }}
+                                />
+                            </TouchableOpacity>
                         <View style={{display: 'flex',flexDirection: 'row'}}>
                             <Text style={styles.slideText} numberOfLines={1}>아띠85도시베이커리</Text>
                                 <TouchableOpacity 
                                     style={styles.button}
+                                    onPress = {()=>navigation.goBack()}
                                 > 
                                     <Text style={{color:COLORS.white,fontSize:SIZES.font*1.1,fontWeight:'bold'}}>팔로우 +</Text>
                                 </TouchableOpacity> 
@@ -65,13 +92,8 @@ const DetailSwiperImage = () => {
                             <Text style={{marginLeft:30,color:'gray',fontSize:SIZES.font*1.2}} numberOfLines={1}>리뷰5</Text>
                         </View>
                     </View>
-                }
-            >
-                <Image
-                resizeMode="stretch"
-                style={styles.image}
-                source={require('./img/bakery1.jpeg')}
-                />
+                </ImageBackground>
+                   
             </View>
             <View
                 style={styles.slide}
@@ -130,8 +152,7 @@ const styles = {
         position: 'absolute',
     },
     slideTextContainer:{
-        position: 'relative',
-        marginBottom:180,
+        top:300
     },
     slideText:{
      

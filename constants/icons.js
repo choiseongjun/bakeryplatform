@@ -12,6 +12,8 @@ export const camera = require("../assets/icons/camera.png");
 export const clock = require("../assets/icons/clock.png");
 export const call = require("../assets/icons/call.png");
 export const paperair = require("../assets/icons/paperair.png");
+export const back1 = require("../assets/icons/back1.png");
+export const share = require("../assets/icons/share.png");
 
 export default {
     back,
@@ -24,5 +26,7 @@ export default {
     camera,
     clock,
     call,
-    paperair
+    paperair,
+    back1,
+    share
 }

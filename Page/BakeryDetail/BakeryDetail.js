@@ -111,7 +111,7 @@ const BakeryDetail = ({navigation,route}) => {
                 renderReviewWrite()
             :
             <>
-            <DetailSwiperImage />
+            <DetailSwiperImage navigation={navigation} />
             <View style={{marginTop:70,left:30}}>
                 <HashTag />
             </View>
