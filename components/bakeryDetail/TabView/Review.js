@@ -1,26 +1,96 @@
 import React,{useState,useEffect} from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View,Button } from "react-native";
+import StarRating from 'react-native-star-rating-new';
+import { icons, images, SIZES, COLORS, FONTS } from '../../../constants';
 
-const Review = () => {
 
+const Review = ({writeVisible,setWriteVisible}) => {
+    const WATER_IMAGE = require('./image/icon.png')
     let menuData = [
-        {"name":"앙버터","price":"1000"},
-        {"name":"마블초코","price":"1000"},
-        {"name":"치즈 다망드","price":"1000"},
-        {"name":"블루베리 오슈","price":"6000"},
-        {"name":"펌퍼니클","price":"4000"},
-        {"name":"탕종식빵","price":"5000"},
-        {"name":"미니탕종식빵","price":"3000"},
-        {"name":"쇼콜라 클래식","price":"4000"},
+        {"name":"@csj***","createDate":"2020.09.28","content":"맛있어요","star":4},
+        {"name":"@cfj***","createDate":"2020.09.18","content":"서울 가면 꼭 들리는 빵집이에요!","star":5},
+        {"name":"@ca***","createDate":"2020.09.23","content":"엄마가 좋아하세요ㅎㅎ","star":3},
+        {"name":"@cj***","createDate":"2020.09.24","content":"좋아요^^","star":2},
     ]
+    const [starCount,setStartCount] = useState(3);
+
+    const onStarRatingPress = (rating) =>{
+        console.log(rating)
+        setStartCount(rating)
+    }
+
+    const renderReviewList = () =>{
+        return(
+            <>
+            <View style={{display: 'flex',flexDirection: 'row',left:20,marginTop:30}}>
+                <Text style={{fontSize:SIZES.font*2,fontWeight: 'bold'}}>별점</Text>
+                <View style={{width:100,marginTop:6,marginLeft:20}}>
+                    <StarRating
+                        disabled={false}
+                        maxStars={5}
+                        rating={starCount}
+                        selectedStar={(rating) => onStarRatingPress(rating)}
+                        starSize={25}
+                    />
+                
+                </View>
+                <Text style={{marginLeft:30,fontSize:SIZES.font*2}}>{starCount}</Text>
+            </View>
+            <View>
+            <TouchableOpacity
+                style={styles.reviewWriteCommentBox}
+                onPress={()=>setWriteVisible(true)}
+            >
+                <Text></Text>
+            </TouchableOpacity>
+            </View>
+            {menuData.map((item)=>
+                <View style={styles.reviewCommentBox}>
+                    <View style={{width:100}}>
+                        <StarRating
+                            disabled={false}
+                            maxStars={5}
+                            rating={item.star}
+                            starSize={20}
+                        />
+                    </View>
+                    <View style={{display: 'flex',flexDirection: 'row',marginTop:5}}>
+                        <Text style={{fontSize:16,color:'#808080'}}>{item.name}</Text>
+                        <Text style={{fontSize:16,marginLeft:15}}>{'|'}</Text>
+                        <Text style={{fontSize:16,marginLeft:15,color:'#808080'}}>{item.createDate}</Text>
+                    </View>
+                    <View style={{marginTop:15}}>
+                        <Text style={{fontSize:18,fontWeight: 'bold'}}>{item.content}</Text>
+                    </View>
+                </View>
+            )}
+            </>
+        )
+    }
+
+   
     return (
         <View >
-            {menuData.map((item)=>{
-                <Text>{item.name}</Text>
-            })}
-            <Text>Review</Text>
+            {renderReviewList()}
         </View>
     )
 }
-
+const styles = StyleSheet.create({
+    reviewCommentBox: {
+        width:360,
+        height:100,
+        marginTop:30,
+        left:20,
+        borderBottomWidth:1,
+        borderColor:COLORS.darkgray
+    },
+    reviewWriteCommentBox:{
+        alignItems: "center",
+        backgroundColor: "#f0f0f0",
+        padding: 10,
+        height:130,
+        width:'90%',
+        left:'5%'
+    }
+  });
 export default Review

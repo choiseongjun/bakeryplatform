@@ -16,7 +16,7 @@ const DetailSwiperImage = () => {
             dot={
                 <View
                 style={{
-                    backgroundColor: 'rgba(0,0,0,.2)',
+                    backgroundColor: '#f0f0f0',
                     width: 15,
                     height: 15,
                     borderRadius: 10,

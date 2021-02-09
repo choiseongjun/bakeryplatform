@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { icons, images, SIZES, COLORS, FONTS } from '../../../constants';
 
 
 const Menu = () => {
@@ -12,7 +13,16 @@ const Menu = () => {
         {"name":"탕종식빵","price":"5000"},
         {"name":"미니탕종식빵","price":"3000"},
         {"name":"쇼콜라 클래식","price":"4000"},
+        {"name":"쇼콜라 클래식","price":"4000"},
+        {"name":"쇼콜라 클래식","price":"4000"},
+        {"name":"쇼콜라 클래식","price":"4000"},
+        {"name":"쇼콜라 클래식","price":"4000"},
+        {"name":"미니탕종식빵","price":"3000"},
+        {"name":"미니탕종식빵","price":"3000"},
+        {"name":"미니탕종식빵","price":"3000"},
+        {"name":"미니탕종식빵","price":"3000"},
     ]
+   
     const aData = {"name":"ggg","price":"dsff"}
 
     useEffect(() => {
@@ -21,19 +31,24 @@ const Menu = () => {
 
     return (
         <View style={styles.container}>
-                {menuData.map(item=>{
-                    <Text>{item.name} 11</Text>
-                })} 
-                <Text>menu{aData.name}{menuData[0].name}</Text>
+                {menuData.map((item)=>
+                    <View style={styles.menuList}>
+                        <Text style={{marginLeft:30,fontSize:SIZES.base*2,fontWeight:'bold'}}>{item.name}</Text>
+                        <Text style={{position:'absolute',right:40}} >{item.price}</Text>
+                    </View> 
+                )}  
         </View>
     )  
 } 
 const styles = StyleSheet.create({
     container:{
+
+    },
+    menuList:{
+
         display: 'flex',
         flexDirection: 'row',
-        flexWrap:'wrap',
-        flex: 1,
-    },
+        marginTop:10
+    }
 })
 export default Menu
