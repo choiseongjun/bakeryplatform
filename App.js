@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Bottom from './Page/Bottom';
 import { createStackNavigator } from "@react-navigation/stack";
 
-import BakeryDetail from './Page/BakeryDetail/BakeryDetail';
+import BakeryDetail from './Page/bakeryDetail/BakeryDetail';
 
 const Stack = createStackNavigator();
 
