@@ -15,6 +15,14 @@ export const paperair = require("../assets/icons/paperair.png");
 export const back1 = require("../assets/icons/back1.png");
 export const share = require("../assets/icons/share.png");
 
+export const house = require("../assets/icons/bottom/house.png");
+export const plus = require("../assets/icons/bottom/plus.png");
+export const heart = require("../assets/icons/bottom/heart.png");
+export const profile = require("../assets/icons/bottom/profile.png");
+export const search2 = require("../assets/icons/bottom/search.png");
+
+export const menubar = require("../assets/icons/menubar.png");
+
 export default {
     back,
     like,
@@ -28,5 +36,11 @@ export default {
     call,
     paperair,
     back1,
-    share
+    share,
+    house,
+    plus,
+    heart,
+    profile,
+    search2,
+    menubar
 }

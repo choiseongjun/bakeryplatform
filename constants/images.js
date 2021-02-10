@@ -5,11 +5,13 @@ const avatar_3 = require("../assets/images/avatar-3.jpg");
 const avatar_4 = require("../assets/images/avatar-4.jpg");
 const avatar_5 = require("../assets/images/avatar-5.jpg");
 
+const bread = require("../assets/images/bread.png");
+
 export default {
     avatar_1,
     avatar_2,
     avatar_3,
     avatar_4,
     avatar_5,
-   
+    bread
 }
