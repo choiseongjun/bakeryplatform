@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import BakeryDetail from './Page/bakeryDetail/BakeryDetail';
 import Join from './Page/join/Join';
 import Login from './Page/login/Login';
+import FreeContentDetail from './Page/freeContent/FreeContentDetail';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,8 @@ function App(){
                 <Stack.Screen name="BakeryDetail" component={BakeryDetail} />
                 <Stack.Screen name="Join" component={Join} />
                 <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="FreeContentDetail" component={FreeContentDetail} />
+                
             </Stack.Navigator>
         </NavigationContainer>
   );

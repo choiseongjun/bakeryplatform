@@ -91,7 +91,7 @@ const Join = ({navigation}) => {
                             </View>
                         </View>
                     </TouchableOpacity>
-            </View>    
+                </View>    
             </View>
             
         </ScrollView>
