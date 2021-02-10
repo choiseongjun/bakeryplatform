@@ -16,13 +16,13 @@ import FreeContents from '../../components/home/FreeContents';
 import RecommandArea from '../../components/home/RecommandArea';
 import RequireLogin from '../../components/common/RequireLogin';
 
-const Home = () => {
+const Home = ({navigation}) => {
     const [modalOpen, setModalOpen] = useState(false);
 
     return (
         <View style={{backgroundColor:COLORS.white,height:'auto'}}>
             <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
-             <RequireLogin />
+             <RequireLogin navigation={navigation} setModalOpen={setModalOpen} />
             </Modal>
             <ScrollView> 
                 <HomeHeader />

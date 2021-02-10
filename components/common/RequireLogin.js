@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 
-const RequireLogin = () => {
+const RequireLogin = ({navigation,setModalOpen}) => {
     return (
         <View style={{
             flex: 1, 
@@ -68,7 +68,7 @@ const RequireLogin = () => {
                 <View style={[styles.loginContainer,{marginTop:10}]}>
                    <TouchableOpacity
                     activeOpacity={1}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => {setModalOpen(false);navigation.navigate('Join')}}
                     style={[styles.loginBox, {backgroundColor: COLORS.white,borderColor: COLORS.black,borderWidth:1}]}>
                     <View style={styles.loginSection}>
                        
