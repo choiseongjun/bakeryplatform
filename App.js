@@ -1,0 +1,33 @@
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import Bottom from './Page/Bottom';
+import { createStackNavigator } from "@react-navigation/stack";
+
+import BakeryDetail from './Page/BakeryDetail/BakeryDetail';
+import Join from './Page/join/Join';
+import Login from './Page/login/Login';
+import FreeContentDetail from './Page/freeContent/FreeContentDetail';
+import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
+
+const Stack = createStackNavigator();
+
+function App(){
+  return ( 
+        <NavigationContainer> 
+            <Stack.Navigator screenOptions={{
+              headerShown: false,
+            }}
+            >
+                <Stack.Screen name="Home" component={Bottom} />
+                <Stack.Screen name="BakeryDetail" component={BakeryDetail} />
+                <Stack.Screen name="Join" component={Join} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="FreeContentDetail" component={FreeContentDetail} />
+                <Stack.Screen name="SearchFilter" component={SearchFilter} />
+            </Stack.Navigator>
+        </NavigationContainer>
+  );
+};
+
+export default App;
+5
