@@ -3,10 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import Bottom from './Page/Bottom';
 import { createStackNavigator } from "@react-navigation/stack";
 
-import BakeryDetail from './Page/bakeryDetail/BakeryDetail';
+import BakeryDetail from './Page/BakeryDetail/BakeryDetail';
 import Join from './Page/join/Join';
 import Login from './Page/login/Login';
 import FreeContentDetail from './Page/freeContent/FreeContentDetail';
+import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,7 @@ function App(){
                 <Stack.Screen name="Join" component={Join} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="FreeContentDetail" component={FreeContentDetail} />
-                
+                <Stack.Screen name="SearchFilter" component={SearchFilter} />
             </Stack.Navigator>
         </NavigationContainer>
   );

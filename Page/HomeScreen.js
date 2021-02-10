@@ -92,8 +92,8 @@ const HomeScreen = ({navigation}) => {
     const checktoggle = () => {
       if(!toggle) {
         setColor({
-          color: COLORS.darkgray,
-          preColor: COLORS.black,
+          color: COLORS.black,
+          preColor: COLORS.darkgray,
         });
 
         setFont({
@@ -103,8 +103,8 @@ const HomeScreen = ({navigation}) => {
       }
       else {
         setColor({
-          color: COLORS.black,
-          preColor: COLORS.darkgray,
+          color: COLORS.darkgray,
+          preColor: COLORS.black,
         });
 
         setFont({
@@ -159,13 +159,13 @@ const HomeScreen = ({navigation}) => {
         <Header />
         <View style = {{
           flex:1, 
-          paddingLeft: SIZES.padding * 2,
-          paddingRight: SIZES.padding *2
+          paddingLeft: SIZES.padding * 2.4,
+          paddingRight: SIZES.padding *2.4
           }}
         >
           <ContainerHeaderOption>
             <ContainerFlex>
-              <HeaderOptionList disabled={!toggle} onPress = { changeToggle }>
+              <HeaderOptionList disabled={toggle} onPress = { changeToggle }>
                 <HeaderOptionList__Text style = {{
                   color: colors.color,
                   fontWeight:fonts.fontWeight,
@@ -185,7 +185,7 @@ const HomeScreen = ({navigation}) => {
                   |
                 </HeaderOptionList__Text>
               </HeaderOptionList>
-              <HeaderOptionList disabled={toggle} onPress = {changeToggle} style={{borderRightWidth: 0}}>
+              <HeaderOptionList disabled={!toggle} onPress = {changeToggle} style={{borderRightWidth: 0}}>
                 <HeaderOptionList__Text 
                 style = {{
                   color: colors.preColor,
@@ -205,7 +205,9 @@ const HomeScreen = ({navigation}) => {
               alignItems:'flex-end'
               }}
             >
-              <HeaderOptionList__Text style={{
+              <HeaderOptionList__Text 
+              onPress={ () => navigation.navigate('SearchFilter')}
+              style={{
                 position:'absolute', 
                 top:24,
                 }}
@@ -242,7 +244,7 @@ const HomeScreen = ({navigation}) => {
               </View>
             </Location> */} 
             
-              {!toggle?
+              {toggle?
               <ScrollList>
               {renderBakery()}
               </ScrollList>

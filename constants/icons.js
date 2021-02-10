@@ -23,6 +23,10 @@ export const search2 = require("../assets/icons/bottom/search.png");
 
 export const menubar = require("../assets/icons/menubar.png");
 
+export const blackCircle =  require('../assets/icons/blackCircle.png');
+export const grayCircle = require('../assets/icons/grayCircle.png');
+export const closeBtn2 = require('../assets/icons/closeBtn2.png');
+
 export default {
     back,
     like,
@@ -42,5 +46,8 @@ export default {
     heart,
     profile,
     search2,
-    menubar
+    menubar,
+    blackCircle,
+    grayCircle,
+    closeBtn2,
 }
