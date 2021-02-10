@@ -28,7 +28,7 @@ const Home = ({navigation}) => {
                 <HomeHeader />
                 <TopTitle />
                 <BakeryContents setModalOpen={setModalOpen}/>
-                <FreeContents />
+                <FreeContents navigation={navigation} />
                 <RecommandArea />
             </ScrollView> 
         </View> 
