@@ -1,11 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {   
     StyleSheet,
     View,
     Text,
     TouchableOpacity,
     Image,
-    ScrollView
+    ScrollView,
+    Modal
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 import HomeHeader from '../../components/common/HomeHeader';
@@ -13,14 +14,20 @@ import TopTitle from '../../components/home/TopTitle';
 import BakeryContents from '../../components/home/BakeryContents';
 import FreeContents from '../../components/home/FreeContents';
 import RecommandArea from '../../components/home/RecommandArea';
+import RequireLogin from '../../components/common/RequireLogin';
 
 const Home = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (
         <View style={{backgroundColor:COLORS.white,height:'auto'}}>
-            <ScrollView>
+            <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
+             <RequireLogin />
+            </Modal>
+            <ScrollView> 
                 <HomeHeader />
                 <TopTitle />
-                <BakeryContents />
+                <BakeryContents setModalOpen={setModalOpen}/>
                 <FreeContents />
                 <RecommandArea />
             </ScrollView> 

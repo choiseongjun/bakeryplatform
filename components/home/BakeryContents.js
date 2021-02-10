@@ -48,8 +48,11 @@ const Item = ({ title }) => (
       <Text style={styles.title}>{title}</Text>
     </View>
   );
-const BakeryContents = () => {
+const BakeryContents = ({setModalOpen}) => {
     const renderItem = ({ item }) => (
+        <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => setModalOpen(true)}>
         <View style={{display: 'flex',flexDirection: 'row',width:'50%',marginTop:20}}>
             <Image
                 source={item.image}
@@ -64,6 +67,7 @@ const BakeryContents = () => {
                 <Text style={{marginTop:10,fontSize:SIZES.base*2.4,color:COLORS.maingray}}>{item.writer}</Text>
             </View>
         </View>
+        </TouchableOpacity>
       );
 
     return (
