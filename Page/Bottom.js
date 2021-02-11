@@ -55,6 +55,7 @@ function Bottom() {
             />
             <Tab.Screen name="글쓰기" component={ContentWrite} 
               options={{
+                unmountOnBlur: true,
                 title: '',
                 tabBarIcon: ({size,focused,color}) => {
                   return (

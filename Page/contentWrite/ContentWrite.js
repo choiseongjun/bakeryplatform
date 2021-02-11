@@ -16,6 +16,8 @@ import Textarea from 'react-native-textarea';
 import * as ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 import ContentWriterHeader from '../../components/common/ContentWriterHeader';
+import Editor from '../../components/contentWrite/Editor';
+
 
 const ContentWrite = ({navigation}) => {
 
@@ -61,21 +63,19 @@ const ContentWrite = ({navigation}) => {
         )
   
     }  
-    const onChangeText = (item)=>{
-        setContent(item);
-    }
+ 
     const writeContent = () =>{
         axios.post('/contents/write',{imageId:imageId,title:title,content:content,category:category})
                 .then(function (response) {
                     setTitle('');
-                    setContent('');
+                    setContent(''); 
                     setImageId([]);
                     setImageSource([]);
                     setCategory('bakerycontent')
                     navigation.navigate('추천');
                     Alert.alert('글 등록이 완료되었습니다.');
                     
-                })
+                }) 
                 .catch(function (error) {
                 console.log(error);
                 }); 
@@ -83,7 +83,7 @@ const ContentWrite = ({navigation}) => {
     
     return (
         <ScrollView>
-            <View style={{backgroundColor: COLORS.white,height:'auto'}}>
+            <View style={{backgroundColor: COLORS.white,height:'auto',flex:1}}>
                 <ContentWriterHeader writeContent={writeContent}/>
                 <View style={{display: 'flex',marginTop:30,marginLeft:20}}>
                     <Picker
@@ -96,28 +96,7 @@ const ContentWrite = ({navigation}) => {
                         <Picker.Item label="자유로운 컨텐츠" value="freecontent" />
                     </Picker>
                 </View>
-                <View style={{display: 'flex',marginLeft:20}}>
-                
-                        
-                        <TextInput
-                            style={{ height: 50, borderColor: 'gray',width:350, borderBottomWidth: 1,opacity:0.5,fontSize:SIZES.base*2.5}}
-                            onChangeText={text => setTitle(text)}
-                            value={title}
-                            placeholder='제목을 입력해주세요.' 
-                        />       
-                        <View style={{width:'85%'}}> 
-                            <Textarea
-                                    containerStyle={styles.textareaContainer}
-                                    style={styles.textarea}
-                                    onChangeText={onChangeText}
-                                    defaultValue={content}
-                                    placeholder={'내용을 입력해주세요.'}
-                                    placeholderTextColor={'#c7c7c7'}
-                                    underlineColorAndroid={'transparent'}
-                                />
-                        </View>
-                </View>
-                <View style={{left:30,marginBottom:60}}>
+                <View style={{flex:1,left:30,marginBottom:60}}>
                     <TouchableOpacity style={styles.imgWrapper} onPress={()=>pickImg()}>
                         <Image source={icons.camera}  style={{width:70,height:70}}/>
                         
@@ -127,8 +106,20 @@ const ContentWrite = ({navigation}) => {
                             <Image source={{uri: item}} style={{width:100,height:100}}/>
                         ))}
                     </View>
-                    
                 </View>
+                <View style={{flex:1,display: 'flex',marginLeft:20}}>
+                
+                        
+                        <TextInput
+                            style={{ height: 50, borderColor: 'gray',width:350, borderBottomWidth: 1,opacity:0.5,fontSize:SIZES.base*2.5}}
+                            onChangeText={text => setTitle(text)}
+                            value={title}
+                            placeholder='제목을 입력해주세요.' 
+                        />       
+                       
+                        <Editor setContent={setContent}/> 
+                </View>
+               
             </View>
         </ScrollView>
     )
