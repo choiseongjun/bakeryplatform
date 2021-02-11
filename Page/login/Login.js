@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {   
     StyleSheet,
     View,
@@ -10,8 +10,31 @@ import {
     TextInput
 } from 'react-native';
 import { icons, SIZES, COLORS } from '../../constants';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
+
+    const [userId,setUserId] = useState('');
+    const [password,setPassword] = useState('');
+
+    const doLogin = () =>{
+
+        console.log(userId,"password",password)
+        axios.post('/user/login',{userId:userId,password:password})
+        .then(function (response) {
+          // handle success
+
+          AsyncStorage.setItem('accessToken', response.data.token);
+          AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+          navigation.navigate("Profile");
+        })
+        .catch((err)=>{
+          console.log(err.response)
+          Alert.alert(err.response.data)
+        })
+    }
+
     return (
         <ScrollView>
         <View style={{backgroundColor:COLORS.white,height:800}}>
@@ -25,8 +48,9 @@ const Login = ({navigation}) => {
                     <Text style={[styles.label,{marginTop:60}]}>아이디를 입력해주세요.</Text>
                     <TextInput
                         style={styles.inputbox}
-                        placeholder="asdfg"
-                        onChangeText={text => onChangeText(text)}
+                        placeholder=""
+                        onChangeText={text => setUserId(text)}
+                        value={userId}
                         />
                 </View>
                 <View>
@@ -34,18 +58,18 @@ const Login = ({navigation}) => {
                     <TextInput
                         secureTextEntry={true}
                         style={styles.inputbox}
-                        placeholder="asdfg"
-                        onChangeText={text => onChangeText(text)}
+                        placeholder=""
+                        onChangeText={text => setPassword(text)}
+                        value={password}
                         /> 
                 </View>
             </View>
             <View style={[styles.loginContainer,{marginTop:40}]}>
                 <TouchableOpacity
                 activeOpacity={1}
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => doLogin()}
                 style={[styles.loginBox, {backgroundColor: COLORS.black}]}>
                     <View style={styles.loginSection}>
-                        
                         <View
                         style={{
                             marginLeft: 12,

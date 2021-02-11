@@ -9,6 +9,7 @@ import Login from './Page/login/Login';
 import FreeContentDetail from './Page/freeContent/FreeContentDetail';
 import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 import BakeryContent from './Page/bakeryContent/BakeryContent';
+import Profile from './Page/profile/Profile';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ function App(){
                 <Stack.Screen name="Home" component={Bottom} />
                 <Stack.Screen name="BakeryDetail" component={BakeryDetail} />
                 <Stack.Screen name="Join" component={Join} />
+                <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="FreeContentDetail" component={FreeContentDetail} />
                 <Stack.Screen name="SearchFilter" component={SearchFilter} />

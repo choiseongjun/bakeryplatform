@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {   
     StyleSheet,
     View,
@@ -7,11 +7,30 @@ import {
     Image,
     ScrollView,
     Modal,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
+import axios from 'axios';
+
 const Join = ({navigation}) => {
-    const [value, onChangeText] = React.useState('');
+    const [userId,setUserId] = useState('');
+    const [nickname,setNickname] = useState('');
+    const [password,setPassword] = useState('');
+    const [email,setEmail] = useState('');
+
+    const doJoin = () =>{
+
+      axios.post('/user/register',{userId:userId,nickname:nickname,password:password,email:email})
+      .then(function (response) {
+        // handle success
+        console.log('성공했습니다!');
+      })
+      .catch((err)=>{
+        console.log(err.response)
+        Alert.alert(err.response.data)
+      })
+    }
 
     return ( 
         <ScrollView>
@@ -27,17 +46,17 @@ const Join = ({navigation}) => {
                         <TextInput
                             style={styles.inputbox}
                             placeholder="asdfg@asdfg.com"
-                            onChangeText={text => onChangeText(text)}
-                            value={value} 
+                            onChangeText={text => setEmail(text)}
+                            value={email} 
                             />
                     </View>
                     <View>
                         <Text style={[styles.label,{marginTop:60}]}>아이디</Text>
                         <TextInput
                             style={styles.inputbox}
-                            placeholder="asdfg"
-                            onChangeText={text => onChangeText(text)}
-                            value={value} 
+                            placeholder="아이디를 입력해주세요~"
+                            onChangeText={text => setUserId(text)}
+                            value={userId} 
                             />
                         <Text style={[styles.sublabel,{marginTop:20}]}>영문,숫자를 조합하여 최소2자 부터 20자이하로</Text>
                         <Text style={[styles.sublabel]}>입력해주세요.</Text>
@@ -46,9 +65,9 @@ const Join = ({navigation}) => {
                         <Text style={[styles.label,{marginTop:60}]}>닉네임</Text>
                         <TextInput
                             style={styles.inputbox}
-                            placeholder="asdfg"
-                            onChangeText={text => onChangeText(text)}
-                            value={value} 
+                            placeholder="닉네임을 입력해주세요~"
+                            onChangeText={text => setNickname(text)}
+                            value={nickname} 
                             />
                     </View>
                     <View>
@@ -56,9 +75,9 @@ const Join = ({navigation}) => {
                         <TextInput
                             secureTextEntry={true} 
                             style={styles.inputbox}
-                            placeholder="asdfg"
-                            onChangeText={text => onChangeText(text)}
-                            value={value} 
+                            placeholder=""
+                            onChangeText={text => setPassword(text)}
+                            value={password} 
                             />
                     </View>
                     <View>
@@ -67,15 +86,13 @@ const Join = ({navigation}) => {
                             secureTextEntry={true}  
                             style={styles.inputbox}
                             placeholder="asdfg"
-                            onChangeText={text => onChangeText(text)}
-                            value={value} 
                             />
                     </View>
                 </View>
                 <View style={styles.joinContainer}>
                     <TouchableOpacity
                     activeOpacity={1}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => doJoin()}
                     style={[styles.joinBox, {backgroundColor: COLORS.black}]}>
                         <View>
                             <View
