@@ -22,7 +22,7 @@ const TitleArea = ({bakeryData}) => {
                     height: 500, 
                 }}
             >
-                <View style={{marginTop:300,marginLeft:50}}>
+                <View style={{marginTop:300,marginLeft:20}}>
                     <Text style={styles.title}>{bakeryData.title}</Text>
                     <View style={{display: 'flex',flexDirection: 'row',marginTop:20}}>
                         <Image
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         padding: 5,
         width:80,
         height:50,
-        marginLeft:70,
+        marginLeft:100,
         display:'flex',
         justifyContent: 'center'
     },

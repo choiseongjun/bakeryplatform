@@ -9,14 +9,16 @@ import {
   ImageBackground,
   Image,
   Platform, 
-  PermissionsAndroid
+  PermissionsAndroid,
+  FlatList
 } from 'react-native';
 import styled from 'styled-components';
 import axios from 'axios';
 import { icons, images, SIZES, COLORS, FONTS } from '../constants';
 import Header from '../components/common/Header';
 import MapView, { PROVIDER_GOOGLE,Marker } from "react-native-maps";
-
+import Spinner from 'react-native-loading-spinner-overlay';
+import { Callout } from 'react-native-maps';
 
 
 
@@ -41,7 +43,7 @@ const HomeScreen = ({navigation}) => {
       preColor: COLORS.darkgray,
 
     });
-
+    
     const [fonts, setFont] = useState({
       fontWeight: '700',
       preFontWeight: '600',
@@ -49,6 +51,9 @@ const HomeScreen = ({navigation}) => {
 
     const [ toggle, setToggle] = useState(true);
     const [location, setLocation] = useState(); 
+    const [page,setPage] = useState(1); 
+    const [loading,setLoading] = useState(false);
+    let endReachCall;
 
     useEffect(() => { 
       requestPermission().then(result => { 
@@ -56,7 +61,6 @@ const HomeScreen = ({navigation}) => {
         if (result === "granted") { 
           Geolocation.getCurrentPosition( 
             pos => { 
-              console.log('coords',pod.coords)
               setLocation(pos.coords); 
             }, 
             error => { 
@@ -77,16 +81,18 @@ const HomeScreen = ({navigation}) => {
       checktoggle();
     };
     useEffect(() => {
-      axios.get('http://3.35.255.192:8080/backery')
+      setLoading(true);
+      axios.get('/bakery?page='+page)
       .then(function (response) {
         // handle success
-        console.log('response',response.data)
-        setBakeryData(response.data)
+        setBakeryData([...bakeryData, ...response.data]);
+        setLoading(false);
       })
       .catch((err)=>{
         console.log(err.response)
+        setLoading(false);
       })
-    }, [])
+    }, [page])
 
 
     const checktoggle = () => {
@@ -113,12 +119,15 @@ const HomeScreen = ({navigation}) => {
         });
       }
     };
+    const loadMoreBakery = () =>{
+      setPage(page + 1);
+    }
 
-    const renderBakery = () =>{
+    const renderBakery = ({item}) =>{
         return(
-          bakeryData.map((item,index)=>
+      
           <TouchableOpacity onPress={() => navigation.navigate('BakeryDetail',{bakeryId:item.id})}>
-            <EachBread key={index}>
+            <EachBread key={item.id}>
                 <View style={{width:220,marginTop:30}}>
                   <Text style = {{fontWeight:'bold', fontSize: 20, color:COLORS.black }}>
                     {item.entrpNm}
@@ -149,13 +158,18 @@ const HomeScreen = ({navigation}) => {
 
               </EachBread>
             </TouchableOpacity>
-          )
+          
         )
     }
     
 
     return (
       <SafeAreaView style={ styles.container }>
+         <Spinner
+          visible={loading}
+          textContent={'Loading...'}
+          textStyle={styles.spinnerTextStyle}
+        />
         <Header />
         <View style = {{
           flex:1, 
@@ -223,55 +237,60 @@ const HomeScreen = ({navigation}) => {
               </HeaderOptionList__Text>
             </HeaderOptionList>
           </ContainerHeaderOption>
-          {/* <SearchBarContainer>
-            <IconFilter>
-              <IconAntDesign name='plussquare' color='rgb(243,96,65)' size={30} />
-            </IconFilter>
-            <Text style = {{color:'gray', fontSize:16, fontWeight:'400', marginRight:70, marginLeft: 10}}>가장 맛있는 빵은 당신 주변에 있습니다.</Text>
-            <IconFilter>
-              <IconAntDesign name='edit' color='rgb(243,96,65)' size={30} />
-            </IconFilter>
-          </SearchBarContainer> */}
           <View style = { styles.container__listBread}>
-            {/* <Location>
-              <View>
-                <Text style = {{ fontWeight:'bold', fontSize:20 }}>양재 2동
-                </Text>
-              </View>
-              <View>
-                <Text style = {{ color:'rgb(243,96,65)', fontWeight:'300', fontSize:14 }}>현재 내 위치 수정
-                </Text>
-              </View>
-            </Location> */} 
             
               {toggle?
-              <ScrollList>
-              {renderBakery()}
-              </ScrollList>
+              <FlatList
+                data={bakeryData}
+                renderItem={renderBakery}
+                onEndReachedThreshold={1}
+                keyExtractor={item => item.id}
+                onEndReached={({ distanceFromEnd }) => {
+                  if (distanceFromEnd < 0) return;
+                  setPage(page + 1); 
+              }}
+              />
               :
               <>
-              {bakeryData.length>0&& (
-                <MapView
-                  style={{flex: 1}}
-                  initialRegion={{ 
-                    latitude: 37.77489, 
-                    longitude: 128.91155,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421, 
-                  }}>
-                  
-                    {bakeryData.map((item, index) => (
-                      <Marker
-                        key={`location-${index}`}
-                        coordinate={{
-                          latitude: item.yposIa,
-                          longitude: item.xposIo,
-                        }}
-                      />
-                    ))}
-                  
-                  </MapView>
-              )}
+             
+              <MapView
+                style={{height:'100%'}}
+                provides={PROVIDER_GOOGLE}
+                initialRegion={{ 
+                  latitude: 37.77489, 
+                  longitude: 128.91155,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421, 
+                }}>
+                
+                  {bakeryData.map((item, index) => (
+                    <Marker
+                      key={`location-${index}`}
+                      coordinate={{
+                        latitude: item.yposIa,
+                        longitude: item.xposIo,
+                      }}
+                      title="Test title"
+                      description="This is to test description"
+                    >
+                      <Image source={require('../assets/icons/breadmapicon.png')} style={{width:30,height:30}} /> 
+                      <Callout tooltip> 
+                          <View style={styles.bubble}>
+                            <Text style={styles.name}>{item.entrpNm}</Text>
+                            {/* <Text>Short description</Text>
+                        
+                            <Text style={{ height: 200, position: "relative", bottom: 40 }}>
+                                <Image
+                                  resizeMode="cover"
+                                  style={{ width: 70, height: 90, }}
+                                  source={{uri: "data:image/png;base64,"+item.image}}
+                                />
+                            </Text> */}
+                          </View>
+                      </Callout>
+                    </Marker>
+                  ))}
+                </MapView>
             
               </>
               }
@@ -303,6 +322,20 @@ const HomeScreen = ({navigation}) => {
       justifyContent:'center',
       alignItems:'center',
     },
+    bubble: {
+      backgroundColor: COLORS.white,
+      borderRadius: 6,
+      borderColor: '#ccc',
+      borderWidth: 0.5, 
+      width: 100,
+      height:100,
+      
+    },
+    // Character name
+    name: {
+      fontSize: 16,
+    },
+    // Character image
   });
 
   const ContainerFlex = styled.View`

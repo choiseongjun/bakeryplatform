@@ -57,7 +57,7 @@ const BakeryContent = () => {
                 <ContentArea bakeryData={bakeryData} />
             </View>
             </ScrollView>
-            <View style={{flex:1,height:100}}>
+            <View style={{flex:1,paddingBottom:50}}> 
                 <CommentBox setModalOpen={setModalOpen} />
             </View>
         </View>

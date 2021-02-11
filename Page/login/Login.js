@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { icons, SIZES, COLORS } from '../../constants';
 
-const Login = () => {
+const Login = ({navigation}) => {
     return (
         <ScrollView>
         <View style={{backgroundColor:COLORS.white,height:800}}>
@@ -61,6 +61,13 @@ const Login = () => {
                 </TouchableOpacity>
                 <View style={{marginTop:30,borderBottomWidth:2,borderBottomColor:COLORS.maingray}}>
                     <Text>아이디 또는 비밀번호 찾기</Text>
+                </View>
+                <View style={{marginTop:30,borderBottomWidth:2,borderBottomColor:COLORS.maingray}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("Join")}
+                    >
+                        <Text>회원가입하기</Text>
+                    </TouchableOpacity>
                 </View>
             </View>  
            

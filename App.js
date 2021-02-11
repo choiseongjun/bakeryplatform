@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Bottom from './Page/Bottom';
 import { createStackNavigator } from "@react-navigation/stack";
-
+import axios from 'axios';
 import BakeryDetail from './Page/bakeryDetail/BakeryDetail';
 import Join from './Page/join/Join';
 import Login from './Page/login/Login';
@@ -11,6 +11,8 @@ import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 import BakeryContent from './Page/bakeryContent/BakeryContent';
 
 const Stack = createStackNavigator();
+
+axios.defaults.baseURL = 'http://14.49.85.65:8080/';
 
 function App(){
   return ( 

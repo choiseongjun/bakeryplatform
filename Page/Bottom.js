@@ -6,8 +6,10 @@ import {
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen';
+import ContentWrite from './contentWrite/ContentWrite';
 import { icons } from '../constants';
 import Home from './home/Home';
+import Profile from './profile/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,7 +53,7 @@ function Bottom() {
                 },
               }}
             />
-            <Tab.Screen name="임시" component={HomeScreen} 
+            <Tab.Screen name="글쓰기" component={ContentWrite} 
               options={{
                 title: '',
                 tabBarIcon: ({size,focused,color}) => {
@@ -64,7 +66,7 @@ function Bottom() {
                 },
               }}
             />
-            <Tab.Screen name="마이페이지" component={HomeScreen} 
+            {/* <Tab.Screen name="마이페이지" component={HomeScreen} 
               options={{
                 title: '',
                 tabBarIcon: ({size,focused,color}) => {
@@ -76,8 +78,8 @@ function Bottom() {
                   );
                 },
               }}
-            />
-            <Tab.Screen name="마이페이지1" component={HomeScreen} 
+            /> */}
+            <Tab.Screen name="마이페이지1" component={Profile} 
               options={{
                 title: '',
                 tabBarIcon: ({size,focused,color}) => {
