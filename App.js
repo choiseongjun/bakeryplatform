@@ -10,6 +10,7 @@ import FreeContentDetail from './Page/freeContent/FreeContentDetail';
 import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 import BakeryContent from './Page/bakeryContent/BakeryContent';
 import Profile from './Page/profile/Profile';
+import Recommand from './Page/home/Home';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ function App(){
             }}
             >
                 <Stack.Screen name="Home" component={Bottom} />
+                <Stack.Screen name="Recommand" component={Recommand} />
                 <Stack.Screen name="BakeryDetail" component={BakeryDetail} />
                 <Stack.Screen name="Join" component={Join} />
                 <Stack.Screen name="Profile" component={Profile} />

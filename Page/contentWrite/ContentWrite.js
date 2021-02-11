@@ -7,19 +7,23 @@ import {
     Image,
     ScrollView,
     Modal,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { icons, iconsSvg, SIZES, COLORS,images } from '../../constants';
 import Textarea from 'react-native-textarea';
 import * as ImagePicker from 'react-native-image-picker';
+import axios from 'axios';
+import ContentWriterHeader from '../../components/common/ContentWriterHeader';
 
-const ContentWrite = () => {
+const ContentWrite = ({navigation}) => {
 
     const [title,setTitle] = useState('');
-    const [text,setText] = useState('');
-    const [ img, setImageSource ] = useState("");  // 이미지를 img변수에 할당시킬겁니다!
-    const [language, setLanguage] = useState("bakerycontent");
+    const [content,setContent] = useState('');
+    const [imageId,setImageId] = useState([]);
+    const [img, setImageSource ] = useState([]);  // 이미지를 img변수에 할당시킬겁니다!
+    const [category, setCategory] = useState('bakerycontent');
 
     const pickImg = ()=>{
    
@@ -31,62 +35,102 @@ const ContentWrite = () => {
               maxWidth: 200,
             },
             (response) => {
-                setImageSource(response.uri);
+                
               console.log(response);
               // let ImageFile ={
               //   uri:response.uri
               // }
               // console.log('sdfdf')
-              
+              const data = new FormData();
+              data.append('photo', {
+                  uri: response.uri,
+                  name: 'file_photo',
+                  type: response.type,
+              });
+
+              axios.post('/common/content/photo',data)
+                .then(function (response) {
+                    console.log(response.data)
+                    setImageSource(img.concat(response.data.url));
+                    setImageId(imageId.concat(response.data.id));
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
             },
         )
+  
     }  
     const onChangeText = (item)=>{
-        console.log(item)
+        setContent(item);
+    }
+    const writeContent = () =>{
+        axios.post('/contents/write',{imageId:imageId,title:title,content:content,category:category})
+                .then(function (response) {
+                    setTitle('');
+                    setContent('');
+                    setImageId([]);
+                    setImageSource([]);
+                    setCategory('bakerycontent')
+                    navigation.navigate('추천');
+                    Alert.alert('글 등록이 완료되었습니다.');
+                    
+                })
+                .catch(function (error) {
+                console.log(error);
+                }); 
     }
     
     return (
-        <View style={{backgroundColor: COLORS.white,height:1000}}>
-            <View style={{display: 'flex',justifyContent: 'center',alignItems: 'center',marginTop:30}}>
-                <Picker
-                selectedValue={language}
-                style={{height: 50, width: 200}}
-                onValueChange={(itemValue, itemIndex) =>
-                    setLanguage(itemValue)
-                }>
-                    <Picker.Item label="베이커리 컨텐츠" value="bakerycontent" />
-                    <Picker.Item label="자유로운 컨텐츠" value="freecontent" />
-                </Picker>
-            </View>
-            <View style={{display: 'flex',justifyContent: 'center',alignItems: 'center',marginTop:30}}>
-             
-                    
-                    <TextInput
-                        style={{ height: 50, borderColor: 'gray',width:350, borderWidth: 1,opacity:0.5,fontSize:SIZES.base*2.2}}
-                        onChangeText={text => setTitle(text)}
-                        value={title}
-                        placeholder='제목을 입력해주세요.' 
-                    />       
-                    <View style={{width:'85%'}}> 
-                        <Textarea
-                                containerStyle={styles.textareaContainer}
-                                style={styles.textarea}
-                                onChangeText={onChangeText}
-                                defaultValue={text}
-                                placeholder={'자유롭게 써주세요:)'}
-                                placeholderTextColor={'#c7c7c7'}
-                                underlineColorAndroid={'transparent'}
-                            />
+        <ScrollView>
+            <View style={{backgroundColor: COLORS.white,height:'auto'}}>
+                <ContentWriterHeader writeContent={writeContent}/>
+                <View style={{display: 'flex',marginTop:30,marginLeft:20}}>
+                    <Picker
+                    selectedValue={category}
+                    style={{height: 50, width: 200}}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setCategory(itemValue)
+                    }>
+                        <Picker.Item label="베이커리 컨텐츠" value="bakerycontent"/>
+                        <Picker.Item label="자유로운 컨텐츠" value="freecontent" />
+                    </Picker>
+                </View>
+                <View style={{display: 'flex',marginLeft:20}}>
+                
+                        
+                        <TextInput
+                            style={{ height: 50, borderColor: 'gray',width:350, borderBottomWidth: 1,opacity:0.5,fontSize:SIZES.base*2.5}}
+                            onChangeText={text => setTitle(text)}
+                            value={title}
+                            placeholder='제목을 입력해주세요.' 
+                        />       
+                        <View style={{width:'85%'}}> 
+                            <Textarea
+                                    containerStyle={styles.textareaContainer}
+                                    style={styles.textarea}
+                                    onChangeText={onChangeText}
+                                    defaultValue={content}
+                                    placeholder={'내용을 입력해주세요.'}
+                                    placeholderTextColor={'#c7c7c7'}
+                                    underlineColorAndroid={'transparent'}
+                                />
+                        </View>
+                </View>
+                <View style={{left:30,marginBottom:60}}>
+                    <TouchableOpacity style={styles.imgWrapper} onPress={()=>pickImg()}>
+                        <Image source={icons.camera}  style={{width:70,height:70}}/>
+                        
+                    </TouchableOpacity>  
+                    <View style={{display: 'flex',flexDirection: 'row',flexWrap: 'wrap',width:'80%'}}>
+                        {img.map((item)=>(
+                            <Image source={{uri: item}} style={{width:100,height:100}}/>
+                        ))}
                     </View>
-            </View>
-            <View style={{left:30}}>
-                <TouchableOpacity style={styles.imgWrapper} onPress={()=>pickImg()}>
-                    <Image source={icons.camera}  style={{width:70,height:70}}/>
                     
-                </TouchableOpacity>  
-                <Image source={{uri: img}} style={{width:100,height:100}}/>
+                </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 const styles = StyleSheet.create({
@@ -104,7 +148,7 @@ const styles = StyleSheet.create({
     textarea: {
       textAlignVertical: 'top',  // hack android
       height: 300,
-      fontSize: 24,
+      fontSize: SIZES.base*2.2,
       color: '#333',
     },
     actionButtonIcon: {
