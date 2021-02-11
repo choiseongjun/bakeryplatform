@@ -27,6 +27,9 @@ export const blackCircle =  require('../assets/icons/blackCircle.png');
 export const grayCircle = require('../assets/icons/grayCircle.png');
 export const closeBtn2 = require('../assets/icons/closeBtn2.png');
 
+export const comment = require('../assets/icons/comment.png');
+export const good = require('../assets/icons/good.png');
+export const blackback = require('../assets/icons/blackback.png');
 export default {
     back,
     like,
@@ -50,4 +53,7 @@ export default {
     blackCircle,
     grayCircle,
     closeBtn2,
+    comment,
+    good,
+    blackback
 }

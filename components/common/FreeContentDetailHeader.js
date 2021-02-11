@@ -9,7 +9,7 @@ import {
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 
-const FreeContentDetailHeader = ({setWriteVisible}) => {
+const FreeContentDetailHeader = ({navigation}) => {
     return (
         <View style={styles.container}>
                 <TouchableOpacity
@@ -20,11 +20,11 @@ const FreeContentDetailHeader = ({setWriteVisible}) => {
                         display:'flex',
                         alignItems:'flex-start'
                     }}
-                    onPress = {()=>setWriteVisible(false)}
+                    onPress = {()=>navigation.goBack()}
                 >  
                      <Image
-                      style={{ width: 20, height: 20 }}
-                      source={icons.back1} 
+                      style={{ width: 15, height: 20 }}
+                      source={icons.blackback} 
                     />
                 </TouchableOpacity>
 

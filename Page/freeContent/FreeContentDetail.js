@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {   
     StyleSheet,
     View,
@@ -13,6 +13,8 @@ import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 import FreeContentDetailHeader from '../../components/common/FreeContentDetailHeader';
 import DetailTitle from '../../components/freecontent/DetailTitle';
 import CommentBox from '../../components/freecontent/CommentBox';
+import CommentList from '../../components/freecontent/CommentList';
+import CommentWrite from '../../components/freecontent/CommentWrite';
 
 const detailData = {
     "title":"강남 파미에스테이션 베이커리 맛집 아시느분?",
@@ -25,20 +27,28 @@ const prevnextData = {
     "nextData":"여기 집 마카롱 개 맛없네요."
 }
 
-const FreeContentDetail = () => {
+const FreeContentDetail = ({navigation}) => {
+
+    const [modalOpen, setModalOpen] = useState(false);
     return (
         <View style={{flex:1,backgroundColor:COLORS.white}}>
-            
+             <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
+              
+                <CommentList setModalOpen={setModalOpen} />
+                <View >
+                    <CommentWrite /> 
+                </View>
+            </Modal>
             <ScrollView style={{height:600}}>
-            <FreeContentDetailHeader />
+            <FreeContentDetailHeader navigation={navigation} />
             <View style={{flex:1}} >
                 <View style={{marginTop:30,marginLeft:20}}>
                     <DetailTitle detailData={detailData} prevnextData={prevnextData} />                   
                 </View>
             </View>
             </ScrollView>
-            <View style={{flex:1,height:100,backgroundColor:'red'}}>
-                <CommentBox  />
+            <View style={{flex:1,height:100}}>
+                <CommentBox setModalOpen={setModalOpen} />
             </View>
         </View>
     )

@@ -49,20 +49,20 @@ const FreeContents = ({navigation}) => {
         <TouchableOpacity
         activeOpacity={1}
         onPress={() => navigation.navigate('FreeContentDetail')}>
-        <View style={{display: 'flex',flexDirection: 'row',width:'50%',marginTop:20}}>
-            <Image
-                source={item.image}
-                resizeMode="cover"
-                style={{
-                    width: 150,
-                    height: 150,
-                }}
-            />
-            <View style={{marginLeft:15}}>
-                <Text style={styles.contentInnerTitle}>{item.title}</Text>
-                <Text style={{marginTop:10,fontSize:SIZES.base*2.4,color:COLORS.maingray}}>{item.writer}</Text>
+            <View style={{display: 'flex',flexDirection: 'row',width:'50%',marginTop:20}}>
+                <Image
+                    source={item.image}
+                    resizeMode="cover"
+                    style={{
+                        width: 150,
+                        height: 150,
+                    }}
+                />
+                <View style={{marginLeft:15}}>
+                    <Text style={styles.contentInnerTitle}>{item.title}</Text>
+                    <Text style={{marginTop:10,fontSize:SIZES.base*2.4,color:COLORS.maingray}}>{item.writer}</Text>
+                </View>
             </View>
-        </View>
         </TouchableOpacity>
       );
 

@@ -20,23 +20,18 @@ const RequireLogin = ({navigation,setModalOpen}) => {
             alignItems: 'center'}}>
             <View style={{
                     backgroundColor: 'rgba(255,255,255,1)',
-                    opacity:1,
                     width: 350,
                     height: 500}}>
                 <View style={styles.container}>
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={() => setModalOpen(false)}>
-                                <Text style={{position: 'absolute',right:40}}>X</Text>
+                            <Text style={{right:-270}}>닫기</Text>
                     </TouchableOpacity>
                     <Text style={styles.loginTitle}>로그인 후,</Text>
                     <Text style={styles.loginTitle}>다양한 컨텐츠를</Text>
                     <Text style={styles.loginTitle}>즐겨보세요.</Text>
-                    {/* <TouchableOpacity
-                    activeOpacity={1}
-                    onPress={() => setModalOpen(false)}>
-                        <Text>닫기 ㅇ</Text>
-                   </TouchableOpacity> */}
+                  
                 </View>
                 <View style={styles.container}>
                     <View style={{display: 'flex',flexDirection: 'row'}}>

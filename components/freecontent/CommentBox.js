@@ -11,13 +11,39 @@ import {
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 
-const CommentBox = () => {
+const CommentBox = ({setModalOpen}) => {
     return (
-        <View >
-            <View style={{borderTopWidth:1,borderTopColor:COLORS.darkgray}}></View>
-            <View>
-                <Text>footer</Text>
-                <Text>footer</Text>
+        <View style={{borderTopWidth:1,borderTopColor:COLORS.darkgray}}>
+            <View style={{marginTop:15}}></View>
+            <View style={{display: 'flex',flexDirection: 'row'}}>
+                <View style={{display: 'flex',flexDirection: 'row',marginLeft:30}}>
+                    
+                    <Image
+                        source={icons.good}
+                        resizeMode="cover"
+                        style={{
+                            width: 30,
+                            height: 30
+                        }}
+                    />
+                    <Text style={{marginLeft:10,fontSize:SIZES.base*2.7}}>9</Text>
+                </View>
+                <View style={{display: 'flex',flexDirection: 'row',marginLeft:30}}>
+
+                <Image
+                        source={icons.comment}
+                        resizeMode="cover"
+                        style={{
+                            width: 30,
+                            height: 30
+                        }}
+                    />
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => setModalOpen(true)}>
+                        <Text style={{marginLeft:10,fontSize:SIZES.base*2.7}}>23</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
       </View>
     )
