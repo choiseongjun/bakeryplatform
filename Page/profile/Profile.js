@@ -71,7 +71,12 @@ const Profile = ({navigation}) => {
               <Text style={{fontSize:17, color:COLORS.realDarkgray, fontWeight: 'bold'}}>내가 쓴 글</Text>
               <Text style={{fontSize:15, color:COLORS.deepDarkgray,fontWeight:'normal', paddingTop: 10}}>3</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.userHistory__each}>
+            <TouchableOpacity 
+              style={styles.userHistory__each}
+              onPress={() => {
+                navigation.navigate('StorePost')
+              }}
+            >
               <Text style={{fontSize:17, color:COLORS.realDarkgray, fontWeight: 'bold'}}>저장한 글</Text>
               <Text style={{fontSize:15, color:COLORS.deepDarkgray,fontWeight:'normal', paddingTop: 10}}>12</Text>
             </TouchableOpacity>

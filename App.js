@@ -13,7 +13,7 @@ import Profile from './Page/Profile/Profile';
 import ProfileAppSetting from './Page/ProfileAppSetting/ProfileAppSetting';
 import Recommand from './Page/home/Home';
 import Following from './Page/Following/FollowingHome/following';
-import NormalHeader from './components/common/NormalHeader';
+import StorePost from './Page/StorePost/StorePostHome/StorePostHome';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +37,7 @@ function App(){
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="ProfileAppSetting" component={ProfileAppSetting} />
                 <Stack.Screen name="Following" component={Following} />
+                <Stack.Screen name="StorePost" component={StorePost} />
             </Stack.Navigator>
         </NavigationContainer>
   );

@@ -399,7 +399,6 @@ const HomeScreen = ({navigation}) => {
           doSearch={doSearch}
         />
         {searcListVisible?bestSearchList():renderStoreList()}
-         
 
       </SafeAreaView>
     );
