@@ -3,14 +3,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import Bottom from './Page/Bottom';
 import { createStackNavigator } from "@react-navigation/stack";
 import axios from 'axios';
-import BakeryDetail from './Page/bakeryDetail/BakeryDetail';
+import BakeryDetail from './Page/BakeryDetail/BakeryDetail';
 import Join from './Page/join/Join';
 import Login from './Page/login/Login';
 import FreeContentDetail from './Page/freeContent/FreeContentDetail';
 import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 import BakeryContent from './Page/bakeryContent/BakeryContent';
 import Profile from './Page/profile/Profile';
+import ProfileAppSetting from './Page/profile/ProfileAppSetting';
 import Recommand from './Page/home/Home';
+
 
 const Stack = createStackNavigator();
 
@@ -32,7 +34,7 @@ function App(){
                 <Stack.Screen name="FreeContentDetail" component={FreeContentDetail} />
                 <Stack.Screen name="SearchFilter" component={SearchFilter} />
                 <Stack.Screen name="BakeryContent" component={BakeryContent} />
-                
+                <Stack.Screen name="ProfileAppSetting" component={ProfileAppSetting} />
             </Stack.Navigator>
         </NavigationContainer>
   );

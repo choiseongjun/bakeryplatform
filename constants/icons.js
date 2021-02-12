@@ -30,6 +30,8 @@ export const closeBtn2 = require('../assets/icons/closeBtn2.png');
 export const comment = require('../assets/icons/comment.png');
 export const good = require('../assets/icons/good.png');
 export const blackback = require('../assets/icons/blackback.png');
+export const reverseBlackBack = require('../assets/icons/reverseBlackBack.png');
+export const vividBlackBack = require('../assets/icons/vividBlackBack.png');
 export default {
     back,
     like,
@@ -55,5 +57,7 @@ export default {
     closeBtn2,
     comment,
     good,
-    blackback
+    blackback,
+    reverseBlackBack,
+    vividBlackBack
 }

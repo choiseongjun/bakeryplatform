@@ -5,38 +5,43 @@ import {
   Text,
   TouchableOpacity,
   Touchable,
+  Image
 } from 'react-native';
 import { COLORS, SIZES } from '../../constants';
 
 const NormalHeader = ({contents, fontsBold}) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity>
-        <Text style={{
-          color:COLORS.darkgray,
-          fontWeight: 'bold',
-          fontSize:SIZES.base*2,
+    <View style={styles.container }>
+      <TouchableOpacity style={{borderWidth: 1}}>
+        <View style={{
+          color:COLORS.black,
+          position: 'absolute',
+          left: SIZES.padding * 2.4,
+          bottom: -14,
           }}
         >
-          {contents[0]}
-        </Text>
+          <Image source={contents[0]} style={{width: SIZES.base*2.4, height: SIZES.base*2.4}} />
+        </View>
       </TouchableOpacity>
       <TouchableOpacity>
         <Text style={{
           fontSize:SIZES.base*2.4,
-          fontWeight:'normal'
+          fontWeight:'bold',
+          letterSpacing: 3,
           }}
         >
         {contents[1]}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={{
-          fontWeight: fontsBold,
-          fontSize:SIZES.base*2,
+      <TouchableOpacity style={{borderWidth: 1}}>
+        <View style={{
+          color:COLORS.black,
+          position: 'absolute',
+          right: SIZES.padding * 2.4,
+          bottom: -14,
         }}>
-        {contents[2]}
-        </Text>
+          <Image source={contents[2]} style={{width: SIZES.base*2.4, height: SIZES.base*2.4}} />
+        </View>
       </TouchableOpacity>
     </View>
   )
@@ -48,8 +53,8 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems: 'center',
-    paddingLeft: SIZES.padding * 2.4,
-    paddingRight: SIZES.padding * 2.4,
+
+    position: 'relative',
   }
 })
 
