@@ -59,7 +59,7 @@ const DetailSwiperImage = ({navigation}) => {
                     <View style={styles.slideTextContainer}>
                             <TouchableOpacity
                                 activeOpacity={1}
-                                style={{left:20,bottom:260}}
+                                style={{left:20,bottom:230}}
                                 onPress={() => navigation.goBack()}>
                                 <Image 
                                     source={icons.back1} 
@@ -69,7 +69,7 @@ const DetailSwiperImage = ({navigation}) => {
                                     }}
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity style={{left:350,bottom:290}} onPress={()=>console.log('kkk')}> 
+                            <TouchableOpacity style={{left:350,bottom:250}} onPress={()=>console.log('kkk')}> 
                                 <Image
                                 source={icons.share}
                                 style={{
@@ -88,8 +88,8 @@ const DetailSwiperImage = ({navigation}) => {
                                 </TouchableOpacity> 
                         </View>
                         <View style={{display:'flex',flexDirection: 'row',marginLeft:30,marginBottom:30}}>
-                            <Text style={{color:'gray',fontSize:SIZES.font*1.2}} numberOfLines={1}>팔로워129</Text>
-                            <Text style={{marginLeft:30,color:'gray',fontSize:SIZES.font*1.2}} numberOfLines={1}>리뷰5</Text>
+                            <Text style={{color:COLORS.white,fontSize:SIZES.font*1.2}} numberOfLines={1}>팔로워129</Text>
+                            <Text style={{marginLeft:30,color:COLORS.white,fontSize:SIZES.font*1.2}} numberOfLines={1}>리뷰5</Text>
                         </View>
                     </View>
                 </ImageBackground>
@@ -152,7 +152,7 @@ const styles = {
         position: 'absolute',
     },
     slideTextContainer:{
-        top:300
+        top:250
     },
     slideText:{
      

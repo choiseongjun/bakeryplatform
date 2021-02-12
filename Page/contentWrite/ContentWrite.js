@@ -72,7 +72,7 @@ const ContentWrite = ({navigation}) => {
                     setImageId([]);
                     setImageSource([]);
                     setCategory('bakerycontent')
-                    navigation.navigate('추천');
+                    navigation.navigate('컨텐츠');
                     Alert.alert('글 등록이 완료되었습니다.');
                     
                 }) 
