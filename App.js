@@ -9,10 +9,10 @@ import Login from './Page/login/Login';
 import FreeContentDetail from './Page/freeContent/FreeContentDetail';
 import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 import BakeryContent from './Page/bakeryContent/BakeryContent';
-import Profile from './Page/profile/Profile';
-import ProfileAppSetting from './Page/profile/ProfileAppSetting';
+import Profile from './Page/Profile/Profile';
+import ProfileAppSetting from './Page/ProfileAppSetting/ProfileAppSetting';
 import Recommand from './Page/home/Home';
-
+import Following from './Page/Following/following';
 
 const Stack = createStackNavigator();
 
@@ -29,12 +29,13 @@ function App(){
                 <Stack.Screen name="Recommand" component={Recommand} />
                 <Stack.Screen name="BakeryDetail" component={BakeryDetail} />
                 <Stack.Screen name="Join" component={Join} />
-                <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="FreeContentDetail" component={FreeContentDetail} />
                 <Stack.Screen name="SearchFilter" component={SearchFilter} />
                 <Stack.Screen name="BakeryContent" component={BakeryContent} />
+                <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="ProfileAppSetting" component={ProfileAppSetting} />
+                <Stack.Screen name="Following" component={Following} />
             </Stack.Navigator>
         </NavigationContainer>
   );

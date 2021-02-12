@@ -58,18 +58,23 @@ const Profile = ({navigation}) => {
             </View>
           </View>
           <View style={styles.userHistory}>
-            <View style={styles.userHistory__each}>
+            <TouchableOpacity 
+              style={styles.userHistory__each}
+              onPress={() => {
+                navigation.navigate('Following')
+              }}  
+            >
               <Text style={{fontSize:17, color:COLORS.realDarkgray, fontWeight: 'bold'}}>팔로잉</Text>
               <Text style={{fontSize:15, color:COLORS.deepDarkgray,fontWeight:'normal', paddingTop: 10}}>182</Text>
-            </View>
-            <View style={styles.userHistory__each}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.userHistory__each}>
               <Text style={{fontSize:17, color:COLORS.realDarkgray, fontWeight: 'bold'}}>내가 쓴 글</Text>
               <Text style={{fontSize:15, color:COLORS.deepDarkgray,fontWeight:'normal', paddingTop: 10}}>3</Text>
-            </View>
-            <View style={styles.userHistory__each}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.userHistory__each}>
               <Text style={{fontSize:17, color:COLORS.realDarkgray, fontWeight: 'bold'}}>저장한 글</Text>
               <Text style={{fontSize:15, color:COLORS.deepDarkgray,fontWeight:'normal', paddingTop: 10}}>12</Text>
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.userChoiceOption}>
             <TouchableOpacity style={styles.eachUserChoice}>
