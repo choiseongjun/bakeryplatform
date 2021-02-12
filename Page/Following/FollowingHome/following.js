@@ -10,9 +10,11 @@ import {
     TextInput,
     SafeAreaView
 } from 'react-native';
-import { icons, iconsSvg, SIZES, COLORS,images, FONTS } from '../../constants';
+import { icons, iconsSvg, SIZES, COLORS,images, FONTS } from '../../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NormalHeader from '../../components/common/NormalHeader';
+import NormalHeader from '../../../components/common/NormalHeader';
+
+import FollowingEach from '../../Following/FollowingComponent/FollowingEach';
 
 const Profile = ({navigation}) => {
 
@@ -42,38 +44,13 @@ const Profile = ({navigation}) => {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <View style={styles.optionBar}>
-          <NormalHeader contents={[icons.vividBlackBack, 'MY Page', icons.menubar]} />
+          <NormalHeader contents={[icons.vividBlackBack, '팔로잉', icons.menubar]} />
         </View>
+        
         <View style={styles.userContainer}>
-          <View style={styles.userFollowing}>
-            <TouchableOpacity style={styles.eachUserFollowing}>
-              <View style={styles.eachUserFollowing__image}>
-                <Image 
-                source={icons.plus}
-                style={{
-                  width: 30,
-                  height: 30,
-                }}
-                />
-                <Text style={[styles.eachUserFollowing__Text]}>고객센터</Text>
-              </View>
-              
-              <Image source={icons.reverseBlackBack} style={[styles.eachUserChoice__image,{color:'white'}]}/>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.eachUserFollowing}
-              onPress={() => {
-                navigation.navigate('ProfileAppSetting')
-              }}  
-            >
-              <Text style={styles.eachUserFollowing__Text}>환경설정</Text>
-              <Image source={icons.reverseBlackBack} style={styles.eachUserChoice__image}/>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.eachUserFollowing}>
-              <Text style={styles.eachUserFollowing__Text}>회원탈퇴</Text>
-              <Image source={icons.reverseBlackBack} style={styles.eachUserChoice__image}/>
-            </TouchableOpacity>
-          </View>
+          <FollowingEach TitleImage={icons.blackCircle} name={'skosi_7657'} />
+          <FollowingEach TitleImage={icons.blackCircle} name={'hok_OOOOO'} />
+          <FollowingEach TitleImage={icons.grayCircle} name={'hok_OOOOO'} />
         </View>
 
       </SafeAreaView>
@@ -94,7 +71,6 @@ const styles = StyleSheet.create({
 
   eachUserFollowing: {
     height: 70,
-    borderWidth: 1,
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
@@ -102,7 +78,8 @@ const styles = StyleSheet.create({
 
   eachUserFollowing__Text: {
     fontWeight: 'bold',
-    fontSize:SIZES.font
+    fontSize:SIZES.font,
+    paddingLeft: 10
   },
 
   eachUserChoice__image: {

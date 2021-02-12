@@ -9,12 +9,8 @@ import HomeScreen from './HomeScreen';
 import ContentWrite from './contentWrite/ContentWrite';
 import { icons } from '../constants';
 import Home from './home/Home';
-<<<<<<< HEAD
 import Profile from './Profile/Profile';
-=======
-import Profile from './profile/Profile';
 import Recommand from './recommand/Recommand';
->>>>>>> ee6ce97eb2ede44015d42dd5d0f5e2a21ca48213
 
 const Tab = createBottomTabNavigator();
 

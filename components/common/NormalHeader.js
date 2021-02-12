@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   StyleSheet,
@@ -9,10 +10,16 @@ import {
 } from 'react-native';
 import { COLORS, SIZES } from '../../constants';
 
-const NormalHeader = ({contents, fontsBold}) => {
+const NormalHeader = ({contents}) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container }>
-      <TouchableOpacity style={{borderWidth: 1}}>
+      <TouchableOpacity 
+        style={{borderWidth: 1}}
+        onPress={ () => {
+          navigation.goBack()
+        }}
+      >
         <View style={{
           color:COLORS.black,
           position: 'absolute',
@@ -27,7 +34,6 @@ const NormalHeader = ({contents, fontsBold}) => {
         <Text style={{
           fontSize:SIZES.base*2.4,
           fontWeight:'bold',
-          letterSpacing: 3,
           }}
         >
         {contents[1]}

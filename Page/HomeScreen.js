@@ -228,7 +228,6 @@ const HomeScreen = ({navigation}) => {
     const renderStoreList = () =>{
       return(
         <>
-       
         <View style = {{
           flex:1, 
           paddingLeft: SIZES.padding * 2.4,
@@ -310,7 +309,6 @@ const HomeScreen = ({navigation}) => {
                 />
               :
               <>
-             
               <MapView
                 style={{height:'100%'}}
                 provides={PROVIDER_GOOGLE}

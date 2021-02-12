@@ -12,7 +12,8 @@ import BakeryContent from './Page/bakeryContent/BakeryContent';
 import Profile from './Page/Profile/Profile';
 import ProfileAppSetting from './Page/ProfileAppSetting/ProfileAppSetting';
 import Recommand from './Page/home/Home';
-import Following from './Page/Following/following';
+import Following from './Page/Following/FollowingHome/following';
+import NormalHeader from './components/common/NormalHeader';
 
 const Stack = createStackNavigator();
 
