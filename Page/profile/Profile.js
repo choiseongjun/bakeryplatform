@@ -53,9 +53,14 @@ const Profile = ({navigation}) => {
               <Text style={FONTS.h2}>skosi_7695</Text>
               <Image style={{width: 16, height: 16, marginLeft: 4}} source={icons.reverseBlackBack} />
             </View>
-            <View style={styles.userIntroDuctionBox__id}>
+            <TouchableOpacity 
+              style={styles.userIntroDuctionBox__id}
+              onPress={() => {
+                navigation.navigate('IndividualInfoCheck')
+              }}
+            >
               <Text style={[FONTS.body3],{color:COLORS.deepDarkgray}}>hok_00000@naver.com</Text>
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.userHistory}>
             <TouchableOpacity 
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
   },
 
   userIntroDuctionBox__id: {
-    paddingTop: 6
+    paddingTop: 6,
   },
 
   userHistory: {

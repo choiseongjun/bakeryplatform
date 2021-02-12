@@ -14,6 +14,7 @@ import ProfileAppSetting from './Page/ProfileAppSetting/ProfileAppSetting';
 import Recommand from './Page/home/Home';
 import Following from './Page/Following/FollowingHome/following';
 import StorePost from './Page/StorePost/StorePostHome/StorePostHome';
+import IndividualInfoCheck from './Page/IndividualInfoCheck/IndividualInfoCheck';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,7 @@ function App(){
                 <Stack.Screen name="ProfileAppSetting" component={ProfileAppSetting} />
                 <Stack.Screen name="Following" component={Following} />
                 <Stack.Screen name="StorePost" component={StorePost} />
+                <Stack.Screen name="IndividualInfoCheck" component={IndividualInfoCheck} />
             </Stack.Navigator>
         </NavigationContainer>
   );
