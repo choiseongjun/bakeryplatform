@@ -10,6 +10,7 @@ import ContentWrite from './contentWrite/ContentWrite';
 import { icons } from '../constants';
 import Home from './home/Home';
 import Profile from './profile/Profile';
+import Recommand from './recommand/Recommand';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,8 +25,16 @@ function SettingsScreen() {
   }
 function Bottom() {
     return(
-        <Tab.Navigator> 
-            <Tab.Screen name="추천" component={Home}   
+        <Tab.Navigator
+          tabBarOptions={{
+            style:{
+              height:70,
+              borderTopColor:'#D3D3D3',
+              borderTopWidth:1
+            }   
+          }}
+        > 
+            <Tab.Screen name="컨텐츠" component={Home}   
             
               options={{
                
@@ -67,7 +76,7 @@ function Bottom() {
                 },
               }}
             />
-            {/* <Tab.Screen name="마이페이지" component={HomeScreen} 
+            <Tab.Screen name="추천글" component={Recommand} 
               options={{
                 title: '',
                 tabBarIcon: ({size,focused,color}) => {
@@ -79,7 +88,7 @@ function Bottom() {
                   );
                 },
               }}
-            /> */}
+            />
             <Tab.Screen name="마이페이지1" component={Profile} 
               options={{
                 title: '',

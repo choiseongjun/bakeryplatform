@@ -9,10 +9,10 @@ import {
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 
-const HomeHeader = ({setCategoryMenu}) => {
+const CategoryMenuHeader = ({setCategoryMenu}) => {
     return (
         <View style={styles.container}>
-                {/* <TouchableOpacity
+                <TouchableOpacity
                     style={{
                         width: 100,
                         height: 50,
@@ -20,12 +20,15 @@ const HomeHeader = ({setCategoryMenu}) => {
                         display:'flex',
                         alignItems:'flex-start'
                     }}
-                    onPress = {()=>setWriteVisible(false)}
+                    onPress = {()=>setCategoryMenu(false)}
                 >  
-                    <Text style={{ fontSize:SIZES.base*2.5,fontWeight: 'bold' }}>취소</Text>
-                </TouchableOpacity> */}
+                     <Image
+                      style={{ width: 15, height: 20 }}
+                      source={icons.blackback} 
+                    />
+                </TouchableOpacity>
 
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ flex: 1}}>
                     <View
                         style={{
                             width: '70%',
@@ -33,28 +36,25 @@ const HomeHeader = ({setCategoryMenu}) => {
                             backgroundColor: COLORS.white,
                             alignItems: 'center',
                             justifyContent: 'center',
-                            borderRadius: SIZES.radius,
-                            marginLeft:40
+                            borderRadius: SIZES.radius
                         }}
                     >
-                        <Text style={{fontSize:SIZES.base*2.5,fontWeight: 'bold'}}>WITH BAKERY </Text>
+                        <Text style={{fontSize:SIZES.base*2.5,fontWeight: 'bold'}}>CATEGORY </Text>
                     </View>
-                </View>
-
-                <TouchableOpacity
+                </View>              
+                {/* <TouchableOpacity
                     style={{
                         width: 50,
                         height: 50,
                         justifyContent: 'center',
                         alignItems: 'flex-end'
                     }}
-                    onPress = {() =>setCategoryMenu(true)}
                 >
                    <Image
-                      style={{ width: 20, height: 20 }}
-                      source={icons.menubar}
+                      style={{ width: 25, height: 25 }}
+                      source={icons.house}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
     )
 }
@@ -70,5 +70,5 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
     }
 })
-export default HomeHeader;
+export default CategoryMenuHeader;
 
