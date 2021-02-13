@@ -15,6 +15,7 @@ import Recommand from './Page/home/Home';
 import Following from './Page/Following/FollowingHome/following';
 import StorePost from './Page/StorePost/StorePostHome/StorePostHome';
 import IndividualInfoCheck from './Page/IndividualInfoCheck/IndividualInfoCheck';
+import UserLeave from './Page/UserLeave/UserLeave';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ function App(){
                 <Stack.Screen name="Following" component={Following} />
                 <Stack.Screen name="StorePost" component={StorePost} />
                 <Stack.Screen name="IndividualInfoCheck" component={IndividualInfoCheck} />
+                <Stack.Screen name="UserLeave" component={UserLeave} />
             </Stack.Navigator>
         </NavigationContainer>
   );
