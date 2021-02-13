@@ -15,7 +15,6 @@ const NormalHeader = ({contents}) => {
   return (
     <View style={styles.container }>
       <TouchableOpacity 
-        style={{borderWidth: 1}}
         onPress={ () => {
           navigation.goBack()
         }}
@@ -34,12 +33,13 @@ const NormalHeader = ({contents}) => {
         <Text style={{
           fontSize:SIZES.base*2.4,
           fontWeight:'bold',
+          letterSpacing: contents[3]
           }}
         >
         {contents[1]}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={{borderWidth: 1}}>
+      <TouchableOpacity>
         <View style={{
           color:COLORS.black,
           position: 'absolute',

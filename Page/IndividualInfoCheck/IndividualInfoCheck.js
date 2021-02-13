@@ -14,7 +14,7 @@ import { icons, iconsSvg, SIZES, COLORS,images, FONTS } from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NormalHeader from '../../components/common/NormalHeader';
 
-const Profile = ({navigation}) => {
+const IndividualInfoCheck = ({navigation}) => {
 
     const [loginCheck,setLoginCheck] = useState(false);
 
@@ -97,7 +97,7 @@ const Profile = ({navigation}) => {
             <TouchableOpacity 
               style={styles.userIntroDuctionBox__id}
               onPress={() => {
-                navigation.navigate
+                navigation.navigate('IndividualInfoCheck')
               }}
             >
               <Text style={[FONTS.body3],{color:COLORS.deepDarkgray}}>hok_00000@naver.com</Text>
@@ -318,4 +318,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Profile
+export default IndividualInfoCheck
