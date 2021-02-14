@@ -32,6 +32,11 @@ const ProfileAppSetting = ({navigation}) => {
           // error reading value
         }
     }
+    const logOut = () =>{
+      AsyncStorage.removeItem('accessToken');
+      AsyncStorage.removeItem('refreshToken');
+      navigation.navigate('컨텐츠');
+    }
       
     useEffect(() => {
         // getUserData();
@@ -63,7 +68,7 @@ const ProfileAppSetting = ({navigation}) => {
               
               <Image source={icons.reverseBlackBack} style={styles.eachUserChoice__image}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.eachUserChoice}>
+            <TouchableOpacity style={styles.eachUserChoice} onPress={()=>logOut()}>
               <Text style={styles.eachUserChoice__Text}>로그아웃</Text>
               <Image source={icons.reverseBlackBack} style={styles.eachUserChoice__image}/>
             </TouchableOpacity>

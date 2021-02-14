@@ -99,7 +99,9 @@ const HomeScreen = ({navigation}) => {
     const [searchVisible,setSearchVisible] = useState(false);
     const [searcListVisible,setSearcListVisible] = useState(false);
     const [searchText,setSearchText] = useState('');
+    const [mapStoreList,setMapStoreList] = useState([]);
 
+    
     let endReachCall;
 
     useEffect(() => { 
@@ -185,7 +187,16 @@ const HomeScreen = ({navigation}) => {
         setLoading(false);
       })
     }
-
+    const changeLocation = (item) =>{
+      
+      axios.post('/bakerylocation',{xposIo:Math.floor(item.longitude * 100)/100,yposIa:Math.floor(item.latitude * 100)/100})
+      .then(function (response) {
+        setMapStoreList(response.data)
+      })
+      .catch((err)=>{
+        console.log(err.response)
+      })
+    }
     const renderBakery = ({item}) =>{
         return(
       
@@ -312,7 +323,7 @@ const HomeScreen = ({navigation}) => {
               <MapView
                 style={{height:'100%'}}
                 provides={PROVIDER_GOOGLE}
-                onRegionChangeComplete={region => console.log(region)}
+                onRegionChangeComplete={region => changeLocation(region)}
                 initialRegion={{ 
                   latitude: 37.77489, 
                   longitude: 128.91155,

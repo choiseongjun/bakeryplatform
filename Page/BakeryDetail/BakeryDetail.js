@@ -106,25 +106,22 @@ const BakeryDetail = ({navigation,route}) => {
     }
     return (
         <ScrollView>
-        <View style={{backgroundColor:'white',height:'auto'}}>
-            {writeVisible?
-                renderReviewWrite()
-            :
-            <>
-            <DetailSwiperImage navigation={navigation} />
-            <View style={{marginTop:70,left:30}}>
-                <HashTag />
+            <View style={{backgroundColor:'white',height:'auto'}}>
+                {writeVisible?
+                    renderReviewWrite()
+                :
+                <>
+                <DetailSwiperImage navigation={navigation} />
+                <View style={{marginTop:70,left:30}}>
+                    <HashTag />
+                </View>
+                <DetailTabView 
+                    writeVisible={writeVisible}
+                    setWriteVisible={setWriteVisible}
+                /> 
+                </>
+                }
             </View>
-            <DetailTabView 
-                writeVisible={writeVisible}
-                setWriteVisible={setWriteVisible}
-            /> 
-            </>
-            }
-            
-       
-            
-        </View>
         </ScrollView>
     )
 }

@@ -9,7 +9,7 @@ import HomeScreen from './HomeScreen';
 import ContentWrite from './contentWrite/ContentWrite';
 import { icons } from '../constants';
 import Home from './home/Home';
-import Profile from './Profile/Profile';
+import Profile from './profile/Profile';
 import Recommand from './recommand/Recommand';
 
 const Tab = createBottomTabNavigator();

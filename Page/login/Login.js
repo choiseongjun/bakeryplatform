@@ -7,7 +7,8 @@ import {
     Image,
     ScrollView,
     Modal,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 import { icons, SIZES, COLORS } from '../../constants';
 import axios from 'axios';
@@ -24,10 +25,12 @@ const Login = ({navigation}) => {
         axios.post('/user/login',{userId:userId,password:password})
         .then(function (response) {
           // handle success
-
+         console.log(response)
+         console.log('성공..')
           AsyncStorage.setItem('accessToken', response.data.token);
           AsyncStorage.setItem('refreshToken', response.data.refreshToken);
-          navigation.navigate("Profile");
+          Alert.alert('성공적으로 로그인이 되었습니다.');
+          navigation.navigate("컨텐츠");
         })
         .catch((err)=>{
           console.log(err.response)

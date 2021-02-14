@@ -13,32 +13,52 @@ import {
 import { icons, iconsSvg, SIZES, COLORS,images, FONTS } from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NormalHeader from '../../components/common/NormalHeader';
+import { useFocusEffect } from '@react-navigation/native';
+import {useDispatch,useSelector } from 'react-redux';
+import { USER_INFO_REQUEST } from '../../redux/reducers/userReducer';
+import { DeviceEventEmitter } from 'react-native';
 
 const Profile = ({navigation}) => {
-
+    const dispatch = useDispatch();
     const [loginCheck,setLoginCheck] = useState(false);
+    const { userinfoDone} = useSelector((state) => state.userReducer);
+    let token = AsyncStorage.getItem('accessToken')
+    useFocusEffect(
+      React.useCallback(async () => {
+        let token =await AsyncStorage.getItem('accessToken')
+        console.log('token1',token)
 
-    /*
-    *로그인 유무 체크
-    */
-    const getUserData = async () => {
-        try {
-          const value = await AsyncStorage.getItem('accessToken')
-          if(value !== null) {
-            // value previously stored
-            setLoginCheck(true);
-          }
-        } catch(e) {
-          // error reading value
+        if(token===null){
+          navigation.navigate("Login")
         }
-    }
-      
-    useEffect(() => {
-        // getUserData();
-        // if(!loginCheck)
-        //     navigation.navigate("Login")
-    },[])
+      }, [])
+    ); 
+  
+    // useFocusEffect(
+    //   React.useCallback(() => {
 
+    //     dispatch({
+    //       type: USER_INFO_REQUEST 
+    //     });
+    //     console.log('loginCheck',loginCheck)
+    //     console.log('userinfoDone',userinfoDone)
+    //     if(!userinfoDone)
+    //         navigation.navigate("Login")
+    //   }, [loginCheck,userinfoDone])
+    // );
+    // useEffect(() => {
+    //   DeviceEventEmitter.addListener('abc', () => {
+        
+    //     dispatch({
+    //       type: USER_INFO_REQUEST 
+    //     });
+    //     console.log('userinfoDone',userinfoDone)
+    //     if(!userinfoDone){
+    //       navigation.navigate("Login")
+    //     }
+            
+    //   })
+    // }, [loginCheck,userinfoDone]);
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <View style={styles.optionBar}>

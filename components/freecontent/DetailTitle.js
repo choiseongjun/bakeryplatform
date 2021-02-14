@@ -7,12 +7,30 @@ import {
     Image,
     ScrollView,
     Modal,
-    TextInput
+    TextInput,
+    useWindowDimensions
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
+import {RichEditor,RichToolbar} from 'react-native-pell-rich-editor';
+import HTML from "react-native-render-html";
 
+const DetailTitle = ({detailData,contentDetail,prevnextData}) => {
+    const richText = React.createRef();
+    const htmlContent = `
+    <h1>This HTML snippet is now rendered with native components !</h1>
+    <h2>Enjoy a webview-free and blazing fast application</h2>
+    <img src="https://i.imgur.com/dHLmxfO.jpg?2" />
+    <em style="textAlign: center;">Look at how happy this native cat is</em>
+`;
+    const contentWidth = useWindowDimensions().width;
+    React.useEffect(() => {
+        console.log('vsdvsdv',contentDetail )
+    },[contentDetail])
 
-const DetailTitle = ({detailData,prevnextData}) => {
+    let text = contentDetail.content;
+    const handleChange = () =>{ 
+
+    }
     return (
         <View>
             <View style={styles.titleContainer}>
@@ -25,7 +43,10 @@ const DetailTitle = ({detailData,prevnextData}) => {
             </View>
             <View style={{width:'90%',marginTop:20,borderBottomWidth:1,borderBottomColor:COLORS.maingray}}></View>
             <View style={styles.contentContainer}>
-                <Text style={styles.contentText}>{detailData.content}</Text>
+                {/* <Text style={styles.contentText}>{contentDetail.content}</Text> */}
+                <ScrollView style={{ flex: 1 }}>
+                    <HTML source={{ html: contentDetail.content }} contentWidth={contentWidth} />
+                </ScrollView>
             </View>
             <View>
                 <View style={{width:'90%',marginTop:20,borderBottomWidth:1,borderBottomColor:COLORS.maingray}}></View>
@@ -34,7 +55,7 @@ const DetailTitle = ({detailData,prevnextData}) => {
                         <View style={{display: 'flex',flexDirection: 'row'}}>
                             <Text>이전</Text>
                             <Text style={{marginLeft:15}}>{prevnextData.prevData}</Text>
-                        </View>
+                        </View> 
                         <View style={{width:'90%',marginTop:20,borderBottomWidth:1,borderBottomColor:COLORS.darkgray}}></View>
                         <View style={{display: 'flex',flexDirection: 'row',marginTop:15}}>
                             <Text>다음</Text>
