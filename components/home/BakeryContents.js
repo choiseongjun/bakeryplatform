@@ -48,12 +48,21 @@ const Item = ({ title }) => (
       <Text style={styles.title}>{title}</Text>
     </View>
   );
-const BakeryContents = ({navigation,setModalOpen}) => {
+const BakeryContents = ({navigation,token,modalOpen,setModalOpen}) => {
     const renderItem = ({ item }) => (
         <TouchableOpacity
         activeOpacity={1}
         // onPress={() => setModalOpen(true)}
-        onPress={() =>navigation.navigate('BakeryContent')}
+        onPress={() =>{
+            token.then((item)=>{
+                if(item===null){
+                    setModalOpen(true)
+                }else{
+                    navigation.navigate('BakeryContent')
+                }
+            })
+            
+        }}
         >
         <View style={{display: 'flex',flexDirection: 'row',width:'50%',marginTop:20}}>
             <Image

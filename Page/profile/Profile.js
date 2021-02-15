@@ -22,15 +22,18 @@ const Profile = ({navigation}) => {
     const dispatch = useDispatch();
     const [loginCheck,setLoginCheck] = useState(false);
     const { userinfoDone} = useSelector((state) => state.userReducer);
-    let token = AsyncStorage.getItem('accessToken')
+
     useFocusEffect(
-      React.useCallback(async () => {
-        let token =await AsyncStorage.getItem('accessToken')
+      React.useCallback( () => {
+        let token = AsyncStorage.getItem('accessToken')
         console.log('token1',token)
 
-        if(token===null){
-          navigation.navigate("Login")
-        }
+        token.then((item)=>{
+          if(item===null){
+            navigation.navigate("Login")
+          }
+        })
+        
       }, [])
     ); 
   

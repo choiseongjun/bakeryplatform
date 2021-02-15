@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {   
     StyleSheet,
     View,
@@ -16,22 +16,37 @@ import FreeContents from '../../components/home/FreeContents';
 import RecommandArea from '../../components/home/RecommandArea';
 import RequireLogin from '../../components/common/RequireLogin';
 import CategoryMenuHeader from '../../components/common/CategoryMenuHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}) => {
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);//로그인모달창 오픈여부
     const [categoryMenu,setCategoryMenu ] = useState(false);
+    let token = AsyncStorage.getItem('accessToken');    
+
+    useEffect(() => {
+
+        token.then((item)=>{
+            if(item===null){
+                setModalOpen(true);
+            }else{
+                setModalOpen(false);
+            }
+        })
+
+
+    },[])
 
     const renderMain = () =>{
         return(
             <>
                 <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
-                <RequireLogin navigation={navigation} setModalOpen={setModalOpen} />
+                {modalOpen&&<RequireLogin navigation={navigation} setModalOpen={setModalOpen} />}
                 </Modal>
                 <ScrollView> 
                     <HomeHeader setCategoryMenu={setCategoryMenu} />
                     <TopTitle />
-                    <BakeryContents navigation={navigation} setModalOpen={setModalOpen}/>
-                    <FreeContents navigation={navigation} />
+                    <BakeryContents navigation={navigation} token={token} modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+                    <FreeContents navigation={navigation} token={token} modalOpen={modalOpen} setModalOpen={setModalOpen}/>
                     <RecommandArea />
                 </ScrollView> 
             </>

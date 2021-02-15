@@ -100,7 +100,6 @@ const HomeScreen = ({navigation}) => {
     const [searcListVisible,setSearcListVisible] = useState(false);
     const [searchText,setSearchText] = useState('');
     const [mapStoreList,setMapStoreList] = useState([]);
-
     
     let endReachCall;
 
@@ -189,9 +188,10 @@ const HomeScreen = ({navigation}) => {
     }
     const changeLocation = (item) =>{
       
-      axios.post('/bakerylocation',{xposIo:Math.floor(item.longitude * 100)/100,yposIa:Math.floor(item.latitude * 100)/100})
+      axios.post('/bakerylocation',{xposIo:Math.floor(item.longitude * 10)/10,yposIa:Math.floor(item.latitude * 100)/100})
       .then(function (response) {
         setMapStoreList(response.data)
+        console.log('responseData',response.data)
       })
       .catch((err)=>{
         console.log(err.response)
@@ -331,7 +331,7 @@ const HomeScreen = ({navigation}) => {
                   longitudeDelta: 0.0421, 
                 }}>
                 
-                  {bakeryData.map((item, index) => (
+                  {mapStoreList.map((item, index) => (
                     <Marker
                       key={`location-${index}`}
                       coordinate={{

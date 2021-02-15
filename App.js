@@ -26,7 +26,7 @@ import { USER_INFO_REQUEST } from './redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
 
 
-axios.defaults.baseURL = 'http://14.49.85.65:8080/';
+axios.defaults.baseURL = 'http://192.168.0.16:8080/';
 const getToken = AsyncStorage.getItem('accessToken');
 getToken.then((item) => {
   if (item != null) {

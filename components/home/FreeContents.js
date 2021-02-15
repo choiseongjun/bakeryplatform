@@ -44,11 +44,19 @@ const bakeryContentData = [
     },
 ]
 
-const FreeContents = ({navigation}) => {
+const FreeContents = ({navigation,token,modalOpen,setModalOpen}) => {
     const renderItem = ({ item }) => (
         <TouchableOpacity
         activeOpacity={1}
-        onPress={() => navigation.navigate('FreeContentDetail')}>
+        onPress={() => {
+            token.then((item)=>{
+                if(item===null){
+                    setModalOpen(true)
+                }else{
+                    navigation.navigate('FreeContentDetail')
+                }
+            })
+            }}>
             <View style={{display: 'flex',flexDirection: 'row',width:'50%',marginTop:20}}>
                 <Image
                     source={item.image}
