@@ -30,6 +30,10 @@ const recommand15 = require("../assets/images/recommand/recommand15.png");
 const content1 = require("../assets/images/category/content1.png");
 const content2 = require("../assets/images/category/content2.png");
 
+const step1 = require("../assets/images/step1.png");
+const step2 = require("../assets/images/step2.png");
+const step3 = require("../assets/images/step3.png");
+
 export default {
     avatar_1,
     avatar_2,
@@ -56,5 +60,8 @@ export default {
     recommand14,
     recommand15,
     content1,
-    content2
+    content2,
+    step1,
+    step2,
+    step3
 }

@@ -10,7 +10,8 @@ import {
   Image,
   Platform, 
   PermissionsAndroid,
-  FlatList
+  FlatList,
+  Animated
 } from 'react-native';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -100,7 +101,10 @@ const HomeScreen = ({navigation}) => {
     const [searcListVisible,setSearcListVisible] = useState(false);
     const [searchText,setSearchText] = useState('');
     const [mapStoreList,setMapStoreList] = useState([]);
-    
+    const [enlarge,setEnlarge] = useState(false);//맵에 있는 스토어 확대 여부
+    const pan = React.useRef(new Animated.ValueXY()).current;
+    const _map = React.useRef(null);
+    const _scrollView = React.useRef(null);
     let endReachCall;
 
     useEffect(() => { 
@@ -141,6 +145,10 @@ const HomeScreen = ({navigation}) => {
         setLoading(false);
       })
     }, [page])
+
+    useEffect(() => {
+      
+    },[])
 
 
     const checktoggle = () => {
@@ -320,7 +328,9 @@ const HomeScreen = ({navigation}) => {
                 />
               :
               <>
+              <View style={{flex:1}}>
               <MapView
+                ref={_map}
                 style={{height:'100%'}}
                 provides={PROVIDER_GOOGLE}
                 onRegionChangeComplete={region => changeLocation(region)}
@@ -331,35 +341,77 @@ const HomeScreen = ({navigation}) => {
                   longitudeDelta: 0.0421, 
                 }}>
                 
-                  {mapStoreList.map((item, index) => (
-                    <Marker
-                      key={`location-${index}`}
-                      coordinate={{
-                        latitude: item.yposIa,
-                        longitude: item.xposIo,
-                      }}
-                      title="Test title"
-                      description="This is to test description"
-                    >
-                      <Image source={require('../assets/icons/breadmapicon.png')} style={{width:30,height:30}} /> 
-                      <Callout tooltip> 
-                          <View style={styles.bubble}>
-                            <Text style={styles.name}>{item.entrpNm}</Text>
-                            {/* <Text>Short description</Text>
-                        
-                            <Text style={{ height: 200, position: "relative", bottom: 40 }}>
-                                <Image
-                                  resizeMode="cover"
-                                  style={{ width: 70, height: 90, }}
-                                  source={{uri: "data:image/png;base64,"+item.image}}
-                                />
-                            </Text> */}
-                          </View>
-                      </Callout>
-                    </Marker>
+                {mapStoreList.map((item, index) => (
+                  <Marker
+                    key={`location-${index}`}
+                    coordinate={{
+                      latitude: item.yposIa,
+                      longitude: item.xposIo,
+                    }}
+                    title="Test title"
+                    description="This is to test description"
+                  >
+                    <Image source={require('../assets/icons/breadmapicon.png')} style={{width:30,height:30}} /> 
+                    <Callout tooltip> 
+                        <View style={styles.bubble}>
+                          <Text style={styles.name}>{item.entrpNm}</Text>
+                          {/* <Text>Short description</Text>
+                      
+                          <Text style={{ height: 200, position: "relative", bottom: 40 }}>
+                              <Image
+                                resizeMode="cover"
+                                style={{ width: 70, height: 90, }}
+                                source={{uri: "data:image/png;base64,"+item.image}}
+                              />
+                          </Text> */}
+                        </View>
+                    </Callout>
+                  </Marker>
+                ))}
+              </MapView>
+             
+              <Animated.ScrollView
+                ref={_scrollView}
+                horizontal={true}
+                scrollEventThrottle={1}
+                pagingEnabled={true} 
+                showsHorizontalScrollIndicator={false}
+                snapToInterval={10}
+                style={[styles.scrollView,{bottom:-200}]}
+                maximumZoomScale={4}
+                minimumZoomScale={0.5}
+                
+                >
+                  {mapStoreList.map((item,index)=>(
+                    <View style={styles.card}>
+                      <View>
+                        <TouchableOpacity onPress={()=>setEnlarge(true)}>
+                          <Text style={{fontFamily:'NotoSans-Black',fontSize: SIZES.base*3.2}}>{item.entrpNm}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity >
+                          <Text style={{fontSize:SIZES.base*2}}>{item.loadAddr}</Text>
+                        </TouchableOpacity>
+                        <View style={{display: 'flex',flexDirection: 'row',marginTop:15}}>
+                            <Text style={{fontSize:SIZES.base*2,color:COLORS.maingray}}>리뷰 5</Text>
+                            <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>|</Text>
+                            <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>연중무휴</Text>
+                        </View>
+                      </View>
+                        <Image
+                         source={{uri: "data:image/png;base64,"+item.image}}
+                         resizeMode="cover"
+                         style={{
+                            position: 'absolute',
+                            right:0,
+                             width: 100,
+                             height: 140
+                         }}
+                        />
+                  </View>
                   ))}
-                </MapView>
-            
+                </Animated.ScrollView>
+                
+                </View>
               </>
               }
             
@@ -448,6 +500,33 @@ const HomeScreen = ({navigation}) => {
       fontSize: 16,
     },
     // Character image
+    scrollView: {
+      position: "absolute",
+      left: -10,
+      right: 0,
+    },
+    card: {
+      padding: 10,
+      elevation: 2,
+      backgroundColor: "#FFF",
+      marginHorizontal: 10, 
+      shadowColor: "#000",
+      shadowRadius: 5,
+      shadowOpacity: 0.3,
+      shadowOffset: { x: 2, y: -2 },
+      height: 330,
+      width: 370,
+      overflow: "hidden",
+      display:'flex',
+      flexDirection:'row',
+      
+    },
+    cardImage: {
+      flex: 3,
+      width: "100%",
+      height: "100%",
+      alignSelf: "center",
+    },
   });
 
   const ContainerFlex = styled.View`
@@ -466,7 +545,6 @@ const HomeScreen = ({navigation}) => {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
   `;
 
   const HeaderOptionList = styled.TouchableOpacity`

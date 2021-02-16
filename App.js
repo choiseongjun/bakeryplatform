@@ -15,6 +15,7 @@ import Recommand from './Page/home/Home';
 import Following from './Page/Following/FollowingHome/following';
 import StorePost from './Page/StorePost/StorePostHome/StorePostHome';
 import IndividualInfoCheck from './Page/IndividualInfoCheck/IndividualInfoCheck';
+import OnBoarding from './Page/onBoarding/OnBoarding';
 import UserLeave from './Page/UserLeave/UserLeave';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider } from 'react-redux';
@@ -26,7 +27,7 @@ import { USER_INFO_REQUEST } from './redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
 
 
-axios.defaults.baseURL = 'http://192.168.0.16:8080/';
+axios.defaults.baseURL = 'http://3.35.255.192:8080/';
 const getToken = AsyncStorage.getItem('accessToken');
 getToken.then((item) => {
   if (item != null) {
@@ -57,8 +58,9 @@ function App(){
               headerShown: false,
             }}
             >
+                <Stack.Screen name="OnBoarding" component={OnBoarding} />
                 <Stack.Screen name="Home" component={Bottom} />
-                <Stack.Screen name="Recommand" component={Recommand} />
+                <Stack.Screen name="Recommand" component={Recommand} /> 
                 <Stack.Screen name="BakeryDetail" component={BakeryDetail} />
                 <Stack.Screen name="Join" component={Join} />
                 <Stack.Screen name="Login" component={Login} />
