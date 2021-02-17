@@ -65,6 +65,7 @@ const ContentWrite = ({navigation}) => {
     }  
  
     const writeContent = () =>{
+        console.log(content)
         axios.post('/contents/write',{imageId:imageId,title:title,content:content,category:category})
                 .then(function (response) {
                     setTitle('');
@@ -85,6 +86,7 @@ const ContentWrite = ({navigation}) => {
         <ScrollView>
             <View style={{backgroundColor: COLORS.white,height:'auto',flex:1}}>
                 <ContentWriterHeader writeContent={writeContent}/>
+                
                 <View style={{display: 'flex',marginTop:30,marginLeft:20}}>
                     <Picker
                     selectedValue={category}
