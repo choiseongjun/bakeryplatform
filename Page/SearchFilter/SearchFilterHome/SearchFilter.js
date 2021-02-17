@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   View,
   Text,
   SafeAreaView,
-  StyleSheet
+  StyleSheet,
+  Modal
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native'
 
 import { SIZES } from '../../../constants';
 
@@ -14,16 +14,22 @@ import SearchCriteria from '../SearchFilterComponent/SearchCriteria';
 import SearchTag from '../SearchFilterComponent/SearchTag';
 import SearchParking from '../SearchFilterComponent/SearchParking';
 import SearchDecision from '../SearchFilterComponent/SearchDecision';
+import Require from '../../../components/common/RequireLogin';
 import AddTag from '../../AddTag/AddTag';
+import RequireLogin from '../../../components/common/RequireLogin';
+import SearchAddTag from '../../SearchFilter/SearchFilterComponent/SearchAddTag';
 
-const SearchFilter = ({navigation, route}) => {
-  //const {show} = route.params;
+const SearchFilter = ({navigation}) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [show, setShow] = useState(false);
   useEffect(() => {
     console.log('SearchFilter 2/9')
   }, [])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}> 
+        
+      
       <View style={{
         flex: 1,
         paddingLeft: SIZES.padding * 2.4,
@@ -39,7 +45,7 @@ const SearchFilter = ({navigation, route}) => {
             <SearchCriteria />
           </View>
           <View style={[styles.searchFilterComponent]}>
-            <SearchTag />
+            <SearchTag navigation={navigation} setModalOpen={setModalOpen} />
           </View>
           <View style={[styles.searchFilterComponent, {paddingTop: 70}]}>
             <SearchParking />
@@ -48,10 +54,19 @@ const SearchFilter = ({navigation, route}) => {
             <SearchDecision />
           </View>
         </View>
-        {
-          //show && <AddTag show={show} />
-        }
+        
+        {/*
+          show && <AddTag setShow={setShow} />
+        */}
       </View>
+      <Modal
+          transparent={true}
+          visible={modalOpen}
+          style={{width: 300}}
+          animationType='slide'
+        >
+          <SearchAddTag navigation={navigation} setModalOpen={setModalOpen} />
+        </Modal>
     </SafeAreaView>
   )
 }

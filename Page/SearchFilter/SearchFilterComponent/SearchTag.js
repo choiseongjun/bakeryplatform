@@ -13,7 +13,7 @@ import { icons, COLORS, SIZES, FONTS } from '../../../constants';
 import TagBox from '../../../components/common/TagBox';
 import AddTag from '../../../Page/AddTag/AddTag';
 
-const SearchTag = ({navigation}) => {
+const SearchTag = ({navigation, setModalOpen}) => {
   
   let wholeTag = [
     {id: 1, tagname: '#분위기좋은', isSpecial: false},
@@ -56,6 +56,8 @@ const SearchTag = ({navigation}) => {
                 key={content.id} 
                 tagname={content.tagname}
                 isSpecial={content.isSpecial}
+                navigation={navigation}
+                setModalOpen={setModalOpen}
                 />
               );
             })

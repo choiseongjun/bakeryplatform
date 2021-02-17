@@ -9,8 +9,7 @@ import {
   Modal,
 } from 'react-native'
 
-  const AddTag = ({navigation,route}) => {
-    const {show} = route.params;
+  const AddTag = ({navigation, setShow}) => {
     const [showModal, setShowModal] = useState(false)
 
     return (

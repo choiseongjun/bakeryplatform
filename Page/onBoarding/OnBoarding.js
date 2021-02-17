@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
     Animated,
@@ -41,6 +40,7 @@ const OnBoarding = ({navigation}) => {
 
     React.useEffect(() => {
         scrollX.addListener(({ value }) => {
+            console.log(value)
             if (Math.floor(value / SIZES.width) === onBoardings.length - 1) {
                 setCompleted(true);
             }
@@ -109,9 +109,8 @@ const OnBoarding = ({navigation}) => {
                                 {item.description}
                             </Text>
                         </View>
-                        {/* Button */}
                         <TouchableOpacity
-                            style={{
+                            style={{    
                                 position: 'absolute',
                                 right: -50,
                                 bottom: 40,
@@ -174,7 +173,7 @@ const OnBoarding = ({navigation}) => {
             </View>
             <View style={styles.dotsRootContainer}>
                 {renderDots()}
-            </View>
+            </View> 
         </SafeAreaView>
     );
 };

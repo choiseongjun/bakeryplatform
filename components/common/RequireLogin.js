@@ -42,7 +42,10 @@ const RequireLogin = ({navigation,setModalOpen}) => {
                 <View style={[styles.loginContainer,{marginTop:40}]}>
                    <TouchableOpacity
                     activeOpacity={1}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => {
+                        navigation.navigate('Login');
+                        setModalOpen(false);
+                    }}
                     style={[styles.loginBox, {backgroundColor: COLORS.black}]}>
                     <View style={styles.loginSection}>
                        
@@ -66,7 +69,6 @@ const RequireLogin = ({navigation,setModalOpen}) => {
                     onPress={() => {setModalOpen(false);navigation.navigate('Join')}}
                     style={[styles.loginBox, {backgroundColor: COLORS.white,borderColor: COLORS.black,borderWidth:1}]}>
                     <View style={styles.loginSection}>
-                       
                         <View
                         style={{
                             marginLeft: 12,

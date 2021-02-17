@@ -11,7 +11,8 @@ import {
   Platform, 
   PermissionsAndroid,
   FlatList,
-  Animated
+  Animated,
+  LayoutAnimation
 } from 'react-native';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -85,13 +86,19 @@ const HomeScreen = ({navigation}) => {
     const [ colors, setColor ] = useState({
       color: COLORS.black,
       preColor: COLORS.darkgray,
-
     });
     
     const [fonts, setFont] = useState({
       fontWeight: '700',
       preFontWeight: '600',
     });
+
+    const [bottom, setBottom] = useState({
+      bottom: -200,
+      preBottom: 0
+    })
+    
+    const scrollX = new Animated.Value(0);
 
     const [ toggle, setToggle] = useState(true);
     const [location, setLocation] = useState(); 
@@ -101,15 +108,30 @@ const HomeScreen = ({navigation}) => {
     const [searcListVisible,setSearcListVisible] = useState(false);
     const [searchText,setSearchText] = useState('');
     const [mapStoreList,setMapStoreList] = useState([]);
+    const [isClicked, setIsClicked] = useState(false);
+    
     const [enlarge,setEnlarge] = useState(false);//맵에 있는 스토어 확대 여부
     const pan = React.useRef(new Animated.ValueXY()).current;
     const _map = React.useRef(null);
     const _scrollView = React.useRef(null);
     let endReachCall;
 
+    const isTouchedStore = {
+      upSize: 0,
+      downSize: -200
+    }
+
+    if(enlarge === false) {
+      isTouchedStore.upSize = -200
+      isTouchedStore.downSize = 0
+    } else {
+      isTouchedStore.upSize = 0
+      isTouchedStore.downSize = -200
+    }
+
     useEffect(() => { 
-      requestPermission().then(result => { 
-        console.log({ result }); 
+      requestPermission().then(result => {
+        console.log({ result });
         if (result === "granted") {  
           Geolocation.getCurrentPosition( 
             pos => { 
@@ -149,6 +171,20 @@ const HomeScreen = ({navigation}) => {
     useEffect(() => {
       
     },[])
+
+    const touchStore = () => {
+      LayoutAnimation.spring()
+      isClicked ?
+      setBottom({
+        bottom: -38,
+        preBottom: -200
+      })
+      :
+      setBottom({
+        bottom: -200,
+        preBottom: -38
+      })
+    }
 
 
     const checktoggle = () => {
@@ -207,7 +243,6 @@ const HomeScreen = ({navigation}) => {
     }
     const renderBakery = ({item}) =>{
         return(
-      
           <TouchableOpacity onPress={() => navigation.navigate('BakeryDetail',{bakeryId:item.id})}>
             <EachBread key={item.id}>
                 <View style={{width:220,marginTop:30}}>
@@ -237,7 +272,6 @@ const HomeScreen = ({navigation}) => {
                             height: '100%',
                         }}
                     />
-
               </EachBread>
             </TouchableOpacity>
           
@@ -245,6 +279,13 @@ const HomeScreen = ({navigation}) => {
     }
     
     const renderStoreList = () =>{
+
+      React.useEffect(() => {
+        scrollX.addListener(({value}) => {
+          console.log(value)
+        })
+      })
+
       return(
         <>
         <View style = {{
@@ -369,49 +410,58 @@ const HomeScreen = ({navigation}) => {
                   </Marker>
                 ))}
               </MapView>
-             
-              <Animated.ScrollView
-                ref={_scrollView}
-                horizontal={true}
-                scrollEventThrottle={1}
-                pagingEnabled={true} 
-                showsHorizontalScrollIndicator={false}
-                snapToInterval={10}
-                style={[styles.scrollView,{bottom:-200}]}
-                maximumZoomScale={4}
-                minimumZoomScale={0.5}
-                
-                >
-                  {mapStoreList.map((item,index)=>(
-                    <View style={styles.card}>
-                      <View>
-                        <TouchableOpacity onPress={()=>setEnlarge(true)}>
-                          <Text style={{fontFamily:'NotoSans-Black',fontSize: SIZES.base*3.2}}>{item.entrpNm}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity >
-                          <Text style={{fontSize:SIZES.base*2}}>{item.loadAddr}</Text>
-                        </TouchableOpacity>
-                        <View style={{display: 'flex',flexDirection: 'row',marginTop:15}}>
-                            <Text style={{fontSize:SIZES.base*2,color:COLORS.maingray}}>리뷰 5</Text>
-                            <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>|</Text>
-                            <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>연중무휴</Text>
-                        </View>
+                  <Animated.ScrollView
+                    ref={_scrollView}
+                    horizontal
+                    scrollEventThrottle={16}
+                    pagingEnabled={true} 
+                    showsHorizontalScrollIndicator={false}
+                    snapToInterval={10}
+                    style={[styles.scrollView,{
+                      bottom: bottom.bottom
+                    }
+                    ]}
+                    maximumZoomScale={4}
+                    minimumZoomScale={0.5}
+                  
+                  >
+                      {mapStoreList.map((item,index)=>(
+                        <View style={styles.card}>
+                          <View>
+                            <TouchableOpacity 
+                              onPress={
+                                ()=>{
+                                  setIsClicked(!isClicked);
+                                  touchStore();
+                                }
+                              }
+
+                            >
+                              <Text style={{fontFamily:'NotoSans-Black',fontSize: SIZES.base*3.2}}>{item.entrpNm}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity >
+                              <Text style={{fontSize:SIZES.base*2}}>{item.loadAddr}</Text>
+                            </TouchableOpacity>
+                            <View style={{display: 'flex',flexDirection: 'row',marginTop:15}}>
+                                <Text style={{fontSize:SIZES.base*2,color:COLORS.maingray}}>리뷰 5</Text>
+                                <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>|</Text>
+                                <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>연중무휴</Text>
+                            </View>
+                          </View>
+                            <Image
+                             source={{uri: "data:image/png;base64,"+item.image}}
+                             resizeMode="cover"
+                             style={{
+                                position: 'absolute',
+                                right:0,
+                                 width: 100,
+                                 height: 140
+                             }}
+                            />
                       </View>
-                        <Image
-                         source={{uri: "data:image/png;base64,"+item.image}}
-                         resizeMode="cover"
-                         style={{
-                            position: 'absolute',
-                            right:0,
-                             width: 100,
-                             height: 140
-                         }}
-                        />
-                  </View>
-                  ))}
-                </Animated.ScrollView>
-                
-                </View>
+                      ))}
+                  </Animated.ScrollView>
+              </View>
               </>
               }
             
@@ -504,6 +554,7 @@ const HomeScreen = ({navigation}) => {
       position: "absolute",
       left: -10,
       right: 0,
+      bottom:-200
     },
     card: {
       padding: 10,

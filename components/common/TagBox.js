@@ -8,10 +8,9 @@ import {
 } from 'react-native'
 
 import { icons, COLORS,SIZES, FONTS } from '../../constants';
-import SearchFilter from '../../Page/SearchFilter/SearchFilterHome/SearchFilter'
-import {useNavigation} from '@react-navigation/native'
 
-const TagBox = ({navigation, tagname, isSpecial}) => {
+const TagBox = ({navigation, tagname, isSpecial, setModalOpen}) => {
+  
   const [isClicked, setIsClicked] = useState(false);
   const optionFeature = {
     ImageWidth: 18,
@@ -28,6 +27,13 @@ const TagBox = ({navigation, tagname, isSpecial}) => {
     optionFeature.ImageBorder = 1;
     optionFeature.ImageBorderColor = COLORS.deepDarkGray;
     optionFeature.color = COLORS.darkgray
+  } else if(tagname == '입력해주세요') {
+    optionFeature.ImageWidth = 0;
+    optionFeature.ImageHeight = 0;
+    optionFeature.ImageBgColor = 'white';
+    optionFeature.ImageBorder = 1;
+    optionFeature.ImageBorderColor = COLORS.deepDarkGray;
+    optionFeature.color = COLORS.darkgray
   }
   return (
           isClicked ?
@@ -35,7 +41,7 @@ const TagBox = ({navigation, tagname, isSpecial}) => {
             onPress={() => {
               setIsClicked(false)
               if(tagname == '+') {
-                  navigation.navigate('SearchFilter', {show: true})
+                  setModalOpen(true);
               }
             }}
             style={[
