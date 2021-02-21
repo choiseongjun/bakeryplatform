@@ -10,6 +10,7 @@ import {
 import { icons, SIZES, COLORS,images } from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 // const bakeryContentData = [
@@ -52,18 +53,19 @@ const FreeContents = ({navigation,modalOpen,setModalOpen}) => {
 
     const [freeContentData,setFreeContentData] = useState([]);
 
-    useEffect(() => {
-
-        axios.get('/contentList/2')
-        .then(function (response) {
-
-            setFreeContentData(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-         
-    },[])
+    useFocusEffect(
+        React.useCallback( () => {
+            axios.get('/contentList/2')
+            .then(function (response) {
+    
+                setFreeContentData(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+          
+        }, [])
+      ); 
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
