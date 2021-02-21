@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     mainTitle:{
         fontSize:SIZES.base*3,
         fontWeight:'bold',
-        marginTop:15
+        marginTop:15,
+        fontFamily:'NotoSans-Black' 
     },
     hashTagList:{
         marginTop:30,

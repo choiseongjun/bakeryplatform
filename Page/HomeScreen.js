@@ -21,6 +21,7 @@ import Header from '../components/common/Header';
 import MapView, { PROVIDER_GOOGLE,Marker } from "react-native-maps";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Callout } from 'react-native-maps';
+import Geolocation from 'react-native-geolocation-service';
 
 
 
@@ -156,14 +157,16 @@ const HomeScreen = ({navigation}) => {
     };
     useEffect(() => {
       setLoading(true);
+      console.log('gggg')
       axios.get('/bakery?page='+page)
       .then(function (response) {
         // handle success
+        console.log('res',response)
         setBakeryData([...bakeryData, ...response.data]);
         setLoading(false);
       })
       .catch((err)=>{
-        console.log(err.response)
+        console.log(err)
         setLoading(false);
       })
     }, [page])
@@ -232,12 +235,15 @@ const HomeScreen = ({navigation}) => {
     }
     const changeLocation = (item) =>{
       
+      console.log('item change',item)
+
       axios.post('/bakerylocation',{xposIo:Math.floor(item.longitude * 10)/10,yposIa:Math.floor(item.latitude * 100)/100})
       .then(function (response) {
         setMapStoreList(response.data)
         console.log('responseData',response.data)
       })
       .catch((err)=>{
+        console.log(err)
         console.log(err.response)
       })
     }

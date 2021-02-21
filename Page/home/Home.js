@@ -17,24 +17,39 @@ import RecommandArea from '../../components/home/RecommandArea';
 import RequireLogin from '../../components/common/RequireLogin';
 import CategoryMenuHeader from '../../components/common/CategoryMenuHeader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Home = ({navigation}) => {
     const [modalOpen, setModalOpen] = useState(false);//로그인모달창 오픈여부
     const [categoryMenu,setCategoryMenu ] = useState(false);
-    let token = AsyncStorage.getItem('accessToken');    
 
-    useEffect(() => {
 
-        token.then((item)=>{
+    // useEffect(() => {
+        
+    //     token.then((item)=>{
+    //         if(item===null){
+    //             setModalOpen(true);
+    //         }else{
+    //             setModalOpen(false);
+    //         }
+    //     }) 
+
+
+    // },[])
+    useFocusEffect(
+        React.useCallback( () => {
+          let token = AsyncStorage.getItem('accessToken');    
+          token.then((item)=>{
+              console.log('item',item)
             if(item===null){
                 setModalOpen(true);
             }else{
                 setModalOpen(false);
             }
-        })
-
-
-    },[])
+          })
+          
+        }, [])
+      ); 
 
     const renderMain = () =>{
         return(
@@ -45,15 +60,15 @@ const Home = ({navigation}) => {
                 <ScrollView> 
                     <HomeHeader setCategoryMenu={setCategoryMenu} />
                     <TopTitle />
-                    <BakeryContents navigation={navigation} token={token} modalOpen={modalOpen} setModalOpen={setModalOpen}/>
-                    <FreeContents navigation={navigation} token={token} modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+                    <BakeryContents navigation={navigation}  modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+                    <FreeContents navigation={navigation}  modalOpen={modalOpen} setModalOpen={setModalOpen}/>
                     <RecommandArea />
                 </ScrollView> 
             </>
         )
     }
     const renderCategory = () =>{
-        return(
+        return( 
             <View>
                 <CategoryMenuHeader setCategoryMenu={setCategoryMenu} />
                 <Text>dsff</Text>
