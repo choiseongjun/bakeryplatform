@@ -34,6 +34,7 @@ const FreeContentDetail = ({navigation,route}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [contentDetail,setContentDetail] = useState([]);
     const [contentPrevNext,setContentPrevNext] = useState([]);
+    const [commentList,setCommentList] = useState([]);
 
     useEffect(() => {
         
@@ -46,8 +47,15 @@ const FreeContentDetail = ({navigation,route}) => {
         })
         axios.get(`/contentDetailNextPrev/${route.params.freeContentId}`)
         .then(function (response) {
-            console.log('response.data',response.data)
             setContentPrevNext(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        axios.get(`/contents/reply/${route.params.freeContentId}`)
+        .then(function (response) {
+
+            setCommentList(response.data);
         })
         .catch(function (error) {
             console.log(error);
@@ -58,9 +66,9 @@ const FreeContentDetail = ({navigation,route}) => {
         <View style={{flex:1,backgroundColor:COLORS.white}}>
              <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
               
-                <CommentList setModalOpen={setModalOpen} />
+                <CommentList setModalOpen={setModalOpen} commentList={commentList} />
                 <View >
-                    <CommentWrite /> 
+                    <CommentWrite freeContentId={route.params.freeContentId} commentList={commentList} setCommentList={setCommentList} /> 
                 </View>
             </Modal>
             <ScrollView style={{height:600}}>

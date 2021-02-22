@@ -46,9 +46,9 @@ const Stack = createStackNavigator();
 
 function App(){
   const dispatch = useDispatch();
-
+  const getToken = AsyncStorage.getItem('accessToken');
   useEffect(() => {
-    const getToken = AsyncStorage.getItem('accessToken');
+    
     getToken.then((item) => {
       if (item != null) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
@@ -58,7 +58,7 @@ function App(){
       }
     });
 
-  },[])
+  },[getToken])
   return (  
         <NavigationContainer> 
             <Stack.Navigator screenOptions={{

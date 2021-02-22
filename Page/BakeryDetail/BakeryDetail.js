@@ -9,6 +9,8 @@ import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 import Textarea from 'react-native-textarea';
 import * as ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const BakeryDetail = ({navigation,route}) => {
 
@@ -78,21 +80,28 @@ const BakeryDetail = ({navigation,route}) => {
             return Alert.alert('별점을 입력해주세요.');
         if(content==='')
             return Alert.alert('내용을 입력해주세요.');
-
-        axios.post(`/bakery/review/${route.params.bakeryId}`,{star:star,content:content})
-        .then(function (response) {
-            console.log(response.data)
-            setWriteVisible(false)
-          // handle success
-          console.log('성공했습니다!');
+        AsyncStorage.getItem('accessToken').then((token)=>{
+            console.log('token!#@',token)
+            if(token===null){
+                return Alert.alert('로그인을 해주세요.');
+            }else{
+                axios.post(`/bakery/review/${route.params.bakeryId}`,{star:star,content:content})
+                .then(function (response) {
+                    console.log(response.data)
+                    setWriteVisible(false)
+                  // handle success
+                  console.log('성공했습니다!');
+                })
+                .catch((err)=>{
+                  console.log(err.response)
+                })
+                .finally(()=>{
+                    setContent('')
+                    setStar(0)
+                })
+            }
         })
-        .catch((err)=>{
-          console.log(err.response)
-        })
-        .finally(()=>{
-            setContent('')
-            setStar(0)
-        })
+        
 
 
     }

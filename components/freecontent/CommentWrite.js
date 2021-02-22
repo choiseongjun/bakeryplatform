@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {   
     StyleSheet,
     View,
@@ -7,12 +7,34 @@ import {
     Image,
     ScrollView,
     Modal,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS,images } from '../../constants';
+import axios from 'axios';
 
-const CommentWrite = () => {
+const CommentWrite = ({freeContentId,commentList,setCommentList}) => {
     const [comment,setComment] = useState('');
+
+    useEffect(() => {
+      
+
+    },[])
+
+    const submitComment = () =>{
+        axios.post(`/contents/reply/write/${freeContentId}`,{content:comment})
+        .then(function (response) {
+            console.log('cmtddd',response.data)
+            setComment('');
+            setCommentList([response.data, ...commentList]);
+            
+            Alert.alert('글 등록이 완료되었습니다.');
+        }) 
+        .catch(function (error) {
+            console.log(error);
+        }); 
+    }
+
     return (
         <View style={{height:70,backgroundColor:COLORS.white,borderTopColor:COLORS.darkgray,borderTopWidth:1}}>
             <View style={{display: 'flex',flexDirection: 'row'}}>
@@ -24,7 +46,9 @@ const CommentWrite = () => {
             />
             <TouchableOpacity
                 style={{marginTop:18}}
-                    activeOpacity={1}>
+                activeOpacity={1}
+                onPress={submitComment}
+            >
                 <Text style={{fontSize:SIZES.base*2.8}}>등록</Text>
             </TouchableOpacity>
             </View>

@@ -12,76 +12,76 @@ import {
 import { icons, iconsSvg, SIZES, COLORS,images } from '../../constants';
 
 
-const commentList = [
-    {
-        "key": 1,
-        "content": "신세계 지하매장에 맛있는게 많더라구요~",
-        "writer":"skosi_7605",
-        "like_cnt":24,
-        "comment_cnt":10,
-        "image": require("../../assets/images/avatar-1.jpg"),
-        "create_date":"2021.01.22 12:05"
+// const commentList = [
+//     {
+//         "key": 1,
+//         "content": "신세계 지하매장에 맛있는게 많더라구요~1",
+//         "writer":"skosi_7605",
+//         "like_cnt":24,
+//         "comment_cnt":10,
+//         "image": require("../../assets/images/avatar-1.jpg"),
+//         "create_date":"2021.01.22 12:05"
        
-    },
-    {
-        "key": 2,
-        "content": "빵셔틀을 이곳으로",
-        "writer":"hok_00000",
-        "like_cnt":9,
-        "comment_cnt":59,
-        "image": require("../../assets/images/avatar-2.jpg"),
-        "create_date":"2021.02.22 12:05"
-    },
-    {
-        "key": 3,
-        "content": "빵셔틀을 이곳으로",
-        "writer":"hok_00000",
-        "like_cnt":9,
-        "comment_cnt":59,
-        "image": require("../../assets/images/avatar-3.jpg"),
-        "create_date":"2021.03.22 12:05"
-    },
-    {
-        "key": 4,
-        "content": "빵셔틀을 이곳으로",
-        "writer":"hok_00000",
-        "like_cnt":9,
-        "comment_cnt":59,
-        "image": require("../../assets/images/avatar-3.jpg"),
-        "create_date":"2021.03.22 12:05"
-    },
-    {
-        "key": 5,
-        "content": "빵셔틀을 이곳으로",
-        "writer":"hok_00000",
-        "like_cnt":9,
-        "comment_cnt":59,
-        "image": require("../../assets/images/avatar-3.jpg"),
-        "create_date":"2021.03.22 12:05"
-    },
-    {
-        "key": 6,
-        "content": "빵셔틀을 이곳으로",
-        "writer":"hok_00000",
-        "like_cnt":9,
-        "comment_cnt":59,
-        "image": require("../../assets/images/avatar-3.jpg"),
-        "create_date":"2021.03.22 12:05"
-    }, 
-    {
-        "key": 3,
-        "content": "빵셔틀을 이곳으로",
-        "writer":"hok_00000",
-        "like_cnt":9,
-        "comment_cnt":59,
-        "image": require("../../assets/images/avatar-3.jpg"),
-        "create_date":"2021.03.22 12:05"
-    }, 
+//     },
+//     {
+//         "key": 2,
+//         "content": "빵셔틀을 이곳으로",
+//         "writer":"hok_00000",
+//         "like_cnt":9,
+//         "comment_cnt":59,
+//         "image": require("../../assets/images/avatar-2.jpg"),
+//         "create_date":"2021.02.22 12:05"
+//     },
+//     {
+//         "key": 3,
+//         "content": "빵셔틀을 이곳으로",
+//         "writer":"hok_00000",
+//         "like_cnt":9,
+//         "comment_cnt":59,
+//         "image": require("../../assets/images/avatar-3.jpg"),
+//         "create_date":"2021.03.22 12:05"
+//     },
+//     {
+//         "key": 4,
+//         "content": "빵셔틀을 이곳으로",
+//         "writer":"hok_00000",
+//         "like_cnt":9,
+//         "comment_cnt":59,
+//         "image": require("../../assets/images/avatar-3.jpg"),
+//         "create_date":"2021.03.22 12:05"
+//     },
+//     {
+//         "key": 5,
+//         "content": "빵셔틀을 이곳으로",
+//         "writer":"hok_00000",
+//         "like_cnt":9,
+//         "comment_cnt":59,
+//         "image": require("../../assets/images/avatar-3.jpg"),
+//         "create_date":"2021.03.22 12:05"
+//     },
+//     {
+//         "key": 6,
+//         "content": "빵셔틀을 이곳으로",
+//         "writer":"hok_00000",
+//         "like_cnt":9,
+//         "comment_cnt":59,
+//         "image": require("../../assets/images/avatar-3.jpg"),
+//         "create_date":"2021.03.22 12:05"
+//     }, 
+//     {
+//         "key": 3,
+//         "content": "빵셔틀을 이곳으로",
+//         "writer":"hok_00000",
+//         "like_cnt":9,
+//         "comment_cnt":59,
+//         "image": require("../../assets/images/avatar-3.jpg"),
+//         "create_date":"2021.03.22 12:05"
+//     }, 
 
     
-]
+// ]
 
-const CommentList = ({setModalOpen}) => {
+const CommentList = ({setModalOpen,commentList}) => {
     return (
         <ScrollView directionalLockEnabled={true}  
         >
@@ -115,8 +115,8 @@ const CommentList = ({setModalOpen}) => {
                                         }}
                                     />
                                     <View style={{display: 'flex',flexDirection: 'row',left:20}}>
-                                        <Text style={{fontFamily:'NotoSans-Black'}}>{item.writer}</Text>
-                                        <View style={{display: 'flex',flexDirection: 'row',marginLeft:100}}>
+                                        <Text style={{fontFamily:'NotoSans-Black'}}>{item.nickname}</Text>
+                                        <View style={{display: 'flex',flexDirection: 'row',marginLeft:60}}>
                                             <Text>수정</Text>
                                             <Text style={{marginLeft:15}}>|</Text>
                                             <Text style={{marginLeft:15}}>삭제</Text>

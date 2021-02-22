@@ -72,6 +72,7 @@ const ContentWrite = ({navigation}) => {
             return Alert.alert('제목을 입력해주세요.');
         if(content === '')
             return Alert.alert('내용을 입력해주세요.');
+
         
         axios.post('/contents/write',{imageId:imageId,title:title,content:content,categoryKey:parseInt(category)})
                 .then(function (response) {
