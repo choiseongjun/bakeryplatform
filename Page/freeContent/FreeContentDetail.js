@@ -29,18 +29,29 @@ const prevnextData = {
     "nextData":"여기 집 마카롱 개 맛없네요."
 }
 
-const FreeContentDetail = ({navigation}) => {
+const FreeContentDetail = ({navigation,route}) => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [contentDetail,setContentDetail] = useState([]);
+    const [contentPrevNext,setContentPrevNext] = useState([]);
 
     useEffect(() => {
-        axios.get('/contentDetail')
-        .then(function(response) {
-            setContentDetail(response.data)
-        })  
-        .catch((err) => {
-        }) 
+        
+        axios.get(`/contentDetail/${route.params.freeContentId}`)
+        .then(function (response) {
+            setContentDetail(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        axios.get(`/contentDetailNextPrev/${route.params.freeContentId}`)
+        .then(function (response) {
+            console.log('response.data',response.data)
+            setContentPrevNext(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     },[])
 
     return (
@@ -56,7 +67,7 @@ const FreeContentDetail = ({navigation}) => {
             <FreeContentDetailHeader navigation={navigation} />
             <View style={{flex:1}} >
                 <View style={{marginTop:30,marginLeft:20}}>
-                    <DetailTitle detailData={detailData} contentDetail={contentDetail} prevnextData={prevnextData} />                   
+                    <DetailTitle detailData={contentDetail} contentDetail={contentDetail} prevnextData={contentPrevNext} />                   
                 </View>
             </View> 
             </ScrollView>

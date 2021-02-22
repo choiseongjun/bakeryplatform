@@ -26,9 +26,9 @@ const ContentArea = ({bakeryData}) => {
             <View style={styles.underline} />
             <View style={{marginTop:50,marginLeft:20,width:'90%',flex:1}}>
                 <Text style={styles.mainContent}>{bakeryData.maincontent}</Text>
-                 <View style={{marginTop:30}} >
+                 {/* <View style={{marginTop:30}} >
                     <ContentSwiper bakeryData={bakeryData} />
-                 </View>
+                 </View> */}
                  <View style={{marginTop:80}}>
                      <Text style={{fontSize:SIZES.base*2.5}}>{bakeryData.subcontent}</Text>
                  </View>

@@ -23,9 +23,9 @@ const ContentWrite = ({navigation}) => {
 
     const [title,setTitle] = useState('');
     const [content,setContent] = useState('');
-    const [imageId,setImageId] = useState([]);
-    const [img, setImageSource ] = useState([]);  // 이미지를 img변수에 할당시킬겁니다!
-    const [category, setCategory] = useState('bakerycontent');
+    const [imageId,setImageId] = useState('');
+    const [img, setImageSource ] = useState('');  // 이미지를 img변수에 할당시킬겁니다!
+    const [category, setCategory] = useState(1);
 
     const pickImg = ()=>{
    
@@ -52,9 +52,10 @@ const ContentWrite = ({navigation}) => {
 
               axios.post('/common/content/photo',data)
                 .then(function (response) {
-                    console.log(response.data)
-                    setImageSource(img.concat(response.data.url));
-                    setImageId(imageId.concat(response.data.id));
+                    // setImageSource(img.concat(response.data.url));
+                    // setImageId(imageId.concat(response.data.id));
+                    setImageSource(response.data.url);
+                    setImageId(response.data.id)
                 })
                 .catch(function (error) {
                 console.log(error);
@@ -65,13 +66,20 @@ const ContentWrite = ({navigation}) => {
     }  
  
     const writeContent = () =>{
-        axios.post('/contents/write',{imageId:imageId,title:title,content:content,category:category})
+
+
+        if(title === '')
+            return Alert.alert('제목을 입력해주세요.');
+        if(content === '')
+            return Alert.alert('내용을 입력해주세요.');
+        
+        axios.post('/contents/write',{imageId:imageId,title:title,content:content,categoryKey:parseInt(category)})
                 .then(function (response) {
                     setTitle('');
                     setContent(''); 
-                    setImageId([]);
-                    setImageSource([]);
-                    setCategory('bakerycontent')
+                    setImageId('');
+                    setImageSource('');
+                    setCategory('1')
                     navigation.navigate('컨텐츠');
                     Alert.alert('글 등록이 완료되었습니다.');
                     
@@ -85,15 +93,16 @@ const ContentWrite = ({navigation}) => {
         <ScrollView>
             <View style={{backgroundColor: COLORS.white,height:'auto',flex:1}}>
                 <ContentWriterHeader writeContent={writeContent}/>
+                
                 <View style={{display: 'flex',marginTop:30,marginLeft:20}}>
                     <Picker
                     selectedValue={category}
                     style={{height: 50, width: 200}}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setCategory(itemValue)
-                    }>
-                        <Picker.Item label="베이커리 컨텐츠" value="bakerycontent"/>
-                        <Picker.Item label="자유로운 컨텐츠" value="freecontent" />
+                    onValueChange={(itemValue) =>{
+                        setCategory(itemValue) 
+                    }}>
+                        <Picker.Item label="베이커리 컨텐츠" value="1"/>
+                        <Picker.Item label="자유로운 컨텐츠" value="2" />
                     </Picker>
                 </View>
                 <View style={{flex:1,left:30,marginBottom:60}}>
@@ -102,9 +111,9 @@ const ContentWrite = ({navigation}) => {
                         
                     </TouchableOpacity>  
                     <View style={{display: 'flex',flexDirection: 'row',flexWrap: 'wrap',width:'80%'}}>
-                        {img.map((item)=>(
-                            <Image source={{uri: item}} style={{width:100,height:100}}/>
-                        ))}
+                        
+                            <Image source={{uri: img}} style={{width:100,height:100}}/>
+                        
                     </View>
                 </View>
                 <View style={{flex:1,display: 'flex',marginLeft:20}}>

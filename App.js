@@ -3,13 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from "@react-navigation/stack";
 import axios from 'axios';
 import Bottom from './Page/Bottom';
-import BakeryDetail from './Page/BakeryDetail/BakeryDetail';
+import BakeryDetail from './Page/bakeryDetail/BakeryDetail';
 import Join from './Page/join/Join';
 import Login from './Page/login/Login';
 import FreeContentDetail from './Page/freeContent/FreeContentDetail';
 import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 import BakeryContent from './Page/bakeryContent/BakeryContent';
-import Profile from './Page/Profile/Profile';
+import Profile from './Page/profile/Profile';
 import ProfileAppSetting from './Page/ProfileAppSetting/ProfileAppSetting';
 import Recommand from './Page/home/Home';
 import Following from './Page/Following/FollowingHome/following';
@@ -27,7 +27,7 @@ import { USER_INFO_REQUEST } from './redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
 
 
-axios.defaults.baseURL = 'http://3.35.255.192:8080/';
+axios.defaults.baseURL = 'http://192.168.0.34:8080/';
 const getToken = AsyncStorage.getItem('accessToken');
 getToken.then((item) => {
   if (item != null) {
@@ -47,18 +47,18 @@ const Stack = createStackNavigator();
 function App(){
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: USER_INFO_REQUEST
-    });
-  },[])
+  // useEffect(() => {
+  //   dispatch({
+  //     type: USER_INFO_REQUEST
+  //   });
+  // },[])
   return (  
         <NavigationContainer> 
             <Stack.Navigator screenOptions={{
               headerShown: false,
             }}
             >
-                <Stack.Screen name="OnBoarding" component={OnBoarding} />
+                {/* <Stack.Screen name="OnBoarding" component={OnBoarding} /> */}
                 <Stack.Screen name="Home" component={Bottom} />
                 <Stack.Screen name="Recommand" component={Recommand} /> 
                 <Stack.Screen name="BakeryDetail" component={BakeryDetail} />

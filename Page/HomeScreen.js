@@ -20,6 +20,8 @@ import { icons, images, SIZES, COLORS, FONTS } from '../constants';
 import Header from '../components/common/Header';
 import MapView, { PROVIDER_GOOGLE,Marker } from "react-native-maps";
 import { Callout } from 'react-native-maps';
+import Geolocation from 'react-native-geolocation-service';
+import RNLocation from 'react-native-location';
 
 import Loading from './Loading/Loading';
 
@@ -100,7 +102,7 @@ const HomeScreen = ({navigation}) => {
     const scrollX = new Animated.Value(0);
 
     const [ toggle, setToggle] = useState(true);
-    const [location, setLocation] = useState(); 
+    const [location, setLocation] = useState([]); 
     const [page,setPage] = useState(1); 
     const [loading,setLoading] = useState(false);
     const [searchVisible,setSearchVisible] = useState(false);
@@ -127,26 +129,73 @@ const HomeScreen = ({navigation}) => {
       isTouchedStore.upSize = 0
       isTouchedStore.downSize = -200
     }
-
-    useEffect(() => { 
-      requestPermission().then(result => {
-        console.log({ result });
-        if (result === "granted") {  
-          Geolocation.getCurrentPosition( 
-            pos => { 
-              setLocation(pos.coords); 
-            }, 
-            error => { 
-              console.log(error); 
-            }, 
-            { 
-              enableHighAccuracy: true, 
-              timeout: 3600, 
-              maximumAge: 3600, 
-            }, 
-          ); 
-        } 
-      }); 
+    // RNLocation.requestPermission({
+    //   ios: "whenInUse",
+    //   android: {
+    //     detail: "coarfinese"
+    //   }
+    // }).then(granted => {
+    //     if (granted) {
+    //       this.locationSubscription = RNLocation.subscribeToLocationUpdates(locations => {
+            
+    //         setLocation({
+    //           latitude:locations[0].latitude,
+    //           longitude:locations[0].longitude
+    //         })
+    //         // setLocation({
+    //         //   latitude,
+    //         //   longitude
+    //         // }); 
+    //         /* Example location returned
+    //         {
+    //           speed: -1,
+    //           longitude: -0.1337,
+    //           latitude: 51.50998,
+    //           accuracy: 5,
+    //           heading: -1,
+    //           altitude: 0,
+    //           altitudeAccuracy: -1
+    //           floor: 0
+    //           timestamp: 1446007304457.029,
+    //           fromMockProvider: false
+    //         }
+    //         */
+    //       })
+    //     }
+    //   })
+    // useEffect(() => { 
+    //   requestPermission().then(result => {
+    //     if (result === "granted") {  
+    //       Geolocation.getCurrentPosition( 
+    //         pos => { 
+    //           setLocation(pos.coords); 
+    //         }, 
+    //         error => { 
+    //           console.log(error); 
+    //         }, 
+    //         { 
+    //           enableHighAccuracy: true, 
+    //           timeout: 3600, 
+    //           maximumAge: 3600, 
+    //         }, 
+    //       ); 
+    //     } 
+    //   }); 
+    // }, []);
+    useEffect(() => {
+      Geolocation.getCurrentPosition(
+        position => {
+          const {latitude, longitude} = position.coords;
+          setLocation({
+            latitude,
+            longitude,
+          });
+        },
+        error => {
+          console.log(error.code, error.message);
+        },
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      );
     }, []);
 
     const changeToggle = () => { 
@@ -155,21 +204,37 @@ const HomeScreen = ({navigation}) => {
     };
     useEffect(() => {
       setLoading(true);
-      axios.get('/bakery?page='+page)
-      .then(function (response) {
-        // handle success
-        setBakeryData([...bakeryData, ...response.data]);
-        setLoading(false);
-      })
-      .catch((err)=>{
-        console.log(err.response)
-        setLoading(false);
-      })
-    }, [page])
-
-    useEffect(() => {
+      if(location.length!==0){
+        axios.get(`/bakery?page=${page}&xpos=${Math.floor(location.longitude * 100)/100}&ypos=${Math.floor(location.latitude * 100)/100}`)
+        .then(function (response) {
+          // handle success
+          setBakeryData([...bakeryData, ...response.data]);
+          setLoading(false);
+        })
+        .catch((err)=>{
+          console.log(err)
+          setLoading(false);
+        })
+      }
       
-    },[])
+    }, [page,location])
+
+    // useEffect(() => {
+    //   Geolocation.getCurrentPosition(
+    //     position => {
+    //       const {latitude, longitude} = position.coords;
+    //       setLocation({
+    //         latitude,
+    //         longitude,
+    //       });
+    //     }, 
+    //     error => {
+    //       console.log(error.code, error.message);
+    //     },
+    //     {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    //   );
+    // }, []);
+  
 
     const touchStore = () => {
       LayoutAnimation.spring()
@@ -231,12 +296,15 @@ const HomeScreen = ({navigation}) => {
     }
     const changeLocation = (item) =>{
       
-      axios.post('/bakerylocation',{xposIo:Math.floor(item.longitude * 10)/10,yposIa:Math.floor(item.latitude * 100)/100})
+      console.log('item change',item)
+
+      axios.post('/bakerylocation',{xposIo:Math.floor(item.longitude * 100)/100,yposIa:Math.floor(item.latitude * 100)/100})
       .then(function (response) {
         setMapStoreList(response.data)
         console.dir('responseData',response.data)
       })
       .catch((err)=>{
+        console.log(err)
         console.log(err.response)
       })
     }
@@ -376,10 +444,12 @@ const HomeScreen = ({navigation}) => {
                 provides={PROVIDER_GOOGLE}
                 onRegionChangeComplete={region => changeLocation(region)}
                 initialRegion={{ 
-                  latitude: 37.77489, 
-                  longitude: 128.91155,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421, 
+                  latitude: location.latitude, 
+                  longitude: location.longitude,
+                  latitudeDelta: 0.005, 
+                  longitudeDelta: 0.005,
+                  // latitudeDelta: 0.0922,
+                  // longitudeDelta: 0.0421, 
                 }}>
                 
                 {mapStoreList.map((item, index) => (

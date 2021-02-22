@@ -37,7 +37,7 @@ const DetailTitle = ({detailData,contentDetail,prevnextData}) => {
                 <Text style={styles.titleText}>{detailData.title}</Text>
             </View>
             <View style={{marginTop:15,display: 'flex',flexDirection: 'row'}}>
-                <Text style={{fontSize:SIZES.base*2.1}}>{detailData.writer}</Text>
+                <Text style={{fontSize:SIZES.base*2.1}}>{detailData.nickname}</Text>
                 <Text style={{marginLeft:15}}>|</Text>
                 <Text style={{marginLeft:15,fontSize:SIZES.base*2.1}}>{detailData.create_date}</Text>
             </View>
@@ -50,7 +50,7 @@ const DetailTitle = ({detailData,contentDetail,prevnextData}) => {
             </View>
             <View>
                 <View style={{width:'90%',marginTop:20,borderBottomWidth:1,borderBottomColor:COLORS.maingray}}></View>
-                <View style={{marginTop:20}}>
+                {/* <View style={{marginTop:20}}>
                     <View>
                         <View style={{display: 'flex',flexDirection: 'row'}}>
                             <Text>이전</Text>
@@ -62,7 +62,19 @@ const DetailTitle = ({detailData,contentDetail,prevnextData}) => {
                             <Text style={{marginLeft:15}}>{prevnextData.nextData}</Text>
                         </View>
                     </View>
+                </View> */}
+                {prevnextData.map((item,idx)=>(
+                    <View style={{marginTop:20}}>
+                    <View>
+                        <View style={{display: 'flex',flexDirection: 'row'}}>
+                            {idx===1?<Text>다음</Text>:<Text>이전</Text>}
+                            <Text style={{marginLeft:15}}>{item.title}</Text>
+                        </View> 
+                        <View style={{width:'90%',marginTop:20,borderBottomWidth:1,borderBottomColor:COLORS.darkgray}}></View>
+                        
+                    </View>
                 </View>
+                ))}
             </View>
         </View>
     )
