@@ -19,10 +19,9 @@ import axios from 'axios';
 import { icons, images, SIZES, COLORS, FONTS } from '../constants';
 import Header from '../components/common/Header';
 import MapView, { PROVIDER_GOOGLE,Marker } from "react-native-maps";
-import Spinner from 'react-native-loading-spinner-overlay';
 import { Callout } from 'react-native-maps';
 
-
+import Loading from './Loading/Loading';
 
 async function requestPermission() { 
   try { 
@@ -235,7 +234,7 @@ const HomeScreen = ({navigation}) => {
       axios.post('/bakerylocation',{xposIo:Math.floor(item.longitude * 10)/10,yposIa:Math.floor(item.latitude * 100)/100})
       .then(function (response) {
         setMapStoreList(response.data)
-        console.log('responseData',response.data)
+        console.dir('responseData',response.data)
       })
       .catch((err)=>{
         console.log(err.response)
@@ -280,12 +279,13 @@ const HomeScreen = ({navigation}) => {
     
     const renderStoreList = () =>{
 
-      React.useEffect(() => {
-        scrollX.addListener(({value}) => {
-          console.log(value)
-        })
-      })
+      let storeClicked = "";
+      calloutPress = () => {
+        alert('sd')
+      }
 
+      const onMarketPress = (mapEventData) => {
+      }
       return(
         <>
         <View style = {{
@@ -391,21 +391,26 @@ const HomeScreen = ({navigation}) => {
                     }}
                     title="Test title"
                     description="This is to test description"
+                    onPress={(e)=>onMarketPress(e)}
                   >
                     <Image source={require('../assets/icons/breadmapicon.png')} style={{width:30,height:30}} /> 
-                    <Callout tooltip> 
+                      <Callout onPress={() => {
+                          storeClicked = mapStoreList.splice(index,1)
+                          mapStoreList.splice(0,1,storeClicked)}
+                        } tooltip
+                      > 
                         <View style={styles.bubble}>
-                          <Text style={styles.name}>{item.entrpNm}</Text>
-                          {/* <Text>Short description</Text>
-                      
-                          <Text style={{ height: 200, position: "relative", bottom: 40 }}>
-                              <Image
-                                resizeMode="cover"
-                                style={{ width: 70, height: 90, }}
-                                source={{uri: "data:image/png;base64,"+item.image}}
-                              />
-                          </Text> */}
-                        </View>
+                            <Text style={styles.name}>{item.entrpNm}</Text>
+                            {/* <Text>Short description</Text>
+
+                            <Text style={{ height: 200, position: "relative", bottom: 40 }}>
+                                <Image
+                                  resizeMode="cover"
+                                  style={{ width: 70, height: 90, }}
+                                  source={{uri: "data:image/png;base64,"+item.image}}
+                                />
+                            </Text> */}
+                          </View>
                     </Callout>
                   </Marker>
                 ))}
@@ -433,9 +438,9 @@ const HomeScreen = ({navigation}) => {
                                 ()=>{
                                   setIsClicked(!isClicked);
                                   touchStore();
+                                  
                                 }
                               }
-
                             >
                               <Text style={{fontFamily:'NotoSans-Black',fontSize: SIZES.base*3.2}}>{item.entrpNm}</Text>
                             </TouchableOpacity>
@@ -443,7 +448,7 @@ const HomeScreen = ({navigation}) => {
                               <Text style={{fontSize:SIZES.base*2}}>{item.loadAddr}</Text>
                             </TouchableOpacity>
                             <View style={{display: 'flex',flexDirection: 'row',marginTop:15}}>
-                                <Text style={{fontSize:SIZES.base*2,color:COLORS.maingray}}>리뷰 5</Text>
+                                <Text style={{fontSize:SIZES.base*2,color:COLORS.maingray}}>{index}</Text>
                                 <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>|</Text>
                                 <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>연중무휴</Text>
                             </View>
@@ -496,25 +501,28 @@ const HomeScreen = ({navigation}) => {
       )
     }
 
-    return (
-      <SafeAreaView style={ styles.container }>
-         <Spinner
-          visible={loading}
-          textContent={'Loading...'}
-          textStyle={styles.spinnerTextStyle}
-        />
-        <Header 
+    if(loading) {
+      return (
+        <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems:'center', backgroundColor:COLORS.white}}>
+          <Loading /> 
+        </SafeAreaView>
+        
+      )
+    } else {
+      return (
+        <SafeAreaView style={ styles.container }>
+          <Header 
           searchVisible={searchVisible} 
           setSearchVisible={setSearchVisible} 
           setSearcListVisible={setSearcListVisible} 
           searchText={searchText}
           setSearchText={setSearchText}
           doSearch={doSearch}
-        />
-        {searcListVisible?bestSearchList():renderStoreList()}
-
-      </SafeAreaView>
-    );
+          />
+          {searcListVisible?bestSearchList():renderStoreList()}
+        </SafeAreaView>
+      )
+    }
   }
   const styles = StyleSheet.create({
     container:{

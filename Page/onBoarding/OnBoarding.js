@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Animated,
     Image,
@@ -14,6 +14,9 @@ import {COLORS,FONTS,SIZES, images, theme } from "../../constants";
 const { step1, step2, step3 } = images;
 
 // theme
+
+//page
+import Loading from '../Loading/Loading';
 
 const onBoardings = [
     {
@@ -33,8 +36,11 @@ const onBoardings = [
     }
 ];
 
+
+
 const OnBoarding = ({navigation}) => {
     const [completed, setCompleted] = React.useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const scrollX = new Animated.Value(0);
 
@@ -48,6 +54,12 @@ const OnBoarding = ({navigation}) => {
 
         return () => scrollX.removeListener();
     }, []);
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 1000)
+    }, [])
 
     // Render
 
@@ -166,16 +178,26 @@ const OnBoarding = ({navigation}) => {
         );
     }
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <View>
-                {renderContent()}
-            </View>
-            <View style={styles.dotsRootContainer}>
-                {renderDots()}
-            </View> 
-        </SafeAreaView>
-    );
+    if(isLoading) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <Loading /> 
+            </SafeAreaView>
+        )
+    } else {
+        return (
+            <SafeAreaView style={styles.container}>
+                <View>
+                    <View>
+                        {renderContent()}
+                    </View>
+                    <View style={styles.dotsRootContainer}>
+                        {renderDots()}
+                    </View> 
+                </View>
+            </SafeAreaView>
+        )
+    }
 };
 
 const styles = StyleSheet.create({
