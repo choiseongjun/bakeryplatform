@@ -4,8 +4,10 @@ import Swiper from 'react-native-swiper';
 const { width } = Dimensions.get('window');
 import { icons, images, SIZES, COLORS, FONTS } from '../../constants';
 
-const DetailSwiperImage = ({navigation}) => {
-    return (
+const DetailSwiperImage = ({navigation,bakeryDetail}) => {
+
+    console.log('bakeryDetail',bakeryDetail)
+    return ( 
         <View style={styles.container}>
             <Swiper
             style={styles.wrapper}
@@ -79,7 +81,7 @@ const DetailSwiperImage = ({navigation}) => {
                                 />
                             </TouchableOpacity>
                         <View style={{display: 'flex',flexDirection: 'row'}}>
-                            <Text style={styles.slideText} numberOfLines={1}>아띠85도시베이커리</Text>
+                            <Text style={styles.slideText} numberOfLines={1}>{bakeryDetail.entrpNm}</Text>
                                 <TouchableOpacity 
                                     style={styles.button}
                                     onPress = {()=>navigation.goBack()}
@@ -144,9 +146,8 @@ const styles = {
         padding: 5,
         width:80,
         height:50,
-        marginLeft:70,
+        right:-170,
         display:'flex',
-        justifyContent: 'center'
     },
     wrapper: {
         position: 'absolute',

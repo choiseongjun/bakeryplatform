@@ -9,7 +9,7 @@ import {
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 
-const WriteHeader = ({setWriteVisible}) => {
+const WriteHeader = ({setWriteVisible,reviewSubmit}) => {
     return (
         <View style={styles.container}>
                 <TouchableOpacity
@@ -48,6 +48,7 @@ const WriteHeader = ({setWriteVisible}) => {
                         justifyContent: 'center',
                         alignItems: 'flex-end'
                     }}
+                    onPress = {reviewSubmit}
                 >
                    <Text style={{fontSize:SIZES.font*1.2,fontWeight: 'bold'}}>등록</Text>
                 </TouchableOpacity>

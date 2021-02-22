@@ -67,7 +67,7 @@ const FreeContentDetail = ({navigation,route}) => {
             <FreeContentDetailHeader navigation={navigation} />
             <View style={{flex:1}} >
                 <View style={{marginTop:30,marginLeft:20}}>
-                    <DetailTitle detailData={contentDetail} contentDetail={contentDetail} prevnextData={contentPrevNext} />                   
+                    <DetailTitle detailData={contentDetail} contentDetail={contentDetail} prevnextData={contentPrevNext} navigation={navigation} />                   
                 </View>
             </View> 
             </ScrollView>

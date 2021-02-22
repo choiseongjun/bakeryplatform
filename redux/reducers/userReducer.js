@@ -3,6 +3,7 @@ import produce from 'immer';
 export const initialState = {
     userinfoLoading:false, //내정보로딩
     userinfoDone:false,//내정보로딩완료
+    userInfo:[]
 };
 
 export const USER_INFO_REQUEST = 'USER_INFO_REQUEST';
@@ -17,6 +18,7 @@ const userReducer = (state = initialState, action) => produce(state, (draft) => 
             break;
         case USER_INFO_SUCCESS:
             draft.userinfoDone = true;
+            draft.userInfo = action.data;
             break;
         case USER_INFO_FAILURE: 
             draft.userinfoDone = false;

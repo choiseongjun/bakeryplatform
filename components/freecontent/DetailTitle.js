@@ -14,7 +14,7 @@ import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 import {RichEditor,RichToolbar} from 'react-native-pell-rich-editor';
 import HTML from "react-native-render-html";
 
-const DetailTitle = ({detailData,contentDetail,prevnextData}) => {
+const DetailTitle = ({detailData,contentDetail,prevnextData,navigation}) => {
     const richText = React.createRef();
     const htmlContent = `
     <h1>This HTML snippet is now rendered with native components !</h1>
@@ -67,8 +67,16 @@ const DetailTitle = ({detailData,contentDetail,prevnextData}) => {
                     <View style={{marginTop:20}}>
                     <View>
                         <View style={{display: 'flex',flexDirection: 'row'}}>
-                            {idx===1?<Text>다음</Text>:<Text>이전</Text>}
-                            <Text style={{marginLeft:15}}>{item.title}</Text>
+                            {idx===1?
+                                <Text>다음</Text>
+                                :
+                                <Text>이전</Text>
+                            }
+                            <TouchableOpacity
+                                    onPress={()=>{navigation.replace('FreeContentDetail',{freeContentId:item.id})}}
+                            >
+                                <Text style={{marginLeft:15}}>{item.title}</Text>
+                            </TouchableOpacity>
                         </View> 
                         <View style={{width:'90%',marginTop:20,borderBottomWidth:1,borderBottomColor:COLORS.darkgray}}></View>
                         

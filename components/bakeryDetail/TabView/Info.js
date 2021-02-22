@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { StyleSheet, Text, TouchableOpacity, View,Image } from "react-native";
 import { icons, images, SIZES, COLORS, FONTS } from '../../../constants';
-const Info = () => {
+const Info = ({bakeryDetail}) => {
 
     let infoData = {"location":"서울 관악구 쑥고개로 137","time":"매일 08:00-23:00","call":"02-876-3110","homepage":"www.atree85cafe.co.kr"};
     return (
@@ -17,7 +17,7 @@ const Info = () => {
                                 top:20
                             }}
                         />
-                <Text style={styles.infoText}>{infoData.location}</Text>
+                <Text style={styles.infoText}>{bakeryDetail.loadAddr}</Text>
              </View>
             <View style={styles.textimage}>
                 <Image
@@ -30,7 +30,7 @@ const Info = () => {
                                 top:25
                             }}
                         />
-                <Text style={styles.infoText}>{infoData.time}</Text>
+                <Text style={styles.infoText}>{bakeryDetail.businessHours}</Text>
             </View >
             <View style={styles.textimage}>
             <Image
@@ -43,7 +43,7 @@ const Info = () => {
                     top:25
                 }}
             />
-            <Text style={styles.infoText}>{infoData.call}</Text>
+            <Text style={styles.infoText}>{bakeryDetail.telNo}</Text>
             </View>
             <View style={styles.textimage}>
             <Image
@@ -56,7 +56,7 @@ const Info = () => {
                     top:25
                 }}
             />
-            <Text style={styles.infoText}>{infoData.homepage}</Text>
+            <Text style={styles.infoText}>{bakeryDetail.homepageUrl}</Text>
             </View>
         </View>
     )

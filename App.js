@@ -22,18 +22,18 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer, { rootSaga } from './redux';
+import rootReducer, { rootSaga } from './redux'
 import { USER_INFO_REQUEST } from './redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
 
 
-axios.defaults.baseURL = 'http://3.35.255.192:8080/';
-const getToken = AsyncStorage.getItem('accessToken');
-getToken.then((item) => {
-  if (item != null) {
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
-  }
-});
+axios.defaults.baseURL = 'http://192.168.0.34:8080/';
+
+// getToken.then((item) => {
+//   if (item != null) {
+//     axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
+//   }
+// });
 const sagaMiddleware = createSagaMiddleware();
 const enhancedReducer = rootReducer;
 const store = createStore(
@@ -47,11 +47,18 @@ const Stack = createStackNavigator();
 function App(){
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: USER_INFO_REQUEST
-  //   });
-  // },[])
+  useEffect(() => {
+    const getToken = AsyncStorage.getItem('accessToken');
+    getToken.then((item) => {
+      if (item != null) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
+        dispatch({
+          type: USER_INFO_REQUEST
+        });
+      }
+    });
+
+  },[])
   return (  
         <NavigationContainer> 
             <Stack.Navigator screenOptions={{

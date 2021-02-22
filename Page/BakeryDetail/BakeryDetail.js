@@ -2,19 +2,25 @@ import React,{useState,useEffect} from 'react';
 import DetailSwiperImage from '../../components/bakeryDetail/DetailSwiperImage';
 import HashTag from '../../components/bakeryDetail/HashTag';
 import DetailTabView from '../../components/bakeryDetail/DetailTabView';
-import {View,ScrollView,Text,StyleSheet,TouchableOpacity,Image} from 'react-native';
+import {View,ScrollView,Text,StyleSheet,TouchableOpacity,Image,Alert} from 'react-native';
 import WriteHeader from '../../components/common/WriteHeader';
 import StarRating from 'react-native-star-rating-new';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 import Textarea from 'react-native-textarea';
 import * as ImagePicker from 'react-native-image-picker';
+import axios from 'axios';
 
 const BakeryDetail = ({navigation,route}) => {
 
     const [writeVisible,setWriteVisible] = useState(false);    
-    const [starCount,setStartCount] = useState(0);
     const [reviewText,setReviewText] = useState('');
-    const [ img, setImageSource ] = useState("");  // 이미지를 img변수에 할당시킬겁니다!
+    const [img, setImageSource ] = useState("");  // 이미지를 img변수에 할당시킬겁니다!
+    const [bakeryDetail,setBakeryDetail] = useState('');
+
+    //리뷰 스테이트
+    const [content,setContent] = useState('');//컨텐츠
+    const [star,setStar] = useState(0);
+    
    
     const pickImg = ()=>{
         // ImagePicker.showImagePicker(options, (response) => {
@@ -52,27 +58,56 @@ const BakeryDetail = ({navigation,route}) => {
         }  
     useEffect(() => {
         
-        console.log('route',route.params.bakeryId)
+        axios.get(`/bakery/${route.params.bakeryId}`)
+        .then(function (response) {
+            setBakeryDetail(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }, [])
     const onStarRatingPress = (rating) =>{
-        console.log(rating)
-        setStartCount(rating)
+        setStar(rating)
     }
     const onChangeText = (item)=>{
         console.log(item)
+    }
+    const reviewSubmit = () =>{
+
+        if(star===0)
+            return Alert.alert('별점을 입력해주세요.');
+        if(content==='')
+            return Alert.alert('내용을 입력해주세요.');
+
+        axios.post(`/bakery/review/${route.params.bakeryId}`,{star:star,content:content})
+        .then(function (response) {
+            console.log(response.data)
+            setWriteVisible(false)
+          // handle success
+          console.log('성공했습니다!');
+        })
+        .catch((err)=>{
+          console.log(err.response)
+        })
+        .finally(()=>{
+            setContent('')
+            setStar(0)
+        })
+
+
     }
    
     const renderReviewWrite = () =>{
 
         return(
             <View style={{height:800}}>
-                <WriteHeader setWriteVisible={setWriteVisible} />
+                <WriteHeader setWriteVisible={setWriteVisible} reviewSubmit={reviewSubmit} />
                 <View style={{display: 'flex',justifyContent: 'center',alignItems: 'center',marginTop:30}}>
                     <View style={{width:100,marginRight:50}}>
                         <StarRating
                                 disabled={false}
                                 maxStars={5}
-                                rating={starCount}
+                                rating={star}
                                 selectedStar={(rating) => onStarRatingPress(rating)}
                                 starSize={35}
                             />
@@ -84,11 +119,12 @@ const BakeryDetail = ({navigation,route}) => {
                         <Textarea
                                 containerStyle={styles.textareaContainer}
                                 style={styles.textarea}
-                                onChangeText={onChangeText}
+                                onChangeText={(item)=>setContent(item)}
                                 defaultValue={reviewText}
                                 placeholder={'베이커리에 대한 후기를 남겨주세요:)'}
                                 placeholderTextColor={'#c7c7c7'}
                                 underlineColorAndroid={'transparent'}
+                                value={content}
                             />
                     </View>
                 </View>
@@ -111,13 +147,18 @@ const BakeryDetail = ({navigation,route}) => {
                     renderReviewWrite()
                 :
                 <>
-                <DetailSwiperImage navigation={navigation} />
+                <DetailSwiperImage 
+                    navigation={navigation} 
+                    bakeryDetail={bakeryDetail}
+                />
                 <View style={{marginTop:70,left:30}}>
                     <HashTag />
                 </View>
                 <DetailTabView 
                     writeVisible={writeVisible}
                     setWriteVisible={setWriteVisible}
+                    bakeryId={route.params.bakeryId}
+                    bakeryDetail={bakeryDetail}
                 /> 
                 </>
                 }

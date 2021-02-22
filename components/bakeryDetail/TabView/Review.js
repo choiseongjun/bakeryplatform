@@ -2,9 +2,10 @@ import React,{useState,useEffect} from 'react'
 import { StyleSheet, Text, TouchableOpacity, View,Button } from "react-native";
 import StarRating from 'react-native-star-rating-new';
 import { icons, images, SIZES, COLORS, FONTS } from '../../../constants';
+import axios from 'axios';
+import {useDispatch,useSelector } from 'react-redux';
 
-
-const Review = ({writeVisible,setWriteVisible}) => {
+const Review = ({writeVisible,setWriteVisible,bakeryId}) => {
     const WATER_IMAGE = require('./image/icon.png')
     let menuData = [
         {"name":"@csj***","createDate":"2020.09.28","content":"맛있어요","star":4},
@@ -13,10 +14,37 @@ const Review = ({writeVisible,setWriteVisible}) => {
         {"name":"@cj***","createDate":"2020.09.24","content":"좋아요^^","star":2},
     ]
     const [starCount,setStartCount] = useState(3);
-
+    const [review,setReview] = useState([]);
+    const { userInfo} = useSelector((state) => state.userReducer);
     const onStarRatingPress = (rating) =>{
         console.log(rating)
         setStartCount(rating)
+    }
+
+    useEffect(() => {
+        axios.get(`/bakery/review/${bakeryId}`)
+        .then(function (response) {
+            // handle success
+            console.log(response.data)
+            setReview(response.data)
+            console.log('성공했습니다!');
+          })
+          .catch((err)=>{
+            console.log(err.response)
+          })
+    }, [])
+
+    const onDeleteReview = (id) =>{
+        console.log('id',id)
+        axios.delete(`/bakery/review/${id}`)
+        .then(function (response) {
+            // handle success
+            console.log(response.data)
+            setReview(review.filter((item)=>item.id!==response.data))
+          })
+          .catch((err)=>{
+            console.log(err.response)
+          })
     }
 
     const renderReviewList = () =>{
@@ -44,7 +72,7 @@ const Review = ({writeVisible,setWriteVisible}) => {
                 <Text></Text>
             </TouchableOpacity>
             </View>
-            {menuData.map((item)=>
+            {review.map((item)=>
                 <View style={styles.reviewCommentBox}>
                     <View style={{width:100}}>
                         <StarRating
@@ -53,15 +81,24 @@ const Review = ({writeVisible,setWriteVisible}) => {
                             rating={item.star}
                             starSize={20}
                         />
+                        
                     </View>
+                    
                     <View style={{display: 'flex',flexDirection: 'row',marginTop:5}}>
-                        <Text style={{fontSize:16,color:'#808080'}}>{item.name}</Text>
+                        <Text style={{fontSize:16,color:'#808080'}}>{item.nickname}</Text>
                         <Text style={{fontSize:16,marginLeft:15}}>{'|'}</Text>
-                        <Text style={{fontSize:16,marginLeft:15,color:'#808080'}}>{item.createDate}</Text>
+                        <Text style={{fontSize:16,marginLeft:15,color:'#808080'}}>{item.create_date}</Text>
+                        {item.userKey===userInfo.id && 
+                            <TouchableOpacity onPress={()=>onDeleteReview(item.id)}>
+                                <Text style={{marginLeft:40}}>삭제</Text>
+                            </TouchableOpacity>
+                        }
+                        
                     </View>
                     <View style={{marginTop:15}}>
                         <Text style={{fontSize:18,fontWeight: 'bold'}}>{item.content}</Text>
                     </View>
+                    
                 </View>
             )}
             </>

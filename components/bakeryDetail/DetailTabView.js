@@ -7,7 +7,7 @@ import Review from './TabView/Review';
 import Info from './TabView/Info';
  
 const initialLayout = { width: Dimensions.get('window').width };
-const DetailTabView = ({writeVisible,setWriteVisible}) => {
+const DetailTabView = ({writeVisible,setWriteVisible,bakeryId,bakeryDetail}) => {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
@@ -24,11 +24,11 @@ const DetailTabView = ({writeVisible,setWriteVisible}) => {
     const renderScene = ({ route, jumpTo }) => {
         switch (route.key) {
           case 'first':
-            return <Menu />
+            return <Menu bakeryId={bakeryId} />
           case 'second':
-            return <Review writeVisible={writeVisible} setWriteVisible={setWriteVisible} />
+            return <Review writeVisible={writeVisible} setWriteVisible={setWriteVisible} bakeryId={bakeryId} />
           case 'third':
-            return <Info />
+            return <Info bakeryDetail={bakeryDetail} />
         }
       };
     const renderTabBar = props => (

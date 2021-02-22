@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { icons, images, SIZES, COLORS, FONTS } from '../../../constants';
+import axios from 'axios';
 
-
-const Menu = () => {
+const Menu = ({bakeryId}) => {
     const menuData = [
         {"name":"앙버터","price":"1000"},
         {"name":"마블초코","price":"1000"},
@@ -23,18 +23,27 @@ const Menu = () => {
         {"name":"미니탕종식빵","price":"3000"},
     ]
    
+    
     const aData = {"name":"ggg","price":"dsff"}
+    const [menu,setMenu] = useState([]);
 
     useEffect(() => {
-
+        axios.get(`/bakery/menu/${bakeryId}`)
+        .then(function (response) {
+            console.log('menu',response.data)
+            setMenu(response.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     },[])
 
     return (
         <View style={styles.container}>
-                {menuData.map((item)=>
+                {menu.map((item)=>
                     <View style={styles.menuList}>
-                        <Text style={{marginLeft:30,fontSize:SIZES.base*2,fontWeight:'bold'}}>{item.name}</Text>
-                        <Text style={{position:'absolute',right:40}} >{item.price}</Text>
+                        <Text style={{marginLeft:30,fontSize:SIZES.base*2,fontWeight:'bold'}}>{item.menuNm}</Text>
+                        <Text style={{position:'absolute',right:40}} >{item.menuPrice}</Text>
                     </View> 
                 )}  
         </View>

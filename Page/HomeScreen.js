@@ -23,7 +23,7 @@ import { Callout } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import RNLocation from 'react-native-location';
 
-import Loading from './Loading/Loading';
+import LoadingComp from './Loading/Loading';
 
 async function requestPermission() { 
   try { 
@@ -205,7 +205,7 @@ const HomeScreen = ({navigation}) => {
     useEffect(() => {
       setLoading(true);
       if(location.length!==0){
-        axios.get(`/bakery?page=${page}&xpos=${Math.floor(location.longitude * 100)/100}&ypos=${Math.floor(location.latitude * 100)/100}`)
+        axios.get(`/bakery?page=${page}&xpos=${Math.floor(location.longitude * 10)/10}&ypos=${Math.floor(location.latitude * 10)/10}`)
         .then(function (response) {
           // handle success
           setBakeryData([...bakeryData, ...response.data]);
@@ -323,7 +323,7 @@ const HomeScreen = ({navigation}) => {
                   </View>
                   <View style={{marginTop:40,display:'flex',flexDirection:'row'}}>
                     <Text style = {{ fontSize: SIZES.base*1.8, color:COLORS.black }}>
-                      리뷰 5
+                      리뷰 {item.reviewCnt}
                     </Text> 
                     <Text style = {{marginLeft:30, fontSize: SIZES.base*1.8, color:COLORS.black }}>
                       연중무휴
@@ -348,9 +348,7 @@ const HomeScreen = ({navigation}) => {
     const renderStoreList = () =>{
 
       let storeClicked = "";
-      calloutPress = () => {
-        alert('sd')
-      }
+    
 
       const onMarketPress = (mapEventData) => {
       }
@@ -472,7 +470,6 @@ const HomeScreen = ({navigation}) => {
                         <View style={styles.bubble}>
                             <Text style={styles.name}>{item.entrpNm}</Text>
                             {/* <Text>Short description</Text>
-
                             <Text style={{ height: 200, position: "relative", bottom: 40 }}>
                                 <Image
                                   resizeMode="cover"
@@ -518,7 +515,7 @@ const HomeScreen = ({navigation}) => {
                               <Text style={{fontSize:SIZES.base*2}}>{item.loadAddr}</Text>
                             </TouchableOpacity>
                             <View style={{display: 'flex',flexDirection: 'row',marginTop:15}}>
-                                <Text style={{fontSize:SIZES.base*2,color:COLORS.maingray}}>{index}</Text>
+                                <Text style={{fontSize:SIZES.base*2,color:COLORS.maingray}}>리뷰 {item.reviewCnt}</Text>
                                 <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>|</Text>
                                 <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>연중무휴</Text>
                             </View>
@@ -571,28 +568,23 @@ const HomeScreen = ({navigation}) => {
       )
     }
 
-    if(loading) {
-      return (
-        <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems:'center', backgroundColor:COLORS.white}}>
-          <Loading /> 
-        </SafeAreaView>
-        
-      )
-    } else {
-      return (
-        <SafeAreaView style={ styles.container }>
-          <Header 
-          searchVisible={searchVisible} 
-          setSearchVisible={setSearchVisible} 
-          setSearcListVisible={setSearcListVisible} 
-          searchText={searchText}
-          setSearchText={setSearchText}
-          doSearch={doSearch}
-          />
-          {searcListVisible?bestSearchList():renderStoreList()}
-        </SafeAreaView>
-      )
-    }
+    // if(loading)
+    //   return <Text>sfdsfds</Text>
+    
+    return (
+      <SafeAreaView style={ styles.container }>
+        <Header 
+        searchVisible={searchVisible} 
+        setSearchVisible={setSearchVisible} 
+        setSearcListVisible={setSearcListVisible} 
+        searchText={searchText}
+        setSearchText={setSearchText}
+        doSearch={doSearch}
+        />
+        {searcListVisible?bestSearchList():renderStoreList()}
+      </SafeAreaView>
+    )
+    
   }
   const styles = StyleSheet.create({
     container:{
