@@ -14,9 +14,12 @@ const RequireLogin = ({navigation,setModalOpen}) => {
     return (
         <View style={{
             flex: 1, 
-            backgroundColor:'rgba(0,0,0,0.5)',
+            backgroundColor:'rgba(0,0,0,0)',
             flexDirection: 'column',
             justifyContent: 'center',
+            position: 'absolute',
+            marginLeft:20,
+            zIndex:100,
             alignItems: 'center'}}>
             <View style={{
                     backgroundColor: 'rgba(255,255,255,1)',
@@ -25,63 +28,66 @@ const RequireLogin = ({navigation,setModalOpen}) => {
                 <View style={styles.container}>
                     <TouchableOpacity
                         activeOpacity={1}
-                        onPress={() => setModalOpen(false)}>
+                        style={{top:-20}}
+                        onPress={() => setModalOpen(false)}> 
                             <Text style={{right:-270}}>닫기</Text>
                     </TouchableOpacity>
-                    <Text style={styles.loginTitle}>로그인 후,</Text>
-                    <Text style={styles.loginTitle}>다양한 컨텐츠를</Text>
-                    <Text style={styles.loginTitle}>즐겨보세요.</Text>
+                    <Text style={styles.loginTitle}>먼저 로그인을 해주세요.</Text>
+                    {/* <Text style={styles.loginTitle}>빵집 후기를</Text>
+                    <Text style={styles.loginTitle}>즐겨보세요.</Text> */}
                   
                 </View>
                 <View style={styles.container}>
                     <View style={{display: 'flex',flexDirection: 'row'}}>
-                        <Text style={styles.loginsubTitle}>내 주변 베이커리</Text><Text style={[styles.loginsubTitle,{fontFamily:'NotoSans-Black',top:-2,marginLeft:5}]}>맛집 소개와 후기!</Text>
+                        <Text style={styles.loginsubTitle}>우리동네 빵집</Text><Text style={[styles.loginsubTitle,{fontFamily:'NotoSans-Black',top:-2,marginLeft:5}]}>후기!</Text>
                    </View>
-                   <Text style={[styles.loginsubTitle,{flexWrap:'wrap',width:'85%',marginTop:10}]}>다양한 베이커리 컨텐츠를 {'\n'}소통하고 즐겨보세요</Text>
+                   <Text style={[styles.loginsubTitle,{flexWrap:'wrap',width:'85%',marginTop:10}]}>로그인 후 소통해보아요.</Text>
                 </View>
-                <View style={[styles.loginContainer,{marginTop:40}]}>
-                   <TouchableOpacity
-                    activeOpacity={1}
-                    onPress={() => {
-                        navigation.navigate('Login');
-                        setModalOpen(false);
-                    }}
-                    style={[styles.loginBox, {backgroundColor: COLORS.black}]}>
-                    <View style={styles.loginSection}>
-                       
-                        <View
-                        style={{
-                            marginLeft: 12,
-                            display:'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                        <Text style={styles.loginText} >
-                            로그인
-                        </Text>
+                <View >
+                    <View style={[styles.loginContainer,{marginTop:40}]}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => {
+                            navigation.navigate('Login');
+                            setModalOpen(false);
+                        }}
+                        style={[styles.loginBox, {backgroundColor: COLORS.bread}]}>
+                        <View style={styles.loginSection}>
+                        
+                            <View
+                            style={{
+                                marginLeft: 12,
+                                display:'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                            <Text style={styles.loginText} >
+                                로그인
+                            </Text>
+                            </View>
                         </View>
+                        </TouchableOpacity>
                     </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={[styles.loginContainer,{marginTop:10}]}>
-                   <TouchableOpacity
-                    activeOpacity={1}
-                    onPress={() => {setModalOpen(false);navigation.navigate('Join')}}
-                    style={[styles.loginBox, {backgroundColor: COLORS.white,borderColor: COLORS.black,borderWidth:1}]}>
-                    <View style={styles.loginSection}>
-                        <View
-                        style={{
-                            marginLeft: 12,
-                            display:'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                        <Text style={styles.joinText} >
-                            회원기입
-                        </Text>
+                    <View style={[styles.loginContainer,{marginTop:10}]}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => {setModalOpen(false);navigation.navigate('Join')}}
+                        style={[styles.loginBox, {backgroundColor: COLORS.white,borderColor: COLORS.black,borderWidth:1}]}>
+                        <View style={styles.loginSection}>
+                            <View
+                            style={{
+                                marginLeft: 12,
+                                display:'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                            <Text style={styles.joinText} >
+                                회원기입
+                            </Text>
+                            </View>
                         </View>
+                        </TouchableOpacity>
                     </View>
-                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -89,13 +95,14 @@ const RequireLogin = ({navigation,setModalOpen}) => {
 }
 const styles = StyleSheet.create({
     container:{
-        marginTop:30,
-        left:20
+        marginTop:50,
+        left:20,
     },
     loginTitle:{
         fontSize:SIZES.base*3.8,
         fontWeight:'bold',
-        fontFamily:'NotoSans-Black'
+        fontFamily:'NotoSans-Black',
+        color:COLORS.bread
     },
     loginsubTitle:{
         fontSize:SIZES.base*2.4,

@@ -30,7 +30,7 @@ const Login = ({navigation}) => {
           AsyncStorage.setItem('accessToken', response.data.token);
           AsyncStorage.setItem('refreshToken', response.data.refreshToken);
           Alert.alert('성공적으로 로그인이 되었습니다.');
-          navigation.navigate("컨텐츠");
+          navigation.navigate("추천글");
         })
         .catch((err)=>{
           console.log(err.response)

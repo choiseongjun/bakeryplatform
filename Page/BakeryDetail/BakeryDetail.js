@@ -16,30 +16,33 @@ const BakeryDetail = ({navigation,route}) => {
 
     const [writeVisible,setWriteVisible] = useState(false);    
     const [reviewText,setReviewText] = useState('');
-    const [img, setImageSource ] = useState("");  // 이미지를 img변수에 할당시킬겁니다!
     const [bakeryDetail,setBakeryDetail] = useState('');
 
     //리뷰 스테이트
     const [content,setContent] = useState('');//컨텐츠
     const [star,setStar] = useState(0);
     
-   
+    const [imageId,setImageId] = useState([]);
+    const [imgSource, setImageSource ] = useState([]);  // 이미지를 img변수에 할당시킬겁니다!
     const pickImg = ()=>{
-        // ImagePicker.showImagePicker(options, (response) => {
-        //     console.log('Response = ', response);
-        
-        //     if (response.didCancel) {
-        //       console.log('User cancelled image picker');
-        //     } else if (response.error) {
-        //       console.log('ImagePicker Error: ', response.error);
-        //     } else if (response.customButton) {
-        //       console.log('User tapped custom button: ', response.customButton);
-        //     } else {
-        //       // You can also display the image using data:
-        //       // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-        //       setImageSource(response.uri); // 저는 여기서 uri 값을 저장 시킵니다 !
-        //     }
-        //   });
+      
+        // ImagePicker.launchImageLibrary(
+        //     {
+        //       mediaType: 'photo',
+        //       includeBase64: false,
+        //       maxHeight: 200,
+        //       maxWidth: 200,
+        //     },
+        //     (response) => {
+        //         setImageSource(response.uri);
+        //       console.log(response);
+        //       // let ImageFile ={
+        //       //   uri:response.uri
+        //       // }
+        //       // console.log('sdfdf')
+              
+        //     },
+        // )
         ImagePicker.launchImageLibrary(
             {
               mediaType: 'photo',
@@ -48,13 +51,30 @@ const BakeryDetail = ({navigation,route}) => {
               maxWidth: 200,
             },
             (response) => {
-                setImageSource(response.uri);
+                
               console.log(response);
               // let ImageFile ={
               //   uri:response.uri
               // }
               // console.log('sdfdf')
-              
+              const data = new FormData();
+              data.append('photo', {
+                  uri: response.uri,
+                  name: 'file_photo',
+                  type: response.type,
+              });
+
+              axios.post('/common/content/photo',data)
+                .then(function (response) {
+                    // setImageSource(img.concat(response.data.url));
+                    // setImageId(imageId.concat(response.data.id));
+                    setImageSource(imgSource.concat(response.data.url));
+                    setImageId(imageId.concat(response.data.id));
+                    console.log(response.data)
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
             },
         )
         }  
@@ -80,12 +100,15 @@ const BakeryDetail = ({navigation,route}) => {
             return Alert.alert('별점을 입력해주세요.');
         if(content==='')
             return Alert.alert('내용을 입력해주세요.');
+
+
         AsyncStorage.getItem('accessToken').then((token)=>{
-            console.log('token!#@',token)
             if(token===null){
                 return Alert.alert('로그인을 해주세요.');
             }else{
-                axios.post(`/bakery/review/${route.params.bakeryId}`,{star:star,content:content})
+
+                console.log('imgid',imageId)
+                axios.post(`/bakery/review/${route.params.bakeryId}`,{star:star,content:content,imgId:imageId})
                 .then(function (response) {
                     console.log(response.data)
                     setWriteVisible(false)
@@ -96,6 +119,8 @@ const BakeryDetail = ({navigation,route}) => {
                   console.log(err.response)
                 })
                 .finally(()=>{
+                    setImageSource([]);
+                    setImageId([]);
                     setContent('')
                     setStar(0)
                 })
@@ -111,7 +136,22 @@ const BakeryDetail = ({navigation,route}) => {
         return(
             <View style={{height:800}}>
                 <WriteHeader setWriteVisible={setWriteVisible} reviewSubmit={reviewSubmit} />
-                <View style={{display: 'flex',justifyContent: 'center',alignItems: 'center',marginTop:30}}>
+                <View style={{left:30,marginTop:30}}>
+                    <TouchableOpacity style={styles.imgWrapper} onPress={()=>pickImg()}>
+                        <Image source={icons.camera}  style={{width:70,height:70}}/>
+                        
+                    </TouchableOpacity>  
+                    <View style={{display: 'flex',flexDirection: 'row',alignItems: 'center'}}>
+                    {imgSource.map((item)=>(
+                        
+                            <Image source={{uri: item}} style={{width:100,height:100}}/>
+                        
+                    ))}
+                    </View>
+                    {/* <Image source={{uri: imgSource}} style={{width:100,height:100}}/> */}
+                </View>
+                <View style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
+                    
                     <View style={{width:100,marginRight:50}}>
                         <StarRating
                                 disabled={false}
@@ -121,8 +161,8 @@ const BakeryDetail = ({navigation,route}) => {
                                 starSize={35}
                             />
                     </View> 
-                    <Text style={{marginTop:15,fontSize:SIZES.font*1.2}}>별점을 눌러주세요</Text>
-                    <View style={{width:"80%",borderBottomWidth:1,borderColor:COLORS.darkgray,marginTop:30}}></View>
+                    {/* <Text style={{marginTop:15,fontSize:SIZES.font*1.2}}>별점을 눌러주세요</Text> */}
+                    {/* <View style={{width:"80%",borderBottomWidth:1,borderColor:COLORS.darkgray,marginTop:30}}></View> */}
                     
                     <View style={{width:'85%'}}> 
                         <Textarea
@@ -137,13 +177,7 @@ const BakeryDetail = ({navigation,route}) => {
                             />
                     </View>
                 </View>
-                <View style={{left:30}}>
-                    <TouchableOpacity style={styles.imgWrapper} onPress={()=>pickImg()}>
-                        <Image source={icons.camera}  style={{width:70,height:70}}/>
-                        
-                    </TouchableOpacity>  
-                    <Image source={{uri: img}} style={{width:100,height:100}}/>
-                </View>
+              
                
                 
             </View>
@@ -156,13 +190,21 @@ const BakeryDetail = ({navigation,route}) => {
                     renderReviewWrite()
                 :
                 <>
-                <DetailSwiperImage 
+                {/* <DetailSwiperImage 
                     navigation={navigation} 
                     bakeryDetail={bakeryDetail}
-                />
-                <View style={{marginTop:70,left:30}}>
+                /> */}
+                <Text>{bakeryDetail.entrpNm}</Text>
+                <Text>리뷰 5</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress = {()=>navigation.navigate('ContentWrite',{bakeryId:route.params.bakeryId})}
+                >
+                    <Text>후기 쓰기</Text>
+                </TouchableOpacity>
+                {/* <View style={{marginTop:70,left:30}}>
                     <HashTag />
-                </View>
+                </View> */}
                 <DetailTabView 
                     writeVisible={writeVisible}
                     setWriteVisible={setWriteVisible}
@@ -181,6 +223,14 @@ const styles = StyleSheet.create({
       padding: 30,
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    button: {
+        alignItems: "center",
+        backgroundColor: "#DDDDDD",
+        padding: 10,
+        width:'50%',
+        justifyContent: 'center',
+        left:'25%'
     },
     textareaContainer: {
       height: 300,

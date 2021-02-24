@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {   
     StyleSheet,
     View,
@@ -7,9 +7,12 @@ import {
     Image,
     ScrollView,
     Modal,
-    TextInput
+    TextInput,
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS,images } from '../../constants';
+import RequireLogin from '../../components/common/RequireLogin';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import RecommandHeader from '../../components/common/RecommandHeader';
 
 const hashtag = [
@@ -81,14 +84,32 @@ const rdata = [
         image: images.recommand13
     },
 ]
-const Recommand = () => {
+const Recommand = ({navigation}) => {
+
+    const [modalOpen, setModalOpen] = useState(false);//로그인모달창 오픈여부
+    const [recommandList,setRecommandList] = useState([]);
+
+    useEffect(() => {
+
+        axios.get('/contentList/blogList')
+        .then(function (response) {
+            // handle success
+
+            setRecommandList(response.data)
+            console.log('성공했습니다!');
+          })
+          .catch((err)=>{
+            console.log(err.response)
+          })
+    },[])
+
     return (
-        <View style={{backgroundColor:COLORS.white,height:'auto'}}>
+        <View style={{backgroundColor:COLORS.white,flex:1}}>
             <RecommandHeader />
-            
-            <View style={{marginTop:30,marginLeft:20}}>
+             
+            <View style={{marginTop:30,marginLeft:10}}>
                 
-                <View style={{display: 'flex',flexDirection: 'row'}}>
+                {/* <View style={{display: 'flex',flexDirection: 'row'}}>
                     <TouchableOpacity style={{width:65,height:35,backgroundColor:COLORS.lightGray3}}>
                         <Text style={{color:COLORS.black,fontFamily:'NotoSans-Black',marginTop:7,marginLeft:10}}>인기글</Text>
                     </TouchableOpacity>
@@ -102,27 +123,58 @@ const Recommand = () => {
                     <TouchableOpacity style={{width:35,height:35,backgroundColor:COLORS.white,marginLeft:20,borderColor:COLORS.black,borderWidth:1}}>
                         <Text style={{marginLeft:13,marginTop:5,color:COLORS.maingray}}>+</Text>
                     </TouchableOpacity>
+                </View> */}
+                <View >
+                {modalOpen&&<RequireLogin navigation={navigation} setModalOpen={setModalOpen} />}
                 </View>
                 <ScrollView>
-                <View style={{display: 'flex',flexDirection: 'row',flexWrap:'wrap',width:400}}>
-                    {rdata.map((item)=>(
-                        <View style={{marginLeft:10}}>
-                            <Image
-                            source={item.image}
-                            resizeMode="cover"
-                            style={{
-                                width: 180,
-                                height: 150,
-                                color:COLORS.darkgray,
-                                top:20
-                            }}
-                        />
-                            <View style={{marginTop:30}}>
-                                <Text>{item.name}</Text>
+                <View style={{display: 'flex',flexDirection: 'row',flexWrap:'wrap',height:'auto',marginBottom:100}}>
+                    
+                    {recommandList.map((item)=>(
+                        
+                        <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => {
+                                AsyncStorage.getItem('accessToken').then((token)=>{
+                                    if(token===null){
+                                        setModalOpen(true)
+                                    }else{
+                                        navigation.navigate('FreeContentDetail',{freeContentId:item.id})
+                                    }
+                                })
+                            }}>
+                            <View style={{marginLeft:10}}>
+                                {item.url===null?
+                                    <Image
+                                    source={images.content1}
+                                    resizeMode="cover"
+                                    style={{
+                                        width: 180,
+                                        height: 150,
+                                        color:COLORS.darkgray,
+                                        top:20,
+                                    }}
+                                    />
+                                    :
+                                    <Image
+                                        source={{uri:item.url}}
+                                        resizeMode="cover"
+                                        style={{
+                                            width: 180,
+                                            height: 150,
+                                            color:COLORS.darkgray,
+                                            top:20,
+                                        }}
+                                    />
+                                }
+
+                                <View style={{marginTop:30}}>
+                                    <Text>{item.title}</Text>
+                                </View>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     ))}
-                </View>
+                    </View>
                 </ScrollView>
             </View>
         </View>

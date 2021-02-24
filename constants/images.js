@@ -27,6 +27,8 @@ const recommand13 = require("../assets/images/recommand/recommand13.jpg");
 const recommand14 = require("../assets/images/recommand/recommand14.jpg");
 const recommand15 = require("../assets/images/recommand/recommand15.png");
 
+const breadcontent1 = require("../assets/images/breadcontent1.jpeg");
+
 const content1 = require("../assets/images/category/content1.png");
 const content2 = require("../assets/images/category/content2.png");
 
@@ -63,5 +65,6 @@ export default {
     content2,
     step1,
     step2,
-    step3
+    step3,
+    breadcontent1
 }

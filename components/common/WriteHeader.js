@@ -37,7 +37,7 @@ const WriteHeader = ({setWriteVisible,reviewSubmit}) => {
                             marginRight:50
                         }}
                     >
-                        <Text style={{fontSize:SIZES.base*2.5,fontWeight: 'bold'}}>아띠85도베이커리 </Text>
+                        <Text style={{fontSize:SIZES.base*2.5,fontWeight: 'bold'}}> </Text>
                     </View>
                 </View>
 

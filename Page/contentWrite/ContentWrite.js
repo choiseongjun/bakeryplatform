@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {   
     StyleSheet,
     View,
@@ -19,13 +19,20 @@ import ContentWriterHeader from '../../components/common/ContentWriterHeader';
 import Editor from '../../components/contentWrite/Editor';
 
 
-const ContentWrite = ({navigation}) => {
+const ContentWrite = ({navigation,route}) => {
 
     const [title,setTitle] = useState('');
     const [content,setContent] = useState('');
     const [imageId,setImageId] = useState('');
     const [img, setImageSource ] = useState('');  // 이미지를 img변수에 할당시킬겁니다!
     const [category, setCategory] = useState(1);
+
+    useEffect(() => {
+        console.log(route.params)      
+        if(route.params!==undefined){
+            console.log('route.params.bakeryId',route.params.bakeryId)
+        }
+    },[])
 
     const pickImg = ()=>{
    
@@ -72,29 +79,48 @@ const ContentWrite = ({navigation}) => {
             return Alert.alert('제목을 입력해주세요.');
         if(content === '')
             return Alert.alert('내용을 입력해주세요.');
-
+        if(route.params!==undefined){
+            console.log('route.params.bakeryId',route.params.bakeryId)
+            let bakeryKey = parseInt(route.params.bakeryId);
+            axios.post('/contents/write',{imageId:imageId,title:title,content:content,categoryKey:parseInt(category),bakeryKey:bakeryKey})
+            .then(function (response) {
+                setTitle('');
+                setContent(''); 
+                setImageId('');
+                setImageSource('');
+                setCategory('1')
+                navigation.navigate('추천글');
+                Alert.alert('글 등록이 완료되었습니다.');
+                
+            }) 
+            .catch(function (error) {
+            console.log(error);
+            }); 
+        }else{
+            axios.post('/contents/write',{imageId:imageId,title:title,content:content,categoryKey:parseInt(category)})
+            .then(function (response) {
+                setTitle('');
+                setContent(''); 
+                setImageId('');
+                setImageSource('');
+                setCategory('1')
+                navigation.navigate('컨텐츠');
+                Alert.alert('글 등록이 완료되었습니다.');
+                
+            }) 
+            .catch(function (error) {
+            console.log(error);
+            }); 
+        }
         
-        axios.post('/contents/write',{imageId:imageId,title:title,content:content,categoryKey:parseInt(category)})
-                .then(function (response) {
-                    setTitle('');
-                    setContent(''); 
-                    setImageId('');
-                    setImageSource('');
-                    setCategory('1')
-                    navigation.navigate('컨텐츠');
-                    Alert.alert('글 등록이 완료되었습니다.');
-                    
-                }) 
-                .catch(function (error) {
-                console.log(error);
-                }); 
+        
     }
     
     return (
         <ScrollView>
             <View style={{backgroundColor: COLORS.white,height:'auto',flex:1}}>
                 <ContentWriterHeader writeContent={writeContent}/>
-                
+                {route.params===undefined &&
                 <View style={{display: 'flex',marginTop:30,marginLeft:20}}>
                     <Picker
                     selectedValue={category}
@@ -106,16 +132,14 @@ const ContentWrite = ({navigation}) => {
                         <Picker.Item label="자유로운 컨텐츠" value="2" />
                     </Picker>
                 </View>
-                <View style={{flex:1,left:30,marginBottom:60}}>
+                }
+                
+                <View style={{flex:1,left:30,marginTop:60,display: 'flex',flexDirection: 'row',flexWrap: 'wrap',width:'80%'}}>
                     <TouchableOpacity style={styles.imgWrapper} onPress={()=>pickImg()}>
                         <Image source={icons.camera}  style={{width:70,height:70}}/>
-                        
+                        <Text>제목 사진(필수x)</Text>
                     </TouchableOpacity>  
-                    <View style={{display: 'flex',flexDirection: 'row',flexWrap: 'wrap',width:'80%'}}>
-                        
-                            <Image source={{uri: img}} style={{width:100,height:100}}/>
-                        
-                    </View>
+                    <Image source={{uri: img}} style={{width:100,height:100,marginLeft:30}}/>
                 </View>
                 <View style={{flex:1,display: 'flex',marginLeft:20}}>
                 

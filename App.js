@@ -17,6 +17,7 @@ import StorePost from './Page/StorePost/StorePostHome/StorePostHome';
 import IndividualInfoCheck from './Page/IndividualInfoCheck/IndividualInfoCheck';
 import OnBoarding from './Page/onBoarding/OnBoarding';
 import UserLeave from './Page/UserLeave/UserLeave';
+import ContentWrite from './Page/contentWrite/ContentWrite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -27,13 +28,13 @@ import { USER_INFO_REQUEST } from './redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
 
 
-axios.defaults.baseURL = 'http://192.168.0.34:8080/';
-
+axios.defaults.baseURL = 'http://192.168.0.21:8080/';
+ 
 // getToken.then((item) => {
 //   if (item != null) {
 //     axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
 //   }
-// });
+// })
 const sagaMiddleware = createSagaMiddleware();
 const enhancedReducer = rootReducer;
 const store = createStore(
@@ -50,6 +51,7 @@ function App(){
   useEffect(() => {
     
     getToken.then((item) => {
+      console.log('appitem',item)
       if (item != null) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
         dispatch({
@@ -80,6 +82,7 @@ function App(){
                 <Stack.Screen name="StorePost" component={StorePost} />
                 <Stack.Screen name="IndividualInfoCheck" component={IndividualInfoCheck} />
                 <Stack.Screen name="UserLeave" component={UserLeave} />
+                <Stack.Screen name="ContentWrite" component={ContentWrite} />
             </Stack.Navigator>
         </NavigationContainer>
   );

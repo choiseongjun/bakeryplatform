@@ -5,15 +5,17 @@ import { TabView, SceneMap ,TabBar} from 'react-native-tab-view';
 import Menu from './TabView/Menu';
 import Review from './TabView/Review';
 import Info from './TabView/Info';
- 
+import Blog from './TabView/Blog';
+
 const initialLayout = { width: Dimensions.get('window').width };
 const DetailTabView = ({writeVisible,setWriteVisible,bakeryId,bakeryDetail}) => {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'first', title: 'Menu' },
-        { key: 'second', title: 'Review' },
-        { key: 'third', title: 'Info' },
+        { key: 'first', title: '정보' },
+        { key: 'second', title: '메뉴' },
+        { key: 'third', title: '평점' },
+        { key: 'four', title: '후기' },
     ]);
     
     // const renderScene = SceneMap({
@@ -24,11 +26,13 @@ const DetailTabView = ({writeVisible,setWriteVisible,bakeryId,bakeryDetail}) => 
     const renderScene = ({ route, jumpTo }) => {
         switch (route.key) {
           case 'first':
-            return <Menu bakeryId={bakeryId} />
-          case 'second':
-            return <Review writeVisible={writeVisible} setWriteVisible={setWriteVisible} bakeryId={bakeryId} />
-          case 'third':
             return <Info bakeryDetail={bakeryDetail} />
+          case 'second':
+            return <Menu bakeryId={bakeryId} />
+          case 'third':
+            return <Review writeVisible={writeVisible} setWriteVisible={setWriteVisible} bakeryId={bakeryId} />
+          case 'four':
+            return <Blog bakeryId={bakeryId} />
         }
       };
     const renderTabBar = props => (
@@ -47,7 +51,6 @@ const DetailTabView = ({writeVisible,setWriteVisible,bakeryId,bakeryDetail}) => 
     return (
         <View style={styles.container}>
             <TabView
-               
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
                 onIndexChange={setIndex}

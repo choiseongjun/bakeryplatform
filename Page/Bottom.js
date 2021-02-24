@@ -2,7 +2,8 @@ import React from 'react';
 import {   
   View,
   Text,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen';
@@ -11,6 +12,7 @@ import { icons } from '../constants';
 import Home from './home/Home';
 import Profile from './profile/Profile';
 import Recommand from './recommand/Recommand';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +36,7 @@ function Bottom() {
             }   
           }}
         > 
-            <Tab.Screen name="컨텐츠" component={Home}   
+            {/* <Tab.Screen name="컨텐츠" component={Home}   
             
               options={{
                 title: '',
@@ -47,21 +49,36 @@ function Bottom() {
                   );
                 },
               }}
+            /> */}
+            <Tab.Screen name="추천글" component={Recommand} 
+              options={{
+                title: '',
+                tabBarIcon: ({size,focused,color}) => {
+                  return (
+                    // <Image
+                    //   style={{ width: size, height: size }}
+                    //   source={icons.heart}
+                    // />
+                    <Text>추천</Text>
+                  );
+                },
+              }}
             />
             <Tab.Screen name="검색" component={HomeScreen} 
               options={{
                 title: '',
                 tabBarIcon: ({size,focused,color}) => {
                   return (
-                    <Image
-                      style={{ width: size, height: size }}
-                      source={icons.search2}
-                    />
+                    // <Image
+                    //   style={{ width: size, height: size }}
+                    //   source={icons.search2}
+                    // />
+                    <Text>빵집</Text>
                   );
                 },
               }}
             />
-            <Tab.Screen name="글쓰기" component={ContentWrite} 
+            {/* <Tab.Screen name="글쓰기" component={ContentWrite} 
               options={{
                 unmountOnBlur: true,
                 title: '',
@@ -74,29 +91,18 @@ function Bottom() {
                   );
                 },
               }}
-            />
-            <Tab.Screen name="추천글" component={Recommand} 
-              options={{
-                title: '',
-                tabBarIcon: ({size,focused,color}) => {
-                  return (
-                    <Image
-                      style={{ width: size, height: size }}
-                      source={icons.heart}
-                    />
-                  );
-                },
-              }}
-            />
+            /> */}
+            
             <Tab.Screen name="마이페이지1" component={Profile} 
               options={{
                 title: '',
                 tabBarIcon: ({size,focused,color}) => {
                   return (
-                    <Image
-                      style={{ width: size, height: size }}
-                      source={icons.profile}
-                    />
+                    // <Image
+                    //   style={{ width: size, height: size }}
+                    //   source={icons.profile}
+                    // />
+                    <Text>프로필</Text>
                   );
                 },
               }}

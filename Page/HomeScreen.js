@@ -312,25 +312,6 @@ const HomeScreen = ({navigation}) => {
         return(
           <TouchableOpacity onPress={() => navigation.navigate('BakeryDetail',{bakeryId:item.id})}>
             <EachBread key={item.id}>
-                <View style={{width:220,marginTop:30}}>
-                  <Text style = {{fontWeight:'bold', fontSize: 20, color:COLORS.black }}>
-                    {item.entrpNm}
-                  </Text> 
-                  <View style={{width:190}}>
-                    <Text style = {{display:'flex',flexWrap:'wrap', fontSize: SIZES.base*1.8, color:COLORS.black }}>
-                      {item.loadAddr}
-                    </Text> 
-                  </View>
-                  <View style={{marginTop:40,display:'flex',flexDirection:'row'}}>
-                    <Text style = {{ fontSize: SIZES.base*1.8, color:COLORS.black }}>
-                      리뷰 {item.reviewCnt}
-                    </Text> 
-                    <Text style = {{marginLeft:30, fontSize: SIZES.base*1.8, color:COLORS.black }}>
-                      연중무휴
-                    </Text> 
-                  </View>
-                </View>
-                
                 <Image
                         source={{uri: "data:image/png;base64,"+item.image}}
                         resizeMode="cover"
@@ -339,6 +320,26 @@ const HomeScreen = ({navigation}) => {
                             height: '100%',
                         }}
                     />
+                <View style={{width:220,marginLeft:20}}>
+                  <Text style = {{fontWeight:'bold', fontSize: 20, color:COLORS.black }}>
+                    {item.entrpNm}
+                  </Text> 
+                  <View style={{width:150}}>
+                    <Text style = {{display:'flex',flexWrap:'wrap', fontSize: SIZES.base*1.8, color:COLORS.black }}>
+                      {item.loadAddr}
+                    </Text> 
+                  </View>
+                  <Text style = {{ fontSize: SIZES.base*1.8, color:COLORS.black }}>
+                    리뷰 {item.reviewCnt}
+                  </Text> 
+                  <View style={{width:150,marginTop:5}}>
+                    <Text style = {{ fontSize: SIZES.base*1.8, color:COLORS.black }}>
+                      {item.businessHours}
+                    </Text> 
+                  </View>
+                </View>
+                
+               
               </EachBread>
             </TouchableOpacity>
           
@@ -356,7 +357,7 @@ const HomeScreen = ({navigation}) => {
         <>
         <View style = {{
           flex:1, 
-          paddingLeft: SIZES.padding * 2.4,
+          paddingLeft: SIZES.padding * 1.2,
           paddingRight: SIZES.padding *2.4
           }}
         >
@@ -426,7 +427,7 @@ const HomeScreen = ({navigation}) => {
                 <FlatList
                   data={bakeryData}
                   renderItem={renderBakery}
-                  onEndReachedThreshold={1.5}
+                  onEndReachedThreshold={2}
                   keyExtractor={item => item.id}
                   onEndReached={({ distanceFromEnd }) => {
                     if (distanceFromEnd < 0) return;
@@ -498,7 +499,7 @@ const HomeScreen = ({navigation}) => {
                   
                   >
                       {mapStoreList.map((item,index)=>(
-                        <View style={styles.card}>
+                        <View style={styles.card} key={index}> 
                           <View>
                             <TouchableOpacity 
                               onPress={
@@ -517,10 +518,10 @@ const HomeScreen = ({navigation}) => {
                             <View style={{display: 'flex',flexDirection: 'row',marginTop:15}}>
                                 <Text style={{fontSize:SIZES.base*2,color:COLORS.maingray}}>리뷰 {item.reviewCnt}</Text>
                                 <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>|</Text>
-                                <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>연중무휴</Text>
+                                <Text style={{fontSize:SIZES.base*2,marginLeft:15,color:COLORS.maingray}}>연중무휴1</Text>
                             </View>
                           </View>
-                            <Image
+                          <Image
                              source={{uri: "data:image/png;base64,"+item.image}}
                              resizeMode="cover"
                              style={{

@@ -41,7 +41,7 @@ const HomeHeader = ({setCategoryMenu}) => {
                     </View>
                 </View>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={{
                         width: 50,
                         height: 50,
@@ -54,7 +54,7 @@ const HomeHeader = ({setCategoryMenu}) => {
                       style={{ width: 20, height: 20 }}
                       source={icons.menubar}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
     )
 }

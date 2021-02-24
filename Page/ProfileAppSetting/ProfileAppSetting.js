@@ -35,7 +35,7 @@ const ProfileAppSetting = ({navigation}) => {
     const logOut = () =>{
       AsyncStorage.removeItem('accessToken');
       AsyncStorage.removeItem('refreshToken');
-      navigation.navigate('컨텐츠');
+      navigation.navigate('추천글');
     }
       
     useEffect(() => {

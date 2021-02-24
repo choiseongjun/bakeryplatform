@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 
-const CommentBox = ({setModalOpen}) => {
+const CommentBox = ({setModalOpen,contentDetail}) => {
     return (
         <View style={{borderTopWidth:1,borderTopColor:COLORS.darkgray}}>
             <View style={{marginTop:10}}></View>
@@ -44,7 +44,7 @@ const CommentBox = ({setModalOpen}) => {
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={() => setModalOpen(true)}>
-                        <Text style={{marginLeft:10,fontSize:SIZES.base*2.7}}>23</Text>
+                        <Text style={{marginLeft:10,fontSize:SIZES.base*2.7}}>{contentDetail.commentCnt}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

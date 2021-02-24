@@ -50,7 +50,7 @@ const Review = ({writeVisible,setWriteVisible,bakeryId}) => {
     const renderReviewList = () =>{
         return(
             <>
-            <View style={{display: 'flex',flexDirection: 'row',left:20,marginTop:30}}>
+            {/* <View style={{display: 'flex',flexDirection: 'row',left:20,marginTop:30}}>
                 <Text style={{fontSize:SIZES.font*2,fontWeight: 'bold'}}>별점</Text>
                 <View style={{width:100,marginTop:6,marginLeft:20}}>
                     <StarRating
@@ -63,13 +63,13 @@ const Review = ({writeVisible,setWriteVisible,bakeryId}) => {
                 
                 </View>
                 <Text style={{marginLeft:30,fontSize:SIZES.font*2}}>{starCount}</Text>
-            </View>
-            <View>
+            </View> */}
+            <View style={{marginTop:20}}>
             <TouchableOpacity
                 style={styles.reviewWriteCommentBox}
                 onPress={()=>setWriteVisible(true)}
             >
-                <Text></Text>
+                <Text>글쓰기</Text>
             </TouchableOpacity>
             </View>
             {review.map((item)=>
@@ -125,9 +125,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#f0f0f0",
         padding: 10,
-        height:130,
-        width:'90%',
-        left:'5%'
+        height:50,
+        width:'50%',
+        left:'25%'
     }
   });
 export default Review

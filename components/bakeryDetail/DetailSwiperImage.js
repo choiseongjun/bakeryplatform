@@ -82,16 +82,16 @@ const DetailSwiperImage = ({navigation,bakeryDetail}) => {
                             </TouchableOpacity>
                         <View style={{display: 'flex',flexDirection: 'row'}}>
                             <Text style={styles.slideText} numberOfLines={1}>{bakeryDetail.entrpNm}</Text>
-                                <TouchableOpacity 
+                                {/* <TouchableOpacity 
                                     style={styles.button}
                                     onPress = {()=>navigation.goBack()}
                                 > 
                                     <Text style={{color:COLORS.white,fontSize:SIZES.font*1.1,fontWeight:'bold'}}>팔로우 +</Text>
-                                </TouchableOpacity> 
+                                </TouchableOpacity>  */}
                         </View>
                         <View style={{display:'flex',flexDirection: 'row',marginLeft:30,marginBottom:30}}>
-                            <Text style={{color:COLORS.white,fontSize:SIZES.font*1.2}} numberOfLines={1}>팔로워129</Text>
-                            <Text style={{marginLeft:30,color:COLORS.white,fontSize:SIZES.font*1.2}} numberOfLines={1}>리뷰5</Text>
+                            {/* <Text style={{color:COLORS.white,fontSize:SIZES.font*1.2}} numberOfLines={1}>팔로워129</Text> */}
+                            <Text style={{marginLeft:0,color:COLORS.white,fontSize:SIZES.font*1.2}} numberOfLines={1}>리뷰5</Text>
                         </View>
                     </View>
                 </ImageBackground>
