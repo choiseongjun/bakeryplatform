@@ -151,7 +151,8 @@ const Recommand = ({navigation}) => {
                         <TouchableOpacity
                         style={{
                             marginTop: 10,
-                            padding: 20
+                            padding: 20,
+                            paddingBottom:10
                         }}
                         activeOpacity={1}
                         onPress={() => {
