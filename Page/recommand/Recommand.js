@@ -95,7 +95,6 @@ const Recommand = ({navigation}) => {
         axios.get('/contentList/blogList')
         .then(function (response) {
             // handle success
-
             setRecommandList(response.data)
             console.log('성공했습니다!');
           })

@@ -121,12 +121,11 @@ const CommentList = ({setModalOpen,commentList,setCommentList}) => {
                 flex: 1, 
                 backgroundColor:'rgba(0,0,0,0.5)',
                 flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
+                justifyContent: 'flex-end',
                 }} 
                 >
                     
-                    <View style={{backgroundColor:'white',marginTop:200,height:500, borderWidth: 1}}>
+                    <View style={{backgroundColor:'white',height:SIZES.height*0.5 }}>
                         <View style={styles.container}>
                             <View style={{display: 'flex',flexDirection: 'row', width:SIZES.width, justifyContent:'space-between', paddingLeft:20, paddingRight:20}}>
                                 <View>
@@ -154,7 +153,6 @@ const CommentList = ({setModalOpen,commentList,setCommentList}) => {
                                         /> */}
                                         <View style={{display: 'flex',flexDirection: 'row',left:20}}>
                                             <Text style={{fontFamily:'NotoSans-Black'}}>{item.nickname}</Text>
-                                            
                                             <View style={{display: 'flex',flexDirection: 'row',marginLeft:100}}>
                                                 <TouchableOpacity
                                                     onPress={()=>updateVisibleAction(item.id,item.content,idx)}
@@ -192,19 +190,14 @@ const CommentList = ({setModalOpen,commentList,setCommentList}) => {
                                                 }
                                             </View>
                                         </View>
-                                       
-                                    
-                                        
                                     </View>
                                     <View style={{borderBottomColor: COLORS.black,borderBottomWidth:1,marginTop:10,width:'80%',opacity:0.5}} />
                                     
                                 </View>
                             ))}
                             </ScrollView>
-
                         </View>
                     </View>
-
             </View>
     )
 }
