@@ -3,13 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from "@react-navigation/stack";
 import axios from 'axios';
 import Bottom from './Page/Bottom';
-import BakeryDetail from './Page/bakeryDetail/BakeryDetail';
+import BakeryDetail from './Page/BakeryDetail/BakeryDetail';
 import Join from './Page/join/Join';
 import Login from './Page/login/Login';
 import FreeContentDetail from './Page/freeContent/FreeContentDetail';
 import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 import BakeryContent from './Page/bakeryContent/BakeryContent';
-import Profile from './Page/profile/Profile';
+import Profile from './Page/Profile/Profile';
 import ProfileAppSetting from './Page/ProfileAppSetting/ProfileAppSetting';
 import Recommand from './Page/home/Home';
 import Following from './Page/Following/FollowingHome/following';
@@ -69,7 +69,7 @@ function App(){
             >
                 {/* <Stack.Screen name="OnBoarding" component={OnBoarding} /> */}
                 <Stack.Screen name="Home" component={Bottom} />
-                <Stack.Screen name="Recommand" component={Recommand} /> 
+                <Stack.Screen name="Recommand" component={Recommand} />
                 <Stack.Screen name="BakeryDetail" component={BakeryDetail} />
                 <Stack.Screen name="Join" component={Join} />
                 <Stack.Screen name="Login" component={Login} />

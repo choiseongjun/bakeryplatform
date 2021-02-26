@@ -16,19 +16,18 @@ const CommentBox = ({setModalOpen,contentDetail}) => {
         <View style={{borderTopWidth:1,borderTopColor:COLORS.darkgray}}>
             <View style={{marginTop:10}}></View>
             <View style={{display: 'flex',flexDirection: 'row'}}>
-                <View style={{display: 'flex',flexDirection: 'row',marginLeft:30}}>
-                    
+                <View style={{display: 'flex',flexDirection: 'row',marginLeft:20}}>
                     <Image
                         source={icons.good}
                         resizeMode="cover"
                         style={{
-                            width: 30,
-                            height: 30
+                            width: 18,
+                            height: 18
                         }}
                     />
                     <Text style={{marginLeft:10,fontSize:SIZES.base*2.7}}>9</Text>
                 </View>
-                <View style={{display: 'flex',flexDirection: 'row',marginLeft:30}}>
+                <View style={{display: 'flex',flexDirection: 'row',marginLeft:20}}>
                     <TouchableOpacity
                             activeOpacity={1}
                             onPress={() => setModalOpen(true)}>
@@ -36,8 +35,8 @@ const CommentBox = ({setModalOpen,contentDetail}) => {
                                 source={icons.comment}
                                 resizeMode="cover"
                                 style={{
-                                    width: 30,
-                                    height: 30
+                                    width: 18,
+                                    height: 18
                                 }}
                             />
                     </TouchableOpacity>

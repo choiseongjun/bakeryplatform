@@ -13,29 +13,37 @@ import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 const RequireLogin = ({navigation,setModalOpen}) => {
     return (
         <View style={{
-            flex: 1, 
+            width:SIZES.width,
+            height:SIZES.height,
             backgroundColor:'rgba(0,0,0,0)',
             flexDirection: 'column',
-            justifyContent: 'center',
-            position: 'absolute',
-            marginLeft:20,
-            zIndex:100,
-            alignItems: 'center'}}>
+            alignItems:'center',
+            justifyContent:'center',
+            }}
+        >
             <View style={{
                     backgroundColor: 'rgba(255,255,255,1)',
                     width: 350,
                     height: 500}}>
                 <View style={styles.container}>
-                    <TouchableOpacity
-                        activeOpacity={1}
-                        style={{top:-20}}
-                        onPress={() => setModalOpen(false)}> 
-                            <Text style={{right:-270}}>닫기</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.loginTitle}>먼저 로그인을 해주세요.</Text>
-                    {/* <Text style={styles.loginTitle}>빵집 후기를</Text>
-                    <Text style={styles.loginTitle}>즐겨보세요.</Text> */}
-                  
+                    <View style={{flexDirection:'row'}}>
+                        <View>
+                            <Text style={styles.loginTitle}>먼저 로그인을 해주세요.</Text>
+                            {/* <Text style={styles.loginTitle}>빵집 후기를</Text>
+                            <Text style={styles.loginTitle}>즐겨보세요.</Text> */}
+                        </View>
+                        <View style={{top: -10}}>
+                            <TouchableOpacity
+                                activeOpacity={1}
+                                onPress={() => setModalOpen(false)}
+                            > 
+                                    <Text>닫기</Text>
+                            </TouchableOpacity>
+                        </View>
+                        
+                    </View>
+
+                    
                 </View>
                 <View style={styles.container}>
                     <View style={{display: 'flex',flexDirection: 'row'}}>

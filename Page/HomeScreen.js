@@ -591,7 +591,6 @@ const HomeScreen = ({navigation}) => {
     container:{
       flex:1,
       backgroundColor:'rgb(255,255,255)',
-
     },
     container__listBread:{
       flex:12,

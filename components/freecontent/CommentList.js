@@ -21,7 +21,6 @@ import axios from 'axios';
 //         "comment_cnt":10,
 //         "image": require("../../assets/images/avatar-1.jpg"),
 //         "create_date":"2021.01.22 12:05"
-       
 //     },
 //     {
 //         "key": 2,
@@ -77,8 +76,6 @@ import axios from 'axios';
 //         "image": require("../../assets/images/avatar-3.jpg"),
 //         "create_date":"2021.03.22 12:05"
 //     }, 
-
-    
 // ]
 
 const CommentList = ({setModalOpen,commentList,setCommentList}) => {
@@ -129,19 +126,21 @@ const CommentList = ({setModalOpen,commentList,setCommentList}) => {
                 }} 
                 >
                     
-                    <View style={{backgroundColor:'white',width:500,marginTop:200,height:500}}>
+                    <View style={{backgroundColor:'white',marginTop:200,height:500, borderWidth: 1}}>
                         <View style={styles.container}>
-                            <View style={{display: 'flex',flexDirection: 'row'}}>
-                                <Text style={{fontSize:SIZES.base*3.4,fontFamily:'NotoSans-Black'}}>댓글 </Text>
-                                <TouchableOpacity onPress={()=>setModalOpen(false)}>
-                                    <Text style={{fontSize:SIZES.base*3.4,fontFamily:'NotoSans-Black',marginLeft:220}}>닫기</Text>
-                                </TouchableOpacity> 
+                            <View style={{display: 'flex',flexDirection: 'row', width:SIZES.width, justifyContent:'space-between', paddingLeft:20, paddingRight:20}}>
+                                <View>
+                                    <Text style={{fontSize:SIZES.base*2,fontFamily:'NotoSans-Black'}}>댓글</Text>
+                                </View>
+                                <View>
+                                    <TouchableOpacity onPress={()=>setModalOpen(false)}>
+                                        <Text style={{fontSize:SIZES.base*2,fontFamily:'NotoSans-Black'}}>닫기</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                             <ScrollView>
                             {commentList.map((item,idx)=>(
-                                
                                 <View style={{marginTop:20}} key={idx}>
-                                    
                                     <View>
                                         {/* <Image
                                             source={item.image}
@@ -212,7 +211,7 @@ const CommentList = ({setModalOpen,commentList,setCommentList}) => {
 const styles = StyleSheet.create({
     container:{
         marginTop:40,
-        marginLeft:80,
+        width:SIZES.width,
         height:'auto'
     },
     inputbox:{

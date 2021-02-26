@@ -27,21 +27,6 @@ const FreeContentDetailHeader = ({navigation}) => {
                       source={icons.blackback} 
                     />
                 </TouchableOpacity>
-
-              
-                <TouchableOpacity
-                    style={{
-                        width: 50,
-                        height: 50,
-                        justifyContent: 'center',
-                        alignItems: 'flex-end'
-                    }}
-                >
-                   <Image
-                      style={{ width: 25, height: 25 }}
-                      source={icons.house}
-                    />
-                </TouchableOpacity>
             </View>
     )
 }
@@ -50,8 +35,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 50,
         justifyContent: 'space-between',
-        borderBottomWidth: 2,
-        borderBottomColor: COLORS.darkgray,
         paddingLeft: SIZES.padding * 2,
         paddingRight: SIZES.padding * 2,
         backgroundColor: COLORS.white,

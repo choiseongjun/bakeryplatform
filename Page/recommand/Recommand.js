@@ -8,6 +8,7 @@ import {
     ScrollView,
     Modal,
     TextInput,
+    SafeAreaView,
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS,images } from '../../constants';
 import RequireLogin from '../../components/common/RequireLogin';
@@ -104,11 +105,9 @@ const Recommand = ({navigation}) => {
     },[])
 
     return (
-        <View style={{backgroundColor:COLORS.white,flex:1}}>
+        <SafeAreaView style={{backgroundColor:COLORS.white,flex:1}}>
             <RecommandHeader />
-             
-            <View style={{marginTop:30,marginLeft:10}}>
-                
+            <View>
                 {/* <View style={{display: 'flex',flexDirection: 'row'}}>
                     <TouchableOpacity style={{width:65,height:35,backgroundColor:COLORS.lightGray3}}>
                         <Text style={{color:COLORS.black,fontFamily:'NotoSans-Black',marginTop:7,marginLeft:10}}>인기글</Text>
@@ -124,35 +123,56 @@ const Recommand = ({navigation}) => {
                         <Text style={{marginLeft:13,marginTop:5,color:COLORS.maingray}}>+</Text>
                     </TouchableOpacity>
                 </View> */}
-                <View >
-                {modalOpen&&<RequireLogin navigation={navigation} setModalOpen={setModalOpen} />}
+                <Modal animationType="slide" visible={modalOpen} >
+                {modalOpen&&<RequireLogin  navigation={navigation} setModalOpen={setModalOpen} />}
+                </Modal> 
+                {/*
+                <View style={{paddingTop: 20, paddingBottom: 10, flexDirection:'row'}}>
+                    <View style={{justifyContent:'flex-end', alignItems:'flex-end'}}>
+                        <Text style={{fontWeight: 'bold', fontSize: 16}}>다른 지역보기</Text>
+                    </View>
                 </View>
+                */}
                 <ScrollView>
+                {/*
+                <View style={{paddingBottom: 10, flexDirection:'row'}}>
+                    <View style={{justifyContent:'flex-start', alignItems:'flex-start', flexDirection:'row'}}>
+                        <Text style={{fontWeight: 'bold', fontSize: 20 }}>연남동</Text> 
+                    </View>
+                </View>
+                <View style={{paddingBottom: 10, flexDirection:'row'}}>
+                    <View style={{justifyContent:'flex-start', alignItems:'flex-start', flexDirection:'row'}}>
+                        <Text style={{fontWeight: 'bold', fontSize: 20 }}>빵집이 400개가 있습니다</Text> 
+                    </View>
+                </View>
+                */}
                 <View style={{display: 'flex',flexDirection: 'row',flexWrap:'wrap',height:'auto',marginBottom:100}}>
-                    
                     {recommandList.map((item)=>(
-                        
                         <TouchableOpacity
+                        style={{
+                            marginTop: 10,
+                            padding: 20
+                        }}
                         activeOpacity={1}
                         onPress={() => {
                                 AsyncStorage.getItem('accessToken').then((token)=>{
-                                    if(token===null){
+                                    if(token!==null){
                                         setModalOpen(true)
                                     }else{
-                                        navigation.navigate('FreeContentDetail',{freeContentId:item.id})
+                                        navigation.navigate('FreeContentDetail',{freeContentId:item.id, freeContentImage:images.content1})
                                     }
                                 })
                             }}>
-                            <View style={{marginLeft:10}}>
+                            <View>
                                 {item.url===null?
                                     <Image
                                     source={images.content1}
                                     resizeMode="cover"
                                     style={{
-                                        width: 180,
-                                        height: 150,
+                                        width: SIZES.width/2.5,
+                                        height: SIZES.width/2.5,
                                         color:COLORS.darkgray,
-                                        top:20,
+                                        borderRadius: 10
                                     }}
                                     />
                                     :
@@ -160,16 +180,27 @@ const Recommand = ({navigation}) => {
                                         source={{uri:item.url}}
                                         resizeMode="cover"
                                         style={{
-                                            width: 180,
-                                            height: 150,
+                                            width: SIZES.width/2.5,
+                                            height: SIZES.width/2.5,
                                             color:COLORS.darkgray,
-                                            top:20,
+                                            borderRadius: 10
                                         }}
                                     />
                                 }
-
-                                <View style={{marginTop:30}}>
-                                    <Text>{item.title}</Text>
+                                <View style={{paddingTop:10, flexDirection:'column'}}>
+                                    <View>
+                                        <Text style={{fontSize:15, fontWeight:'bold'}}>연남동 케이커리</Text>
+                                    </View>
+                                    <View style={{flexDirection:'row'}}>
+                                        <View style={{flexDirection:'row',marginRight:14}}>
+                                            <Image source={icons.comment} style={{color: COLORS.darkgray, width:16,height:16}}/>
+                                            <Text style={{fontSize:14, fontWeight:'400'}}>+99</Text>
+                                        </View>
+                                        <View style={{flexDirection:'row',marginRight:4}}>
+                                            <Image source={icons.good} style={{color: COLORS.darkgray, width:16,height:16}}/>
+                                            <Text style={{fontSize:14, fontWeight:'400'}}>+99</Text>
+                                        </View>
+                                    </View>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -177,7 +208,7 @@ const Recommand = ({navigation}) => {
                     </View>
                 </ScrollView>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

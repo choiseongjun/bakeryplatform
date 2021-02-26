@@ -7,7 +7,8 @@ import {
     Image,
     ScrollView,
     Modal,
-    TextInput
+    TextInput,
+    SafeAreaView
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS } from '../../constants';
 import axios from 'axios';
@@ -37,7 +38,6 @@ const FreeContentDetail = ({navigation,route}) => {
     const [commentList,setCommentList] = useState([]);
 
     useEffect(() => {
-        
         axios.get(`/contentDetail/${route.params.freeContentId}`)
         .then(function (response) {
             setContentDetail(response.data);
@@ -63,26 +63,25 @@ const FreeContentDetail = ({navigation,route}) => {
     },[])
 
     return (
-        <View style={{flex:1,backgroundColor:COLORS.white}}>
-             <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
-              
+        <SafeAreaView style={{flex:1,backgroundColor:COLORS.white}}>
+            <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
                 <CommentList setModalOpen={setModalOpen} commentList={commentList} setCommentList={setCommentList}/>
                 <View >
                     <CommentWrite freeContentId={route.params.freeContentId} commentList={commentList} setCommentList={setCommentList} /> 
                 </View>
             </Modal>
             <ScrollView style={{height:600}}>
-            <FreeContentDetailHeader navigation={navigation} />
-            <View style={{flex:1}} >
-                <View style={{marginTop:30,marginLeft:20}}>
-                    <DetailTitle detailData={contentDetail} contentDetail={contentDetail} prevnextData={contentPrevNext} navigation={navigation} />                   
+                <FreeContentDetailHeader navigation={navigation} />
+                <View style={{flex:1}} >
+                    <View style={{marginTop:0,marginLeft:20}}>
+                        <DetailTitle titleImage={route.params.freeContentImage} detailData={contentDetail} contentDetail={contentDetail} prevnextData={contentPrevNext} navigation={navigation} />                   
+                    </View>
                 </View>
-            </View> 
             </ScrollView>
-            <View style={{flex:1,height:100,marginBottom:50}}>
+            <View style={{height:40,marginBottom:0}}>
                 <CommentBox setModalOpen={setModalOpen} contentDetail={contentDetail} />
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

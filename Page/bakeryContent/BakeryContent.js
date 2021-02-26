@@ -57,7 +57,6 @@ const BakeryContent = ({route}) => {
         
         <View style={{flex:1,backgroundColor:COLORS.white}}>
             <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
-              
                 <CommentList setModalOpen={setModalOpen} />
                 <View >
                     <CommentWrite /> 
@@ -65,7 +64,6 @@ const BakeryContent = ({route}) => {
             </Modal>
             <ScrollView style={{height:600}}>
             <View style={{flex:1,backgroundColor:COLORS.white,height:'auto'}}>
-                
                 <TitleArea bakeryData={bakeryData} />
                 <ContentArea bakeryData={bakeryData} />
             </View>

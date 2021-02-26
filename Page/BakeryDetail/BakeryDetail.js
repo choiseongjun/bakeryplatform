@@ -139,7 +139,6 @@ const BakeryDetail = ({navigation,route}) => {
                 <View style={{left:30,marginTop:30}}>
                     <TouchableOpacity style={styles.imgWrapper} onPress={()=>pickImg()}>
                         <Image source={icons.camera}  style={{width:70,height:70}}/>
-                        
                     </TouchableOpacity>  
                     <View style={{display: 'flex',flexDirection: 'row',alignItems: 'center'}}>
                     {imgSource.map((item)=>(
