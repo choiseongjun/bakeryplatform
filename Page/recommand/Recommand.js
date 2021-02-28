@@ -155,13 +155,7 @@ const Recommand = ({navigation}) => {
                         }}
                         activeOpacity={1}
                         onPress={() => {
-                                AsyncStorage.getItem('accessToken').then((token)=>{
-                                    if(token!==null){
-                                        setModalOpen(true)
-                                    }else{
-                                        navigation.navigate('FreeContentDetail',{freeContentId:item.id, freeContentImage:images.content1})
-                                    }
-                                })
+                                navigation.navigate('FreeContentDetail',{freeContentId:item.id, freeContentImage:images.content1})
                             }}>
                             <View>
                                 {item.url===null?

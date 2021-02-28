@@ -67,7 +67,7 @@ const FreeContentDetail = ({navigation,route}) => {
             <Modal transparent={true} visible={modalOpen} style={{width:500}} animationType='slide'>
                 <CommentList setModalOpen={setModalOpen} commentList={commentList} setCommentList={setCommentList}/>
                 <View >
-                    <CommentWrite freeContentId={route.params.freeContentId} commentList={commentList} setCommentList={setCommentList} /> 
+                    <CommentWrite navigation={navigation} setModalOpen={setModalOpen} freeContentId={route.params.freeContentId} commentList={commentList} setCommentList={setCommentList} /> 
                 </View>
             </Modal>
             <ScrollView style={{height:600}}>
