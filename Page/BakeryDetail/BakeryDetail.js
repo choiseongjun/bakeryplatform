@@ -158,6 +158,7 @@ const BakeryDetail = ({navigation,route}) => {
                                 rating={star}
                                 selectedStar={(rating) => onStarRatingPress(rating)}
                                 starSize={35}
+                                fullStarColor={'red'}
                             />
                     </View> 
                     {/* <Text style={{marginTop:15,fontSize:SIZES.font*1.2}}>별점을 눌러주세요</Text> */}
@@ -205,6 +206,7 @@ const BakeryDetail = ({navigation,route}) => {
                     <HashTag />
                 </View> */}
                 <DetailTabView 
+                    navigation={navigation}
                     writeVisible={writeVisible}
                     setWriteVisible={setWriteVisible}
                     bakeryId={route.params.bakeryId}
