@@ -12,7 +12,7 @@ const actions = [
       position: 2
     }
   ];
-const Blog = ({bakeryId}) => {
+const Blog = ({navigation,bakeryId}) => {
 
     const [blogList,setBlogList] = useState([]);
 
@@ -20,6 +20,7 @@ const Blog = ({bakeryId}) => {
         axios.get(`/bakery/blogList/${bakeryId}`)
         .then(function (response) {
             // handle success
+            console.log(response.data)
             setBlogList(response.data)
           })
           .catch((err)=>{
@@ -28,6 +29,7 @@ const Blog = ({bakeryId}) => {
     },[])
     const renderItem = ({ item }) => (
         <TouchableOpacity
+            onPress={()=>navigation.navigate('FreeContentDetail',{freeContentId:item.id})}
         >
             <View style={{display: 'flex',flexDirection: 'row',width:'50%',marginTop:20}}>
                 {item.url===null?
@@ -51,9 +53,9 @@ const Blog = ({bakeryId}) => {
                 }
                 <View style={{marginLeft:15}}>
                     <Text style={styles.contentInnerTitle}>{item.title}</Text>
-                    <Text style={{marginTop:10,fontSize:SIZES.base*2.4,color:COLORS.maingray}}>{item.writer}</Text>
+                    <Text style={{marginTop:10,fontSize:SIZES.base*2.4,color:COLORS.maingray}}>{item.nickname}</Text>
                 </View>
-            </View>
+            </View> 
         </TouchableOpacity>
     );
     return (

@@ -25,8 +25,6 @@ const Login = ({navigation}) => {
         axios.post('/user/login',{userId:userId,password:password})
         .then(function (response) {
           // handle success
-         console.log(response)
-         console.log('성공..')
           AsyncStorage.setItem('accessToken', response.data.token);
           AsyncStorage.setItem('refreshToken', response.data.refreshToken);
           Alert.alert('성공적으로 로그인이 되었습니다.');

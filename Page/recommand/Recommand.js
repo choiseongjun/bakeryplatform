@@ -155,13 +155,7 @@ const Recommand = ({navigation}) => {
                         }}
                         activeOpacity={1}
                         onPress={() => {
-                                AsyncStorage.getItem('accessToken').then((token)=>{
-                                    if(token!==null){
-                                        setModalOpen(true)
-                                    }else{
-                                        navigation.navigate('FreeContentDetail',{freeContentId:item.id, freeContentImage:images.content1})
-                                    }
-                                })
+                                navigation.navigate('FreeContentDetail',{freeContentId:item.id, freeContentImage:images.content1})
                             }}>
                             <View>
                                 {item.url===null?
@@ -189,7 +183,7 @@ const Recommand = ({navigation}) => {
                                 }
                                 <View style={{paddingTop:10, flexDirection:'column'}}>
                                     <View>
-                                        <Text style={{fontSize:15, fontWeight:'bold'}}>연남동 케이커리</Text>
+                                        <Text style={{fontSize:15, fontWeight:'bold'}}>{item.title}</Text>
                                     </View>
                                     <View style={{flexDirection:'row'}}>
                                         <View style={{flexDirection:'row',marginRight:14}}>

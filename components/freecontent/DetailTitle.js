@@ -43,7 +43,7 @@ const DetailTitle = ({detailData,contentDetail,prevnextData,navigation, titleIma
             </View>
             <View style={{width:'90%',marginTop:20,borderBottomColor:COLORS.maingray}}></View>
             <View style={styles.contentContainer}>
-                <Text style={styles.contentText}>{contentDetail.content}</Text> 
+                {/* <Text style={styles.contentText}>{contentDetail.content}</Text>  */}
                 <ScrollView style={{ flex: 1 }}>
                     <HTML source={{ html: contentDetail.content }} contentWidth={contentWidth} />
                 </ScrollView>

@@ -80,6 +80,7 @@ const Review = ({writeVisible,setWriteVisible,bakeryId}) => {
                             maxStars={5}
                             rating={item.star}
                             starSize={20}
+                            fullStarColor={'red'}
                         />
                         
                     </View>

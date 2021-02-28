@@ -395,7 +395,7 @@ const HomeScreen = ({navigation}) => {
                 </HeaderOptionList__Text>
               </HeaderOptionList>
             </ContainerFlex>
-            <HeaderOptionList style={{
+            {/* <HeaderOptionList style={{
               height: '100%', 
               position:'relative',
               width:25, 
@@ -419,7 +419,7 @@ const HomeScreen = ({navigation}) => {
                   }}
                 />
               </HeaderOptionList__Text>
-            </HeaderOptionList>
+            </HeaderOptionList> */}
           </ContainerHeaderOption>
           <View style = { styles.container__listBread}>
             
@@ -655,8 +655,8 @@ const HomeScreen = ({navigation}) => {
     height: 60px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: center;
+    align-items: center; 
   `;
 
   
@@ -665,7 +665,7 @@ const HomeScreen = ({navigation}) => {
     height: 60px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
   `;
 
   const HeaderOptionList = styled.TouchableOpacity`

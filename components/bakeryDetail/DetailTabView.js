@@ -8,7 +8,7 @@ import Info from './TabView/Info';
 import Blog from './TabView/Blog';
 
 const initialLayout = { width: Dimensions.get('window').width };
-const DetailTabView = ({writeVisible,setWriteVisible,bakeryId,bakeryDetail}) => {
+const DetailTabView = ({navigation,writeVisible,setWriteVisible,bakeryId,bakeryDetail}) => {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
@@ -32,7 +32,7 @@ const DetailTabView = ({writeVisible,setWriteVisible,bakeryId,bakeryDetail}) => 
           case 'third':
             return <Review writeVisible={writeVisible} setWriteVisible={setWriteVisible} bakeryId={bakeryId} />
           case 'four':
-            return <Blog bakeryId={bakeryId} />
+            return <Blog navigation={navigation} bakeryId={bakeryId} />
         }
       };
     const renderTabBar = props => (
