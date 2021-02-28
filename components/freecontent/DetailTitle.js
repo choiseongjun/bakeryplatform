@@ -70,7 +70,6 @@ const DetailTitle = ({detailData,contentDetail,prevnextData,navigation, titleIma
                         </View>
                         ))}
                 </View>
-                
                 {/* <View style={{marginTop:20}}>
                     <View>
                         <View style={{display: 'flex',flexDirection: 'row'}}>
