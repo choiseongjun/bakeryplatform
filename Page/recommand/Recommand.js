@@ -10,6 +10,7 @@ import {
     TextInput,
     SafeAreaView,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { icons, iconsSvg, SIZES, COLORS,images } from '../../constants';
 import RequireLogin from '../../components/common/RequireLogin';
 import axios from 'axios';
@@ -90,6 +91,24 @@ const Recommand = ({navigation}) => {
     const [modalOpen, setModalOpen] = useState(false);//로그인모달창 오픈여부
     const [recommandList,setRecommandList] = useState([]);
 
+    useFocusEffect(
+        React.useCallback( () => {
+          let getToken = AsyncStorage.getItem('accessToken')
+  
+          getToken.then((item) => {
+            console.log('appitem',item)
+            if (item != null) {
+              axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
+              dispatch({
+                type: USER_INFO_REQUEST
+              });
+            }else{
+                axios.defaults.headers.common['Authorization'] = null;
+            }
+          });
+          
+        }, [])
+    ); 
     useEffect(() => {
 
         axios.get('/contentList/blogList')

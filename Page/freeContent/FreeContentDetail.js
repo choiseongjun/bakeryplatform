@@ -38,8 +38,10 @@ const FreeContentDetail = ({navigation,route}) => {
     const [commentList,setCommentList] = useState([]);
 
     useEffect(() => {
+        console.log('route.params.freeContentId',route.params.freeContentId)
         axios.get(`/contentDetail/${route.params.freeContentId}`)
         .then(function (response) {
+            console.log('detail',response.data)
             setContentDetail(response.data);
         })
         .catch(function (error) {
@@ -79,7 +81,7 @@ const FreeContentDetail = ({navigation,route}) => {
                 </View>
             </ScrollView>
             <View style={{height:40,marginBottom:0}}>
-                <CommentBox setModalOpen={setModalOpen} contentDetail={contentDetail} />
+                <CommentBox setModalOpen={setModalOpen} freeContentId={route.params.freeContentId} contentDetail={contentDetail} />
             </View>
         </SafeAreaView>
     )
