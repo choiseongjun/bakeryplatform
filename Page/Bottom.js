@@ -10,21 +10,12 @@ import HomeScreen from './HomeScreen';
 import ContentWrite from './contentWrite/ContentWrite';
 import { icons } from '../constants';
 import Home from './home/Home';
-import Profile from './profile/Profile';
+import Profile from './Profile/Profile';
 import Recommand from './recommand/Recommand';
 
 
 const Tab = createBottomTabNavigator();
 
-
-  
-function SettingsScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
-      </View>
-    );
-  }
 function Bottom() {
     return(
         <Tab.Navigator

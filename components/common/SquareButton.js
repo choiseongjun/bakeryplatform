@@ -58,7 +58,6 @@ const SquareButton = ({navigation, iconSource}) => {
             }}
           >
             <Text style={styles.FollowContainer__text}>팔로우</Text>
-            <Image source={iconSource} />
           </TouchableOpacity> 
         }
       </>
@@ -72,7 +71,8 @@ const styles = StyleSheet.create({
     minWidth: 70,
     backgroundColor: 'black',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 20
   },
   unFollowContainer__text: {
     color:'white',
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection:'row'
+    flexDirection:'row',
+    borderRadius: 20
   },
   FollowContainer__text: {
     color:'black',

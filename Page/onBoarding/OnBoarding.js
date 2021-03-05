@@ -9,6 +9,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+
+
 // constants
 import {COLORS,FONTS,SIZES, images, theme } from "../../constants";
 const { step1, step2, step3 } = images;
@@ -17,6 +19,7 @@ const { step1, step2, step3 } = images;
 
 //page
 import Loading from '../Loading/Loading';
+import Home from '../../Page/Bottom';
 
 const onBoardings = [
     {
@@ -126,7 +129,6 @@ const OnBoarding = ({navigation}) => {
                                 position: 'absolute',
                                 right: -50,
                                 bottom: 40,
-
                                 width: 150,
                                 height: 60,
                                 paddingLeft: 20,
@@ -186,16 +188,18 @@ const OnBoarding = ({navigation}) => {
         )
     } else {
         return (
-            <SafeAreaView style={styles.container}>
-                <View>
-                    <View>
-                        {renderContent()}
-                    </View>
-                    <View style={styles.dotsRootContainer}>
-                        {renderDots()}
-                    </View> 
-                </View>
-            </SafeAreaView>
+            <Home navigation={navigation} />
+            
+            //<SafeAreaView style={styles.container}>
+            //    <View>
+            //        <View>
+            //            {renderContent()}
+            //        </View>
+            //        <View style={styles.dotsRootContainer}>
+            //            {renderDots()}
+            //        </View> 
+            //    </View>
+            //</SafeAreaView>
         )
     }
 };

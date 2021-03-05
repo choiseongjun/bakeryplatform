@@ -93,14 +93,15 @@ const Join = ({navigation}) => {
                     <TouchableOpacity
                     activeOpacity={1}
                     onPress={() => doJoin()}
-                    style={[styles.joinBox, {backgroundColor: COLORS.black}]}>
+                    style={[styles.joinBox, {backgroundColor:'#E17101', borderRadius: 20}]}>
                         <View>
                             <View
                             style={{
                                 marginLeft: 12,
                                 display:'flex',
                                 justifyContent: 'center',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                
                             }}>
                             <Text style={styles.joinText} >
                                 가입하기
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     title:{
         fontFamily:'NotoSans-Black',
         fontSize:SIZES.base*4,
-
+        color:'#E17101'
     },
     label:{
         fontSize:SIZES.base*2.5,

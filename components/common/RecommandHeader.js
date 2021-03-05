@@ -38,10 +38,8 @@ const RecommandHeader = ({setWriteVisible}) => {
 const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
-        height: 60,
+        height: 40,
         justifyContent: 'space-between',
-        borderBottomWidth: 2,
-        borderBottomColor: COLORS.darkgray,
         paddingLeft: SIZES.padding * 2,
         paddingRight: SIZES.padding * 2,
         backgroundColor: COLORS.white,

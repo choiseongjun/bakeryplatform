@@ -87,12 +87,8 @@ const IndividualInfoCheck = ({navigation}) => {
         <NormalHeader contents={[icons.vividBlackBack, 'MY Page', icons.menubar]} />
         <ScrollView style={styles.userContainer}>
           <View style={styles.userIntroDuctionBox}>
-            <View style={styles.userIntroDuctionBox__image}>
-              <Image style={{width: 50, height: 50}} source={icons.plus} />
-            </View> 
             <View style={[styles.userIntroDuctionBox__name]}>
               <Text style={FONTS.h2}>skosi_7695</Text>
-              <Image style={{width: 16, height: 16, marginLeft: 4}} source={icons.reverseBlackBack} />
             </View>
             <TouchableOpacity 
               style={styles.userIntroDuctionBox__id}

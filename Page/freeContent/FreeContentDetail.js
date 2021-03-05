@@ -17,6 +17,8 @@ import DetailTitle from '../../components/freecontent/DetailTitle';
 import CommentBox from '../../components/freecontent/CommentBox';
 import CommentList from '../../components/freecontent/CommentList';
 import CommentWrite from '../../components/freecontent/CommentWrite';
+import FlyingBread from '../../components/common/FlyingBakery';
+
 
 
 const detailData = {
@@ -72,14 +74,19 @@ const FreeContentDetail = ({navigation,route}) => {
                     <CommentWrite navigation={navigation} setModalOpen={setModalOpen} freeContentId={route.params.freeContentId} commentList={commentList} setCommentList={setCommentList} /> 
                 </View>
             </Modal>
-            <ScrollView style={{height:600}}>
+            <ScrollView style={{height:800}}>
                 <FreeContentDetailHeader navigation={navigation} />
-                <View style={{flex:1}} >
+                <View>
                     <View style={{marginTop:0,marginLeft:20}}>
                         <DetailTitle titleImage={route.params.freeContentImage} detailData={contentDetail} contentDetail={contentDetail} prevnextData={contentPrevNext} navigation={navigation} />                   
                     </View>
                 </View>
             </ScrollView>
+            <View style={{width: SIZES.width, flexDirection:'row'}}>
+                <View style={{position:'absolute', right: 50, bottom: 20}}>   
+                    <FlyingBread />
+                </View>
+            </View>
             <View style={{height:40,marginBottom:0}}>
                 <CommentBox setModalOpen={setModalOpen} freeContentId={route.params.freeContentId} contentDetail={contentDetail} />
             </View>

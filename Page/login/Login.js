@@ -40,9 +40,8 @@ const Login = ({navigation}) => {
         <ScrollView>
         <View style={{backgroundColor:COLORS.white,height:800}}>
             <View style={styles.container}>
-                <Text style={styles.title}>안녕하세요</Text>
-                <Text style={styles.title}>WITH BAKERY</Text>
-                <Text style={styles.title}>입니다.</Text>
+                <Text style={styles.title}>빵대장</Text>
+                <Text style={styles.text}>우리동네 진실된 빵집 리뷰</Text>
             </View>
             <View style={{marginTop:30,marginLeft:20}}>
                 <View>
@@ -55,7 +54,7 @@ const Login = ({navigation}) => {
                         />
                 </View>
                 <View>
-                    <Text style={[styles.label,{marginTop:60}]}>비밀번호를 입력해주세요.</Text>
+                    <Text style={[styles.label,{marginTop:30}]}>비밀번호를 입력해주세요.</Text>
                     <TextInput
                         secureTextEntry={true}
                         style={styles.inputbox}
@@ -65,18 +64,19 @@ const Login = ({navigation}) => {
                         /> 
                 </View>
             </View>
-            <View style={[styles.loginContainer,{marginTop:40}]}>
+            <View style={[styles.loginContainer,{marginTop:100}]}>
                 <TouchableOpacity
                 activeOpacity={1}
                 onPress={() => doLogin()}
-                style={[styles.loginBox, {backgroundColor: COLORS.black}]}>
+                style={[styles.loginBox, {backgroundColor:'#E17101', borderRadius: 20}]}>
                     <View style={styles.loginSection}>
                         <View
                         style={{
                             marginLeft: 12,
                             display:'flex',
                             justifyContent: 'center',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            
                         }}>
                         <Text style={styles.loginText} >
                             로그인
@@ -95,7 +95,6 @@ const Login = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
             </View>  
-           
         </View>
         </ScrollView>
     )
@@ -109,7 +108,13 @@ const styles = StyleSheet.create({
     title:{
         fontFamily:'NotoSans-Black',
         marginTop:3,
-        fontSize:SIZES.base*3.6
+        fontSize:SIZES.base*3.6,
+        color:'#E17101'
+    },
+    text: {
+        fontFamily:'NotoSans-Black',
+        marginTop:3,
+        fontSize:SIZES.base*2,
     },
     label:{
         fontSize:SIZES.base*2.5,

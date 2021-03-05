@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import {   
     StyleSheet,
     View,
@@ -10,12 +10,16 @@ import {
     TextInput,
     SafeAreaView,
 } from 'react-native';
+import { icons, iconsSvg, SIZES, COLORS,images, FONTS } from '../../constants';
 import { useFocusEffect } from '@react-navigation/native';
-import { icons, iconsSvg, SIZES, COLORS,images } from '../../constants';
 import RequireLogin from '../../components/common/RequireLogin';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RecommandHeader from '../../components/common/RecommandHeader';
+import FlyingBread from '../../components/common/FlyingBakery';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faAlignRight } from '@fortawesome/free-solid-svg-icons'
+
 
 const hashtag = [
     {
@@ -31,6 +35,7 @@ const hashtag = [
         name:"#케이크"
     },
 ]
+
 
 const rdata = [
     {
@@ -122,9 +127,31 @@ const Recommand = ({navigation}) => {
           })
     },[])
 
+    const moreCategory = () => {
+    }
+
     return (
         <SafeAreaView style={{backgroundColor:COLORS.white,flex:1}}>
             <RecommandHeader />
+            <View style={styles.optionBox}>
+                <View>
+                    <TouchableOpacity   
+                        onPress={() => {
+                            
+                        }}
+                        style={styles.optionBox__touchable}
+                    >
+                        <View style={styles.optionBox__touchable_inBox}>
+                            <FontAwesomeIcon size={23} icon={faAlignRight} />
+                        </View>
+                        <View style={styles.optionBox__touchable_inBox}>
+                            <Text style={styles.optionBox__touchable_inBox_Text}>
+                                나만 알고 싶은 빵집
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
             <View>
                 {/* <View style={{display: 'flex',flexDirection: 'row'}}>
                     <TouchableOpacity style={{width:65,height:35,backgroundColor:COLORS.lightGray3}}>
@@ -169,6 +196,7 @@ const Recommand = ({navigation}) => {
                         <TouchableOpacity
                         style={{
                             marginTop: 10,
+                            paddingTop: 0,
                             padding: 20,
                             paddingBottom:10
                         }}
@@ -220,9 +248,27 @@ const Recommand = ({navigation}) => {
                     ))}
                     </View>
                 </ScrollView>
+                <View style={{position:'absolute', right: 50, bottom: 120}}>   
+                    <FlyingBread />
+                </View>
             </View>
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    optionBox: {
+        paddingTop: 20,
+        paddingLeft: 20,
+        paddingBottom: 30
+    },
+    optionBox__touchable: {
+        flexDirection: 'row'
+    },
+    optionBox__touchable_inBox_Text: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    }
+})
 
 export default Recommand;
