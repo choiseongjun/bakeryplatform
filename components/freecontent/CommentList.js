@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {   
     StyleSheet,
     View,
@@ -10,6 +10,7 @@ import {
     TextInput
 } from 'react-native';
 import { icons, iconsSvg, SIZES, COLORS,images } from '../../constants';
+import {useSelector } from 'react-redux';
 import axios from 'axios';
 
 // const commentList = [
@@ -83,6 +84,7 @@ const CommentList = ({setModalOpen,commentList,setCommentList}) => {
     const [updateVisible,setUpdateVisible]= useState(false);
     const [updateComment,setUpdateComment] = useState('');
     const [commentIdx,setCommentIdx] = useState(0);
+    const { userInfo} = useSelector((state) => state.userReducer);
 
     const deleteComment = (id) =>{
         console.log('id',id)
@@ -112,9 +114,11 @@ const CommentList = ({setModalOpen,commentList,setCommentList}) => {
             console.log(err.response)
             setUpdateVisible(!updateVisible);
         })
-
-        
     }
+    useEffect(() => {
+        console.log('userInfo',userInfo)
+        console.log('commentList',commentList)
+    }, [])
     return (
         
             <View style={{ 
@@ -153,26 +157,29 @@ const CommentList = ({setModalOpen,commentList,setCommentList}) => {
                                         /> */}
                                         <View style={{display: 'flex',flexDirection: 'row',left:20}}>
                                             <Text style={{fontFamily:'NotoSans-Black'}}>{item.nickname}</Text>
-                                            <View style={{display: 'flex',flexDirection: 'row',marginLeft:100}}>
-                                                <TouchableOpacity
-                                                    onPress={()=>updateVisibleAction(item.id,item.content,idx)}
-                                                >
-                                                    <Text>수정</Text>
-                                                </TouchableOpacity>
-                                                <Text style={{marginLeft:15}}>|</Text>
-                                                {updateVisible?
-                                                <TouchableOpacity
-                                                onPress={()=>setUpdateVisible(false)}
-                                                >
-                                                    <Text style={{marginLeft:15}}>취소</Text>
-                                                </TouchableOpacity>
-                                                :<TouchableOpacity
-                                                onPress={()=>deleteComment(item.id)}
-                                            >
-                                                <Text style={{marginLeft:15}}>삭제</Text>
-                                            </TouchableOpacity>}
-                                                
-                                            </View>
+                                            {userInfo.id===item.userKey&&
+                                                <View style={{display: 'flex',flexDirection: 'row',marginLeft:100}}>
+                                                    
+                                                    <TouchableOpacity
+                                                        onPress={()=>updateVisibleAction(item.id,item.content,idx)}
+                                                    >
+                                                        <Text>수정</Text>
+                                                    </TouchableOpacity>
+                                                        <Text style={{marginLeft:15}}>|</Text>
+                                                        {updateVisible?
+                                                        <TouchableOpacity
+                                                        onPress={()=>setUpdateVisible(false)}
+                                                        >
+                                                            <Text style={{marginLeft:15}}>취소</Text>
+                                                        </TouchableOpacity>
+                                                        :<TouchableOpacity
+                                                        onPress={()=>deleteComment(item.id)}
+                                                    >
+                                                        <Text style={{marginLeft:15}}>삭제</Text>
+                                                    </TouchableOpacity>}
+                                                        
+                                                </View>
+                                            }
                                             
                                         </View>
                                         <View style={{marginLeft:20}}>

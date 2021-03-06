@@ -194,8 +194,12 @@ const BakeryDetail = ({navigation,route}) => {
                     navigation={navigation} 
                     bakeryDetail={bakeryDetail}
                 /> */}
-                <Text>{bakeryDetail.entrpNm}</Text>
-                <Text>리뷰 5</Text>
+                <View
+                    style={{flexDirection: 'row',justifyContent: 'center',alignItems: 'center'}}
+                >
+                  <Text style={{fontWeight: 'bold',fontSize:SIZES.base*3}}>{bakeryDetail.entrpNm}</Text>
+                </View>
+                <Text>리뷰 {bakeryDetail.reviewCnt}</Text>
                 <TouchableOpacity
                     style={styles.button}
                     onPress = {()=>navigation.navigate('ContentWrite',{bakeryId:route.params.bakeryId})}

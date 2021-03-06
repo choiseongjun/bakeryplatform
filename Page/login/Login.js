@@ -14,19 +14,20 @@ import { icons, SIZES, COLORS } from '../../constants';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = ({navigation}) => {
 
+const Login = ({navigation}) => {
     const [userId,setUserId] = useState('');
     const [password,setPassword] = useState('');
 
     const doLogin = () =>{
 
-        console.log(userId,"password",password)
         axios.post('/user/login',{userId:userId,password:password})
         .then(function (response) {
           // handle success
+          
           AsyncStorage.setItem('accessToken', response.data.token);
           AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+       
           Alert.alert('성공적으로 로그인이 되었습니다.');
           navigation.navigate("추천글");
         })
@@ -40,7 +41,7 @@ const Login = ({navigation}) => {
         <ScrollView>
         <View style={{backgroundColor:COLORS.white,height:800}}>
             <View style={styles.container}>
-                <Text style={styles.title}>빵대장</Text>
+                <Text style={styles.title}>빵터짐</Text>
                 <Text style={styles.text}>우리동네 진실된 빵집 리뷰</Text>
             </View>
             <View style={{marginTop:30,marginLeft:20}}>
@@ -84,6 +85,7 @@ const Login = ({navigation}) => {
                         </View>
                     </View>
                 </TouchableOpacity>
+                
                 <View style={{marginTop:30,borderBottomWidth:2,borderBottomColor:COLORS.maingray}}>
                     <Text>아이디 또는 비밀번호 찾기</Text>
                 </View>
@@ -92,6 +94,13 @@ const Login = ({navigation}) => {
                         onPress={() => navigation.navigate("Join")}
                     >
                         <Text>회원가입하기</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{marginTop:30,borderBottomWidth:2,borderBottomColor:COLORS.maingray}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("추천글")}
+                    >
+                        <Text>메인화면으로</Text>
                     </TouchableOpacity>
                 </View>
             </View>  
@@ -103,7 +112,9 @@ const styles = StyleSheet.create({
 
     container:{
         marginTop:80,
-        marginLeft:20
+        marginLeft:20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     title:{
         fontFamily:'NotoSans-Black',

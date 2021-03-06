@@ -3,7 +3,10 @@ import axios from 'axios';
 import {
     USER_INFO_REQUEST,
     USER_INFO_SUCCESS,
-    USER_INFO_FAILURE
+    USER_INFO_FAILURE,
+    USER_LOGOUT_REQUEST,
+    USER_LOGOUT_SUCCESS,
+    USER_LOGOUT_FAILURE
 } from '../reducers/userReducer';
 
 
@@ -28,9 +31,26 @@ function userInfoAPI() {
 function* watchUserInfo() {
     yield takeLatest(USER_INFO_REQUEST, userInfo);
 }
+function* userLogout(){
+  try {
+    
+    yield put({
+      type: USER_LOGOUT_SUCCESS,
+    });
+  } catch (err) {
+
+    yield put({
+      type: USER_LOGOUT_FAILURE,
+    });
+  }
+}
+function* watchUserLogout(){
+  yield takeLatest(USER_LOGOUT_REQUEST, userLogout);
+}
 
 export default function* userSaga() {
     yield all([
-        fork(watchUserInfo)
+        fork(watchUserInfo),
+        fork(watchUserLogout)
     ])
 }

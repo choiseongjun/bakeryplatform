@@ -17,7 +17,6 @@ import DetailTitle from '../../components/freecontent/DetailTitle';
 import CommentBox from '../../components/freecontent/CommentBox';
 import CommentList from '../../components/freecontent/CommentList';
 import CommentWrite from '../../components/freecontent/CommentWrite';
-import FlyingBread from '../../components/common/FlyingBakery';
 
 
 
@@ -40,7 +39,6 @@ const FreeContentDetail = ({navigation,route}) => {
     const [commentList,setCommentList] = useState([]);
 
     useEffect(() => {
-        console.log('route.params.freeContentId',route.params.freeContentId)
         axios.get(`/contentDetail/${route.params.freeContentId}`)
         .then(function (response) {
             console.log('detail',response.data)
@@ -58,7 +56,7 @@ const FreeContentDetail = ({navigation,route}) => {
         })
         axios.get(`/contents/reply/${route.params.freeContentId}`)
         .then(function (response) {
-
+            console.log('commentlist',response.data)
             setCommentList(response.data);
         })
         .catch(function (error) {
@@ -82,11 +80,11 @@ const FreeContentDetail = ({navigation,route}) => {
                     </View>
                 </View>
             </ScrollView>
-            <View style={{width: SIZES.width, flexDirection:'row'}}>
+            {/* <View style={{width: SIZES.width, flexDirection:'row'}}>
                 <View style={{position:'absolute', right: 50, bottom: 20}}>   
                     <FlyingBread />
                 </View>
-            </View>
+            </View> */}
             <View style={{height:40,marginBottom:0}}>
                 <CommentBox setModalOpen={setModalOpen} freeContentId={route.params.freeContentId} contentDetail={contentDetail} />
             </View>

@@ -27,7 +27,7 @@ const RecommandHeader = ({setWriteVisible}) => {
                             borderRadius: SIZES.radius,
                         }}
                     > 
-                        <Text style={{fontSize:SIZES.base*2.5,fontFamily:'NotoSans-Black'}}>후기 추천 </Text>
+                        <Text style={{fontSize:SIZES.base*2.5,fontFamily:'NotoSans-Black'}}>빵집 후기 </Text>
                     </View>
                 </View>
 

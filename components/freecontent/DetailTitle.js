@@ -47,7 +47,7 @@ const DetailTitle = ({detailData,contentDetail,prevnextData,navigation, titleIma
                     <HTML source={{ html: contentDetail.content }} contentWidth={contentWidth} />
                 </ScrollView>
             </View>
-            <View style={{bottom:0}}>
+            <View style={{marginTop:50}}>
                 <View>
                     {prevnextData.map((item,idx)=>(
                             <View>

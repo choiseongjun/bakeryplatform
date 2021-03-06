@@ -3,13 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from "@react-navigation/stack";
 import axios from 'axios';
 import Bottom from './Page/Bottom';
-import BakeryDetail from './Page/BakeryDetail/BakeryDetail';
+import BakeryDetail from './Page/bakeryDetail/BakeryDetail';
 import Join from './Page/join/Join';
 import Login from './Page/login/Login';
 import FreeContentDetail from './Page/freeContent/FreeContentDetail';
 import SearchFilter from './Page/SearchFilter/SearchFilterHome/SearchFilter';
 import BakeryContent from './Page/bakeryContent/BakeryContent';
-import Profile from './Page/Profile/Profile';
+import Profile from './Page/profile/Profile';
 import ProfileAppSetting from './Page/ProfileAppSetting/ProfileAppSetting';
 import Recommand from './Page/home/Home';
 import Following from './Page/Following/FollowingHome/following';
@@ -50,13 +50,15 @@ function App(){
   const dispatch = useDispatch();
   const getToken = AsyncStorage.getItem('accessToken');
   useEffect(() => {
+    
     getToken.then((item) => {
-      console.log('appitem',item)
       if (item != null) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
         dispatch({
           type: USER_INFO_REQUEST
         });
+      }else{
+          axios.defaults.headers.common['Authorization'] = null;
       }
     });
 

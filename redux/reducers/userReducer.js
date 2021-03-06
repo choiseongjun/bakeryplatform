@@ -10,6 +10,9 @@ export const USER_INFO_REQUEST = 'USER_INFO_REQUEST';
 export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
 export const USER_INFO_FAILURE = 'USER_INFO_FAILURE';
 
+export const USER_LOGOUT_REQUEST = 'USER_LOGOUT_REQUEST';
+export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
+export const USER_LOGOUT_FAILURE = 'USER_LOGOUT_FAILURE';
 
 const userReducer = (state = initialState, action) => produce(state, (draft) => {
 
@@ -22,6 +25,13 @@ const userReducer = (state = initialState, action) => produce(state, (draft) => 
             break;
         case USER_INFO_FAILURE: 
             draft.userinfoDone = false;
+            break;
+        case USER_LOGOUT_REQUEST:
+            break;
+        case USER_LOGOUT_SUCCESS:
+            draft.userInfo = [];
+            break;
+        case USER_LOGOUT_FAILURE:
             break;
         default:
             break;

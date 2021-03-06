@@ -19,7 +19,8 @@ import RecommandHeader from '../../components/common/RecommandHeader';
 import FlyingBread from '../../components/common/FlyingBakery';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAlignRight } from '@fortawesome/free-solid-svg-icons'
-
+import {useDispatch } from 'react-redux';
+import {USER_INFO_REQUEST} from '../../redux/reducers/userReducer';
 
 const hashtag = [
     {
@@ -92,7 +93,7 @@ const rdata = [
     },
 ]
 const Recommand = ({navigation}) => {
-
+    const dispatch = useDispatch();
     const [modalOpen, setModalOpen] = useState(false);//로그인모달창 오픈여부
     const [recommandList,setRecommandList] = useState([]);
 
@@ -101,7 +102,6 @@ const Recommand = ({navigation}) => {
           let getToken = AsyncStorage.getItem('accessToken')
   
           getToken.then((item) => {
-            console.log('appitem',item)
             if (item != null) {
               axios.defaults.headers.common['Authorization'] = 'Bearer ' + item;
               dispatch({
@@ -115,7 +115,7 @@ const Recommand = ({navigation}) => {
         }, [])
     ); 
     useEffect(() => {
-
+        
         axios.get('/contentList/blogList')
         .then(function (response) {
             // handle success
@@ -133,7 +133,7 @@ const Recommand = ({navigation}) => {
     return (
         <SafeAreaView style={{backgroundColor:COLORS.white,flex:1}}>
             <RecommandHeader />
-            <View style={styles.optionBox}>
+            {/* <View style={styles.optionBox}>
                 <View>
                     <TouchableOpacity   
                         onPress={() => {
@@ -151,7 +151,7 @@ const Recommand = ({navigation}) => {
                         </View>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View> */}
             <View>
                 {/* <View style={{display: 'flex',flexDirection: 'row'}}>
                     <TouchableOpacity style={{width:65,height:35,backgroundColor:COLORS.lightGray3}}>
@@ -248,9 +248,9 @@ const Recommand = ({navigation}) => {
                     ))}
                     </View>
                 </ScrollView>
-                <View style={{position:'absolute', right: 50, bottom: 120}}>   
+                {/* <View style={{position:'absolute', right: 50, bottom: 120}}>   
                     <FlyingBread />
-                </View>
+                </View> */}
             </View>
         </SafeAreaView>
     )
